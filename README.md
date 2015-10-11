@@ -1,4 +1,27 @@
-This is your new Play application
-=================================
+# lgtmoon
 
-This file will be packaged with your application, when using `activator dist`.
+## Dependency
+
+* Scala
+* Play Framwork
+* Slick 3.1
+* PostgreSQL
+
+## PostgreSQL
+
+### Create Database
+
+```
+# create database lgtmoon owner postgres encoding 'UTF8';
+$ psql lgtmoon < create.sql
+```
+
+### Slick Codegen
+
+通常は必要ありません。Slick Codegenの参考にどうぞ。
+
+```
+$ cd sql
+$ sbt run
+```
+
