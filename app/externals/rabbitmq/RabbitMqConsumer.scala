@@ -4,6 +4,7 @@ import java.io._
 import play.api._
 import com.rabbitmq.client._
 import entities.OriginalPicture
+import entities.OriginalPictureBuilder
 
 /**
  * RabbitMqのキューの監視を行う
@@ -27,11 +28,8 @@ trait RabbitMqConsumerTrait extends Runnable {
     Logger.logger.info(s"RabbitMQの監視を開始しました スレッド名:${Thread.currentThread().getName}")
     val consumer = RabbitMqAdapter.consumer
     while (true) {
-      // TODO Builderに移したい
       val delivery = consumer.nextDelivery() // 巨大なバイナリを受け取るリスク有り
-      val byteArrayInputStream = new ByteArrayInputStream(delivery.getBody)
-      val objectInputStream = new ObjectInputStream(byteArrayInputStream)
-      val originalPicture = objectInputStream.readObject().asInstanceOf[OriginalPicture]
+      val originalPicture = OriginalPictureBuilder.fromByteArray(delivery.getBody);
       println(originalPicture) // TODO 変換処理のActorに投げる
     }
   }

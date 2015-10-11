@@ -27,6 +27,19 @@ object OriginalPictureBuilder {
   }
 
   /**
+   * Array[Byte] から OriginalPicture を生成する
+   * 
+   * @param binary: Array[Byte]
+   * 
+   * @return OriginalPicture
+   */
+  def fromByteArray(binary: Array[Byte]): OriginalPicture = {
+    val byteArrayInputStream = new ByteArrayInputStream(binary)
+    val objectInputStream = new ObjectInputStream(byteArrayInputStream)
+    objectInputStream.readObject().asInstanceOf[OriginalPicture]
+  }
+
+  /**
    * OriginalPictureをbytearrayに変換する
    * 
    * TODO これはBuilderではないが...OriginalPictureに持たせる？
