@@ -26,10 +26,9 @@ trait RabbitMqConsumerTrait extends Runnable {
    */
   override def run() {
     Logger.logger.info(s"RabbitMQの監視を開始しました スレッド名:${Thread.currentThread().getName}")
-    val consumer = RabbitMqAdapter.consumer
     while (true) {
-      val delivery = consumer.nextDelivery() // 巨大なバイナリを受け取るリスク有り
-      val originalPicture = OriginalPictureBuilder.fromByteArray(delivery.getBody);
+      val binary = RabbitMqAdapter.consume
+      val originalPicture = OriginalPictureBuilder.fromByteArray(binary);
       println(originalPicture) // TODO 変換処理のActorに投げる
     }
   }

@@ -23,6 +23,9 @@ trait RabbitMqAdapterTrait {
   val connection = factory.newConnection()
   val channel = connection.createChannel()
   channel.queueDeclare(queueName, false, false, false, null)
+  val consumer = new QueueingConsumer(channel)
+  channel.basicConsume(queueName, true, consumer)
+
 
   /**
    * RabbitMqにキューを積む
@@ -32,13 +35,10 @@ trait RabbitMqAdapterTrait {
   }
 
   /**
-   * RabbitMqのキューの中身を引っ張れるconsumerを取得する
-   * 
-   * @return QueueingConsumer
+   * 次のバイナリを取得する
    */
-  def consumer(): QueueingConsumer = {
-    val consumer = new QueueingConsumer(channel)
-    channel.basicConsume(queueName, true, consumer)
-    consumer
+  def consume(): Array[Byte] = {
+    consumer.nextDelivery.getBody
   }
+
 }
