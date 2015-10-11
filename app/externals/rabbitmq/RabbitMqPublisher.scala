@@ -4,6 +4,7 @@ import java.io._
 import play.api.Play;
 import com.rabbitmq.client.ConnectionFactory
 import entities.OriginalPicture
+import entities.OriginalPictureBuilder
 
 /**
  * RabbitMqに画像を積む
@@ -26,12 +27,7 @@ trait RabbitMqPublisherTrait {
    * @param originalPicture: OriginalPicture
    */
   def publish(originalPicture: OriginalPicture) {
-    // binary を返すまではメソッド化してもいいかも
-    val byteArrayOutputStream = new ByteArrayOutputStream(1024)
-    val objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)
-    objectOutputStream.writeObject(originalPicture)
-    val binary = byteArrayOutputStream.toByteArray
-    objectOutputStream.close()
+    val binary = OriginalPictureBuilder.toByteArray(originalPicture)
 
     val factory = new ConnectionFactory()
     factory.setHost(hostName)
@@ -40,5 +36,5 @@ trait RabbitMqPublisherTrait {
     channel.queueDeclare(queueName, false, false, false, null)
     channel.basicPublish("", queueName, null, binary)
   }
-
+  
 }

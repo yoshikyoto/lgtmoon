@@ -1,8 +1,8 @@
 package entities
 
+import java.io._
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData.FilePart
-import java.io._
 import org.joda.time.DateTime
 
 /**
@@ -24,6 +24,24 @@ object OriginalPictureBuilder {
       file.contentType.getOrElse(""),
       Stream.continually(fileInputStream.read).takeWhile(-1 !=).map(_.toByte).toArray,
       DateTime.now())
+  }
+
+  /**
+   * OriginalPictureをbytearrayに変換する
+   * 
+   * TODO これはBuilderではないが...OriginalPictureに持たせる？
+   * 
+   * @param originalPicture: OriginalPicture
+   * 
+   * @return Array[Byte]
+   */
+  def toByteArray(originalPicture: OriginalPicture): Array[Byte] = {
+    val byteArrayOutputStream = new ByteArrayOutputStream(1024)
+    val objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)
+    objectOutputStream.writeObject(originalPicture)
+    val binary = byteArrayOutputStream.toByteArray
+    objectOutputStream.close()
+    binary
   }
 
 }
