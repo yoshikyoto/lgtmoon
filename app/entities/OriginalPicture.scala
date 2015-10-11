@@ -1,6 +1,6 @@
 package entities
 
-import org.joda.time.DateTime
+import java.sql.Timestamp
 
 /**
  *  変換前の元画像
@@ -23,4 +23,4 @@ case class OriginalPicture(
   fileName: String,
   contentType: String,
   binary: Array[Byte],
-  uploadedAt: DateTime)
+  uploadedAt: Timestamp)

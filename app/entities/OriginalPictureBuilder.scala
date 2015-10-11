@@ -3,7 +3,7 @@ package entities
 import java.io._
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData.FilePart
-import org.joda.time.DateTime
+import java.sql.Timestamp
 
 /**
  * OriginalPictureを生成するためのBuilder
@@ -23,7 +23,7 @@ object OriginalPictureBuilder {
       file.filename,
       file.contentType.getOrElse(""),
       Stream.continually(fileInputStream.read).takeWhile(-1 !=).map(_.toByte).toArray,
-      DateTime.now())
+      new Timestamp(System.currentTimeMillis()))
   }
 
   /**
