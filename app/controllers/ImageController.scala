@@ -16,6 +16,8 @@ class ImageController extends Controller {
 
   /**
    * 画像投稿
+   * 
+   * FIXME 画像サイズなどのバリデーション
    */
   def post = Action { request =>
     val multiFormOpt = request.body.asMultipartFormData
