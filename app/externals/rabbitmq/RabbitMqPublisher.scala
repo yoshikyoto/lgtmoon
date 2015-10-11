@@ -1,7 +1,7 @@
 package externals.rabbitmq
 
 import java.io._
-import play.api.Play;
+import play.api.Play
 import com.rabbitmq.client.ConnectionFactory
 import entities.OriginalPicture
 import entities.OriginalPictureBuilder
@@ -28,13 +28,7 @@ trait RabbitMqPublisherTrait {
    */
   def publish(originalPicture: OriginalPicture) {
     val binary = OriginalPictureBuilder.toByteArray(originalPicture)
-
-    val factory = new ConnectionFactory()
-    factory.setHost(hostName)
-    val connection = factory.newConnection()
-    val channel = connection.createChannel()
-    channel.queueDeclare(queueName, false, false, false, null)
-    channel.basicPublish("", queueName, null, binary)
+    RabbitMqAdapter.publish(binary)
   }
-  
+
 }
