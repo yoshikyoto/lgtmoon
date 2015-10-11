@@ -7,6 +7,7 @@ import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData.FilePart
 import entities.OriginalPicture
 import entities.OriginalPictureBuilder
+import externals.RabbitMqAdapter
 
 /**
  * imagesのpost,getを行うためのcontroller
@@ -21,7 +22,8 @@ class ImageController extends Controller {
     multiFormOpt match {
       case Some(multiForm) => {
         val file: FilePart[TemporaryFile] = multiForm.file("file").get
-        val originaPicture: OriginalPicture = OriginalPictureBuilder.createSerializableObject(file);
+        val originalPicture: OriginalPicture = OriginalPictureBuilder.createSerializableObject(file);
+        RabbitMqAdapter.pushOriginalPicture(originalPicture);
         // TODO: RabbitMQに積む
         Ok("Ok")
       }
