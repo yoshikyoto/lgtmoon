@@ -8,24 +8,24 @@ import entities.OriginalPicture
 /**
  * RabbitMqに画像を積む
  */
-object RabbitMqAdapter extends RabbitMqAdapterTrait {
+object RabbitMqPublisher extends RabbitMqPublisherTrait {
 }
 
 /**
  * RabbitMqAdapterの実装があるtrait
  */
-trait RabbitMqAdapterTrait {
+trait RabbitMqPublisherTrait {
   val queueName = Play.current.configuration.getString("rabbitmq.originalPictureQueueName")
-    .getOrElse("original_pictures");
+    .getOrElse("original_pictures")
   val hostName = Play.current.configuration.getString("rabbitmq.hostName")
-    .getOrElse("localhost");
+    .getOrElse("localhost")
 
   /**
    * RabbitMqにOriginalPictureを積む
    * 
    * @param originalPicture: OriginalPicture
    */
-  def pushOriginalPicture(originalPicture: OriginalPicture) {
+  def publish(originalPicture: OriginalPicture) {
     // binary を返すまではメソッド化してもいいかも
     val byteArrayOutputStream = new ByteArrayOutputStream(1024)
     val objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)

@@ -16,20 +16,27 @@ class RabbitMqConsumer(app: Application)  extends RabbitMqConsumerTrait {
  */
 trait RabbitMqConsumerTrait extends Runnable {
   val queueName = Play.current.configuration.getString("rabbitmq.originalPictureQueueName")
-    .getOrElse("original_pictures");
+    .getOrElse("original_pictures")
   val hostName = Play.current.configuration.getString("rabbitmq.hostName")
-    .getOrElse("localhost");
+    .getOrElse("localhost")
 
+  /**
+   * RabbitMqの監視を開始する
+   */
   override def run() {
+    // TODO ここのfactoryもまとめたい
     val factory = new ConnectionFactory()
     factory.setHost(hostName)
     val connection = factory.newConnection()
     val channel = connection.createChannel()
     channel.queueDeclare(queueName, false, false, false, null)
-    val consumer = new QueueingConsumer(channel);
-    channel.basicConsume(queueName, true, consumer);
+    val consumer = new QueueingConsumer(channel)
+    //
+    channel.basicConsume(queueName, true, consumer)
+    // 
     Logger.logger.info(s"RabbitMQの監視を開始しました スレッド名:${Thread.currentThread().getName}")
     while (true) {
+      // TODO Builderに移したい
       val delivery = consumer.nextDelivery() // 巨大なバイナリを受け取るリスク有り
       val byteArrayInputStream = new ByteArrayInputStream(delivery.getBody)
       val objectInputStream = new ObjectInputStream(byteArrayInputStream)
