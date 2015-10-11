@@ -7,7 +7,7 @@ import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData.FilePart
 import entities.OriginalPicture
 import entities.OriginalPictureBuilder
-import externals.RabbitMqAdapter
+import externals.rabbitmq.RabbitMqAdapter
 
 /**
  * imagesのpost,getを行うためのcontroller
@@ -24,7 +24,6 @@ class ImageController extends Controller {
         val file: FilePart[TemporaryFile] = multiForm.file("file").get
         val originalPicture: OriginalPicture = OriginalPictureBuilder.createSerializableObject(file);
         RabbitMqAdapter.pushOriginalPicture(originalPicture);
-        // TODO: RabbitMQに積む
         Ok("Ok")
       }
       case _ => Forbidden("アップロードでエラーが発生しました")

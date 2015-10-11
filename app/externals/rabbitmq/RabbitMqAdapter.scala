@@ -1,4 +1,4 @@
-package externals
+package externals.rabbitmq
 
 import java.io._
 import play.api.Play;
