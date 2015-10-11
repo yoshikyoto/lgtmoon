@@ -15,10 +15,6 @@ object RabbitMqPublisher extends RabbitMqPublisherTrait {
  * RabbitMqAdapterの実装があるtrait
  */
 trait RabbitMqPublisherTrait {
-  val queueName = Play.current.configuration.getString("rabbitmq.originalPictureQueueName")
-    .getOrElse("original_pictures")
-  val hostName = Play.current.configuration.getString("rabbitmq.hostName")
-    .getOrElse("localhost")
 
   /**
    * RabbitMqにOriginalPictureを積む

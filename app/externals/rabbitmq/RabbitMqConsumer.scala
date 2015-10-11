@@ -2,7 +2,6 @@ package externals.rabbitmq
 
 import java.io._
 import play.api._
-import com.rabbitmq.client._
 import entities.OriginalPicture
 import entities.OriginalPictureBuilder
 
@@ -16,10 +15,6 @@ class RabbitMqConsumer(app: Application)  extends RabbitMqConsumerTrait {
  * RabbitMqConsumer の実装をするtrait
  */
 trait RabbitMqConsumerTrait extends Runnable {
-  val queueName = Play.current.configuration.getString("rabbitmq.originalPictureQueueName")
-    .getOrElse("original_pictures")
-  val hostName = Play.current.configuration.getString("rabbitmq.hostName")
-    .getOrElse("localhost")
 
   /**
    * RabbitMqの監視を開始する
