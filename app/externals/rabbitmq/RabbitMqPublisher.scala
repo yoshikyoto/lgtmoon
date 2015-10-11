@@ -2,7 +2,6 @@ package externals.rabbitmq
 
 import java.io._
 import play.api.Play
-import com.rabbitmq.client.ConnectionFactory
 import entities.OriginalPicture
 import entities.OriginalPictureBuilder
 

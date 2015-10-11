@@ -32,7 +32,9 @@ trait RabbitMqAdapterTrait {
   }
 
   /**
-   * RabbitMqのキューの中身を引っ張ってくる
+   * RabbitMqのキューの中身を引っ張れるconsumerを取得する
+   * 
+   * @return QueueingConsumer
    */
   def consumer(): QueueingConsumer = {
     val consumer = new QueueingConsumer(channel)
