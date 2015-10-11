@@ -24,17 +24,8 @@ trait RabbitMqConsumerTrait extends Runnable {
    * RabbitMqの監視を開始する
    */
   override def run() {
-    // TODO ここのfactoryもまとめたい
-    val factory = new ConnectionFactory()
-    factory.setHost(hostName)
-    val connection = factory.newConnection()
-    val channel = connection.createChannel()
-    channel.queueDeclare(queueName, false, false, false, null)
-    val consumer = new QueueingConsumer(channel)
-    //
-    channel.basicConsume(queueName, true, consumer)
-    // 
     Logger.logger.info(s"RabbitMQの監視を開始しました スレッド名:${Thread.currentThread().getName}")
+    val consumer = RabbitMqAdapter.consumer
     while (true) {
       // TODO Builderに移したい
       val delivery = consumer.nextDelivery() // 巨大なバイナリを受け取るリスク有り
