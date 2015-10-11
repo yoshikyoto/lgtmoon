@@ -6,9 +6,15 @@ import scala.concurrent.Future
 import entities.OriginalPicture
 import scala.concurrent.ExecutionContext.Implicits.global
 
+/**
+ * pictureテーブルにアクセスするためのモデル
+ */
 object PictureModel extends PictureModelTrait {
 }
 
+/**
+ * PictureModelの実装があるトレイト
+ */
 trait PictureModelTrait {
   val db = Database.forConfig("pg_database")
 
@@ -23,4 +29,5 @@ trait PictureModelTrait {
     } yield Some(id)
     db.run(action)
   }
+
 }
