@@ -7,16 +7,14 @@ import entities.OriginalPicture
 
 /**
  * RabbitMqに画像を積む
- * 
- * サービスじゃなくてAdapterであるという説もある...
  */
-object RabbitMqAdapter extends RabbitMqAdapter {
+object RabbitMqAdapter extends RabbitMqAdapterTrait {
 }
 
 /**
  * RabbitMqAdapterの実装があるtrait
  */
-trait RabbitMqAdapter {
+trait RabbitMqAdapterTrait {
   val queueName = Play.current.configuration.getString("rabbitmq.originalPictureQueueName")
     .getOrElse("original_pictures");
   val hostName = Play.current.configuration.getString("rabbitmq.hostName")
