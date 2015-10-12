@@ -4,6 +4,7 @@ import java.io._
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData.FilePart
 import java.sql.Timestamp
+import util.RandomString
 
 /**
  * OriginalPictureを生成するためのBuilder
@@ -20,7 +21,7 @@ object OriginalPictureBuilder {
     OriginalPicture(
       "LGTM",
       60,
-      file.filename,
+      RandomString.generate,
       file.contentType.getOrElse(""),
       Stream.continually(fileInputStream.read).takeWhile(-1 !=).map(_.toByte).toArray,
       new Timestamp(System.currentTimeMillis()))
