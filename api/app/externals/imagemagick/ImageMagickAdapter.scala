@@ -4,6 +4,8 @@ import java.io._
 import play.api.Play
 import org.im4java.core._
 import entities.OriginalPicture
+// FIXME FileStorageに依存しないようにしたい？
+import utils.FileStorage
 
 /**
  * imagemagickを利用するためのAdapter
@@ -12,7 +14,6 @@ class ImageMagickAdapter(
   val originalPicture: OriginalPicture) {
   val imagemagickDir = Play.current.configuration.getString("imagemagick.dir").get
   val fontDir = Play.current.configuration.getString("imagemagick.fontDir").get
-  val convertedPictureDir = Play.current.configuration.getString("imagemagick.convertedPictureDir").get
 
   /**
    * 画像の変換を行う
@@ -28,17 +29,11 @@ class ImageMagickAdapter(
     operation.stroke("none")
     operation.fill("white")
     operation.annotate(0, 0, 0, 0, "LGTM")
-    operation.addImage(convertedPictureDir(originalPicture.fileName))
+    val convertedPicturePath = FileStorage.convertedPicturePath(originalPicture.fileName)
+    operation.addImage(convertedPicturePath)
     val command = new ConvertCmd()
     command.setSearchPath(imagemagickDir)
     command.run(operation)
-  }
-
-  /**
-   * 変換後の画像のパスを取得する
-   */
-  def convertedPictureDir(fileName: String): String = {
-    convertedPictureDir + "/" + fileName
   }
 
   /**

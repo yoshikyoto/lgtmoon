@@ -13,6 +13,8 @@ object FileStorage extends FileStorageTrait {
 trait FileStorageTrait {
   val originalPictureDir = Play.current.configuration.getString("imagemagick.originalPictureDir")
     .getOrElse("/tmp")
+  val convertedPictureDir = Play.current.configuration.getString("imagemagick.convertedPictureDir").get
+
 
 
   /**
@@ -32,6 +34,13 @@ trait FileStorageTrait {
    */
   def originalPicturePath(fileName: String): String = {
     originalPictureDir + "/" + fileName
+  }
+
+  /**
+   * 変換後の画像のパスを取得する
+   */
+  def convertedPicturePath(fileName: String): String = {
+    convertedPictureDir + "/" + fileName
   }
 
 }
