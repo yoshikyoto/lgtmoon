@@ -20,7 +20,7 @@ trait FileStorageTrait {
   /**
    * originalPictureを保存する
    * 
-   * @return String 保存先のPATH
+   * @return String 保存先のパス
    */
   def saveOriginalPicture(originalPicture: OriginalPicture): String = {
     val originalFilePath = originalPicturePath(originalPicture.fileName)

@@ -9,8 +9,9 @@ import play.api.libs.json._
 import entities.OriginalPicture
 import entities.OriginalPictureBuilder
 import externals.rabbitmq.RabbitMqPublisher
+import externals.google.CustomSearchAdapter
 import constants.JsonResponseString
-import utils.RandomString
+import utils._
 
 /**
  * imagesのpost,getを行うためのcontroller
@@ -43,7 +44,11 @@ class ImageController extends Controller {
         keywordOpt match {
           case Some(keyword) => {
             val fileName = RandomString.generate()
-            Ok(fileName)
+            val url = UrlBuilder.imageUrl(fileName)
+            // TODO ここであとはActorに投げて
+            // get->save->convertする
+            // val originalImageUrl = CustomSearchAdapter.imageUrl(keyword)
+            Ok(JsonStringBuilder.imageUrlJson(url))
           }
           case None => BadRequest(JsonResponseString.BAD_REQUEST)
         }
