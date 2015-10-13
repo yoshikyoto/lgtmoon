@@ -19,6 +19,8 @@ trait FileStorageTrait {
 
   /**
    * originalPictureを保存する
+   * 
+   * @return String 保存先のPATH
    */
   def saveOriginalPicture(originalPicture: OriginalPicture): String = {
     val originalFilePath = originalPicturePath(originalPicture.fileName)
@@ -31,6 +33,8 @@ trait FileStorageTrait {
 
   /**
    * 元画像のファイルのパスを取得する
+   * 
+   * @return String
    */
   def originalPicturePath(fileName: String): String = {
     originalPictureDir + "/" + fileName
@@ -38,6 +42,8 @@ trait FileStorageTrait {
 
   /**
    * 変換後の画像のパスを取得する
+   * 
+   * @return String
    */
   def convertedPicturePath(fileName: String): String = {
     convertedPictureDir + "/" + fileName
