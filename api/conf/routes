@@ -3,6 +3,7 @@
 # ~~~~
 
 POST    /images                         controllers.ImageController.post
+POST    /keyword.json                   controllers.ImageController.postKeyword
 GET     /                               controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path

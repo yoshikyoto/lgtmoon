@@ -5,9 +5,12 @@ import play.api.mvc._
 import org.joda.time.DateTime
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData.FilePart
+import play.api.libs.json._
 import entities.OriginalPicture
 import entities.OriginalPictureBuilder
 import externals.rabbitmq.RabbitMqPublisher
+import constants.JsonResponseString
+import utils.RandomString
 
 /**
  * imagesのpost,getを行うためのcontroller
@@ -29,6 +32,23 @@ class ImageController extends Controller {
         Ok("Ok")
       }
       case _ => Forbidden("アップロードでエラーが発生しました")
+    }
+  }
+
+  def postKeyword = Action { request =>
+    val jsonOpt = request.body.asJson
+    jsonOpt match {
+      case Some(json) => {
+        val keywordOpt = (json \ "keyword").asOpt[String]
+        keywordOpt match {
+          case Some(keyword) => {
+            val fileName = RandomString.generate()
+            Ok(fileName)
+          }
+          case None => BadRequest(JsonResponseString.BAD_REQUEST)
+        }
+      }
+      case None => BadRequest(JsonResponseString.BAD_REQUEST)
     }
   }
 
