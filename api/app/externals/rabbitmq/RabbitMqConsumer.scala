@@ -6,7 +6,6 @@ import play.api.Play.current
 import play.api.libs.concurrent.Akka
 import akka.actor.Props
 import entities.{OriginalPicture, OriginalPictureBuilder}
-import actors.{ConvertPictureMessage, PictureConvertActor}
 
 /**
  * RabbitMqのキューの監視を行う
@@ -19,7 +18,7 @@ class RabbitMqConsumer(app: Application)  extends RabbitMqConsumerTrait {
  */
 trait RabbitMqConsumerTrait extends Runnable {
   implicit val executionContext = Akka.system.dispatcher
-  val pictureConvertActor = Akka.system.actorOf(Props(new PictureConvertActor()))
+ //  val pictureConvertActor = Akka.system.actorOf(Props(new PictureConvertActor()))
 
   /**
    * RabbitMqの監視を開始する
@@ -29,7 +28,6 @@ trait RabbitMqConsumerTrait extends Runnable {
     while (true) {
       val binary = RabbitMqAdapter.consume
       val originalPicture = OriginalPictureBuilder.fromByteArray(binary);
-      pictureConvertActor ! ConvertPictureMessage(originalPicture)
     }
   }
 

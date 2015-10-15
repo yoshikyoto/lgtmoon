@@ -2,8 +2,7 @@ package externals.rabbitmq
 
 import java.io._
 import play.api.Play
-import entities.OriginalPicture
-import entities.OriginalPictureBuilder
+import entities.{ImageEntity, ImageEntityBuilder}
 
 /**
  * RabbitMqに画像を積む
@@ -21,8 +20,8 @@ trait RabbitMqPublisherTrait {
    * 
    * @param originalPicture: OriginalPicture
    */
-  def publish(originalPicture: OriginalPicture) {
-    val binary = OriginalPictureBuilder.toByteArray(originalPicture)
+  def publish(image: ImageEntity) {
+    val binary = ImageEntityBuilder.toByteArray(image)
     RabbitMqAdapter.publish(binary)
   }
 
