@@ -1,0 +1,4 @@
+package constants
+
+object ResponseMessage {
+}
