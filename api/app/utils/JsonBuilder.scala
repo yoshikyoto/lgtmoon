@@ -3,16 +3,18 @@ package utils
 import play.api.libs.json._
 import constants.ResponseStatus
 import repositories.Tables.ImageRow
+import utils.UrlBuilder
 
 object JsonBuilder {
   def imageUrlJson(url: String): JsObject = {
     JsObject(Seq("path" -> JsString(url)))
   }
 
-  def urls(images: Seq[ImageRow]): JsObject = {
-    
-    JsObject(
-      Seq("urls" -> JsString("hoge")))
+  def images(images: Seq[ImageRow]): JsObject = {
+    val urls = images.map { image =>
+      JsObject(Seq("url" -> JsString(UrlBuilder.imageUrl(image.id.toString))))
+    }
+    JsObject(Seq("images" -> JsArray(urls)))
   }
 
   def badRequest(message: String): JsObject = {
@@ -26,7 +28,7 @@ object JsonStringBuilder {
     Json.stringify(JsonBuilder.imageUrlJson(url))
   }
 
-  def urls(images: Seq[ImageRow]): String = {
-    Json.stringify(JsonBuilder.urls(images))
+  def images(images: Seq[ImageRow]): String = {
+    Json.stringify(JsonBuilder.images(images))
   }
 }

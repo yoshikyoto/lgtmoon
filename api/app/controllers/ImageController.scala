@@ -63,7 +63,7 @@ class ImageController extends Controller {
 
   def recent = Action.async { request =>
     ImageModel.images(20).map {
-      case Some(images) => Ok(JsonStringBuilder.urls(images))
+      case Some(images) => Ok(JsonStringBuilder.images(images))
       case _ => InternalServerError("")
     }
   }
