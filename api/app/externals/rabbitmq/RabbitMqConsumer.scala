@@ -5,7 +5,6 @@ import play.api._
 import play.api.Play.current
 import play.api.libs.concurrent.Akka
 import akka.actor.Props
-import entities.{OriginalPicture, OriginalPictureBuilder}
 
 /**
  * RabbitMqのキューの監視を行う
@@ -27,7 +26,7 @@ trait RabbitMqConsumerTrait extends Runnable {
     Logger.logger.info(s"RabbitMQの監視を開始しました スレッド名:${Thread.currentThread().getName}")
     while (true) {
       val binary = RabbitMqAdapter.consume
-      val originalPicture = OriginalPictureBuilder.fromByteArray(binary);
+      // ここでバイナリを変換してほげほげする
     }
   }
 

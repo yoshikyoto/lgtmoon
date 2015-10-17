@@ -11,8 +11,6 @@ import play.api.libs.json._
 import play.api.Play.current
 import play.api.libs.concurrent.Akka
 import akka.actor.Props
-import entities.OriginalPicture
-import entities.OriginalPictureBuilder
 import externals.rabbitmq.RabbitMqPublisher
 import externals.google.CustomSearchAdapter
 import constants.JsonResponseString
