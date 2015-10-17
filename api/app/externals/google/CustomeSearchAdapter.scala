@@ -24,6 +24,7 @@ trait CustomSearchAdapterTrait {
 
   def imageUrl(keyword: String): Future[Option[String]] = {
     val url = s"${baseUrl}?key=${key}&cx=${cx}&q=${keyword}";
+    println(url)
     val future = WS.url(baseUrl)
       .withQueryString("searchType" -> searchType)
       .withQueryString("key" -> key)
@@ -32,6 +33,7 @@ trait CustomSearchAdapterTrait {
       .get()
     future.map {
       response => {
+        println(response)
         val urlOpt = ((response.json \ "items")(1) \ "link").asOpt[String]
         urlOpt match {
           case Some(url) => Some(url)

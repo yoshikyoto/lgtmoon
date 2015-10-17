@@ -46,10 +46,18 @@ class ImageController extends Controller {
               case None => InternalServerError(JsonResponseString.INTERNAL_SERVER_ERROR)
             }
           }
-          case None => Future(BadRequest(JsonResponseString.BAD_REQUEST))
+          // キーワードが取得できなかったとき
+          case None => {
+            println("no keyword")
+            Future(BadRequest(JsonResponseString.BAD_REQUEST))
+          }
         }
       }
-      case None => Future(BadRequest(JsonResponseString.BAD_REQUEST))
+      // Jsonのパースができなかったとき
+      case None => {
+        println("bad json")
+        Future(BadRequest(JsonResponseString.BAD_REQUEST))
+      }
     }
   }
 

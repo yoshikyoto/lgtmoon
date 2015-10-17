@@ -20,9 +20,9 @@ trait RabbitMqPublisherTrait {
    * 
    * @param originalPicture: OriginalPicture
    */
-  def publish(image: ImageEntity) {
-    val binary = ImageEntityBuilder.toByteArray(image)
-    RabbitMqAdapter.publish(binary)
-  }
+//  def publish() {
+//    val binary = ImageEntityBuilder.toByteArray(image)
+//    RabbitMqAdapter.publish(binary)
+//  }
 
 }
