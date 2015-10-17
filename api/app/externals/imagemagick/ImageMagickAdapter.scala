@@ -3,9 +3,6 @@ package externals.imagemagick
 import java.io._
 import play.api.Play
 import org.im4java.core._
-import entities.OriginalPicture
-// FIXME FileStorageに依存しないようにしたい？
-import utils.FileStorage
 
 /**
  * imagemagickを利用するためのAdapter
