@@ -2,7 +2,13 @@
 
 ## What's this
 
+キーワードを入力するだけでLGTM画像を作成してくれるアプリです。
+
 Generate LGTM image from keyword.
+
+## URL
+
+http://lgtmoon.herokuapp.com/
 
 ## Usage from Command Line
 
@@ -49,7 +55,7 @@ Get 20 images recently generated.
 
 #### Request Parameters
 
-None
+Create `conf/application.conf` like an example `conf/application.conf.template`
 
 #### Sample Response
 
