@@ -5,7 +5,7 @@ import repositories.Tables.ImageRow
 
 object JsonBuilder {
   def imageUrl(url: String): String = {
-    Json.stringify(JsObject(Seq("path" -> JsString(url))))
+    Json.stringify(JsObject(Seq("url" -> JsString(url))))
   }
 
   def images(images: Seq[ImageRow]): String = {

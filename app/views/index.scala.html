@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>LGTMoon</title>
+        <script type="text/javascript" src="/assets/scripts/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="/assets/scripts/vue.min.js"></script>
+        <script type="text/javascript" src="/assets/scripts/main.js"></script>
+        <link rel="stylesheet" href="/assets/styles/main.css" type="text/css" />
+    </head>
+    <body class="lgtmoon-body">
+        <section class="lgtmoon-section center top">
+            <h1 class="title">LGTMoon</h1>
+            <div class="form-block">
+                <form id="lgtmform"
+                      class="form">
+                    <input type="text"
+                           name="keyword"
+                           class="form-keyword"
+                           placeholder="キーワードを入力してEnter"/>
+                    <span id="message">
+                        LGTM画像が生成され、ここにURLが表示されます
+                    </span>
+                </form>
+            </div>
+        </section>
+        <section class="lgtmoon-section center">
+            <h2>最近生成された画像</h2>
+            <div id="images"
+                 class="images-block">
+                <div v-repeat="items"
+                     class="image-block">
+                    <a href="{{url}}">
+                        <img src="{{url}}">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

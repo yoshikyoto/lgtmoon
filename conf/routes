@@ -5,6 +5,7 @@
 POST    /keyword.json                   controllers.ImageController.postKeyword
 GET     /recent.json                    controllers.ImageController.recent
 GET     /images/:id                     controllers.ImageBinaryController.image(id: Long)
+GET     /                               controllers.ApplicationController.index
 
 # Map static resources from the /public folder to the /assets URL path
-# GET     /images/*file               controllers.Assets.versioned(path="/images", file: Asset)
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

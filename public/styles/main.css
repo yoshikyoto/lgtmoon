@@ -1,0 +1,79 @@
+.lgtmoon-body {
+    width: 100%;
+    background-color: #fff;
+}
+
+@font-face {
+    font-family: 'ikafont';
+    src: url(/assets/fonts/ikafont.otf);
+}
+
+.title {
+    font-family: 'ikafont';
+    font-size: 4em;
+    color: #003;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.top {
+    background-image: url(/assets/ink/ink002.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.lgtmoon-section {
+    width: 80%;
+}
+
+.form {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.form-keyword {
+    border: 1px solid #eef;
+    float: left;
+    margin: 0px 0px 0px 8px;
+    border-radius: 3px;
+    height: 25px;
+    width: 300px;
+    font-size: 13px;
+}
+
+.form-block {
+    background-color: #def;
+    padding: 10px;
+}
+
+#message {
+    margin-left: 10px;
+}
+
+.images-block {
+    -moz-column-count: 4;
+    -webkit-column-count: 4;
+    -o-column-count: 4;
+    -ms-column-count: 4;
+    -moz-column-gap: 4px;
+    -webkit-column-gap: 4px;
+    -o-column-gap: 4px;
+    -ms-column-gap: 4px;
+    box-sizing: border-box;
+}
+
+.image-block {
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+
+.image-block img {
+    width: 100%;
+    height: auto;
+}
