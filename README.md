@@ -1,9 +1,8 @@
 # lgtmoon
 
-## このアプリケーションは？
+## What's this
 
-キーワードを入力するだけで、
-画像を検索してLGTM画像を生成してくれるアプリケーションです。
+Generate LGTM image from keyword.
 
 ## Dependency
 
@@ -13,49 +12,38 @@
 * PostgreSQL
 * imagemagick
 
-## 起動方法
+## License
 
-### データベースの作成
+This software is licensed under the MIT License, see LICENSE.txt.
 
-sql/create.sql を実行してください。
+## Usage
+
+### create Database
+
+Execute sql/create.sql
+
+Example
 
 ```
-# create database lgtmoon owner postgres encoding 'UTF8';
+psql# create database lgtmoon owner postgres encoding 'UTF8';
 $ psql lgtmoon < create.sql
 ```
 
-### application.conf の作成
+### create application.conf 
 
-データベースの設定などに合わせて
-`api/conf/application.conf.template` から
-`api/conf/application.conf` を作成してください。
-
-### Slick Codegen
-
-通常は必要ありません。Slick Codegenの参考にどうぞ。
-
-```
-$ cd sql
-$ sbt run
-```
+TBA
 
 ## API
 
-### 新着画像取得
+### GET /recent.json
 
-#### 概要
+Get 20 images recently generated.
 
-変換済みの画像を最新から20件取得します。
+#### Request Parameters
 
-### URL
+None
 
-GET /recent.json
-
-#### リクエストパラメーター
-
-なし
-
-#### レスポンス例
+#### Sample Response
 
 ```json
 {
@@ -66,27 +54,35 @@ GET /recent.json
 }
 ```
 
-### キーワード投稿
+### POST /keyword.json
 
-#### 概要
+Return the URL for LGTM image.
+And generate LGTM image from keyword in background.
 
-キーワードを投稿すると、そのキーワードにマッチしたLGTM画像を生成します。
+#### Request Parameters
 
-キーワードを投稿すると、URLを生成して返します。
-画像の生成はバックグラウンドで行われます。
+* kayword: keyword
 
-#### リクエストパラメーター
-
-* kayword: キーワード
-
-#### レスポンス例
+#### Sample Response
 
 ```json
 {"url":"http://host/images/1"}
 ```
 
-#### ターミナルからcurlでPOSTする例
+#### Example for curl
 
 ```
-$ curl http://localhost:9000/keyword.json -X POST -H "content-type: application/json" -d '{"keyword":"splatoon"}'
+$ curl http://host/keyword.json -X POST -H "content-type: application/json" -d '{"keyword":"splatoon"}'
+```
+
+## Tips
+
+### Slick Codegen
+
+sql以下がSlick codegen のために必要なコードとなっています。
+実行するには以下のコマンドを叩けばOkです。
+
+```
+$ cd sql
+$ sbt run
 ```
