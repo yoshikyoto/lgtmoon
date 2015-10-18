@@ -102,3 +102,13 @@ sql以下がSlick codegen のために必要なコードとなっています。
 $ cd sql
 $ sbt run
 ```
+
+### Herokuへのデプロイ方法
+
+```
+$ heroku create <app-name>
+$ git checkout -b deploy
+# ここでHerokuでの設定に合わせてapplication.conf を用意
+$ git commit application.conf
+$ git push heroku deploy:master
+```
