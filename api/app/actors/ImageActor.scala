@@ -30,7 +30,7 @@ class ImageActor extends Actor {
           ImageDownloader.download(url, downloadPath)
           val imagemagick = new ImageMagickAdapter()
           imagemagick.convert(downloadPath, convertedPath)
-          ImageModel.updateStatus(id, 1)
+          ImageModel.updateStatus(id, ImageModel.AVAILABLE)
         }
         // 画像検索がヒットしなかったとき
         case None => println("Error")

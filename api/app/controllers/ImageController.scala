@@ -13,7 +13,6 @@ import play.api.libs.concurrent.Akka
 import akka.actor.Props
 import externals.rabbitmq.RabbitMqPublisher
 import externals.google.CustomSearchAdapter
-import constants.JsonResponseString
 import models.ImageModel
 import actors.ImageActor
 import actors.ImageGenerateMessage
@@ -38,30 +37,35 @@ class ImageController extends Controller {
                 val url = UrlBuilder.imageUrl(id.toString)
                 // 動画のダウンロードと変換を要請
                 imageActor ! ImageGenerateMessage(id, keyword)
-                Ok(JsonStringBuilder.imageUrlJson(url))
+                Ok(JsonBuilder.imageUrl(url))
               }
-              // データベースへの接続に失敗した場合
-              case None => InternalServerError(JsonResponseString.INTERNAL_SERVER_ERROR)
+              case None =>
+                InternalServerError(
+                  JsonBuilder.internalServerError(
+                    "データベースの接続に失敗しました"))
             }
           }
-          // キーワードが取得できなかったとき
           case None => {
             println("no keyword")
-            Future(BadRequest(JsonResponseString.BAD_REQUEST))
+            Future(
+              BadRequest(
+                JsonBuilder.badRequest(
+                  "keywordが見つかりませんでした")))
           }
         }
       }
-      // Jsonのパースができなかったとき
       case None => {
-        println("bad json")
-        Future(BadRequest(JsonResponseString.BAD_REQUEST))
+        Future(
+          BadRequest(
+            JsonBuilder.badRequest(
+              "Json形式でPOSTしてください")))
       }
     }
   }
 
   def recent = Action.async { request =>
     ImageModel.images(20).map {
-      case Some(images) => Ok(JsonStringBuilder.images(images))
+      case Some(images) => Ok(JsonBuilder.images(images))
       case _ => InternalServerError("")
     }
   }

@@ -5,7 +5,6 @@ import scala.concurrent.Future
 import repositories.Tables.{Image, ImageRow}
 import slick.driver.PostgresDriver.api._
 import java.sql.Timestamp
-import constants.ImageStatus
 
 /**
  * imageテーブルのアクセスする
@@ -16,6 +15,10 @@ object ImageModel extends ImageModelTrait {
 trait ImageModelTrait {
   // TODO このへんdaoに移す
   val db = Database.forConfig("pg_database")
+
+  // status定数
+  val CONVERTING: Short = 0;
+  val AVAILABLE: Short = 1;
 
   /**
    * status=0でレコードを作成する
@@ -50,7 +53,7 @@ trait ImageModelTrait {
   }
 
   def images(limit: Int = 20): Future[Option[Seq[ImageRow]]] = {
-    val action = Image.filter(_.status === ImageStatus.AVAILABLE)
+    val action = Image.filter(_.status === AVAILABLE)
       .sortBy(_.createdAt.desc)
       .take(limit)
       .result
