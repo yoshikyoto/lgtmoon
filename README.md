@@ -30,7 +30,7 @@ $ ./lgtmoon ニコニコテレビちゃん
 
 ## License
 
-This software is licensed under the MIT License, see LICENSE.txt.
+This application is licensed under the MIT License, see LICENSE.txt.
 
 ## Usage
 
