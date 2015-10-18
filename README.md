@@ -25,6 +25,8 @@ $ ./lgtmoon ニコニコテレビちゃん
 * Slick 3.1
 * PostgreSQL
 * imagemagick
+* jQuery
+* vue.js
 
 ## License
 
