@@ -1,0 +1,7 @@
+#! /bin/sh
+
+if [ $# = 0 ]; then
+    echo 'usage: lgtmoon <keyword>'
+else
+    curl http://lgtmoon.herokuapp.com/keyword.json -X POST -H "content-type: application/json" -d '{"keyword":"'$1'"}'
+fi

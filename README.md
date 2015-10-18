@@ -4,6 +4,14 @@
 
 Generate LGTM image from keyword.
 
+## Usage from Command Line
+
+```
+$ wget https://github.com/yoshikyoto/lgtmoon/blob/master/bin/lgtmoon
+$ chmod 755 lgtmoon
+$ ./lgtmoon ニコニコテレビちゃん
+```
+
 ## Dependency
 
 * Scala
