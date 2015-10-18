@@ -3,7 +3,7 @@
 # ~~~~
 
 POST    /keyword.json                   controllers.ImageController.postKeyword
-GET     /images/recent                  controllers.ImageController.recent
+GET     /recent.json                    controllers.ImageController.recent
 
 # Map static resources from the /public folder to the /assets URL path
-# GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+# GET     /images/*file               controllers.Assets.versioned(path="/images", file: Asset)
