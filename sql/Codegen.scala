@@ -3,7 +3,7 @@ object Codegen extends {
     val slickDriver = "slick.driver.PostgresDriver"
     val jdbcDriver = "org.postgresql.Driver"
     val url = "jdbc:postgresql://localhost/lgtmoon"
-    val outputDir = "../api/app"
+    val outputDir = "../app"
     val pkg = "repositories"
     val user = "postgres"
     val password = "postgres"

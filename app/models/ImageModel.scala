@@ -41,8 +41,10 @@ trait ImageModelTrait {
    * @param status: Short 更新後のstatusの値
    * @return Future[Option[Int]]
    */
-  def updateStatus(id: Long, status: Short): Future[Option[Int]] = {
-    val action = Image.filter(_.id === id).map(_.status).update(status)
+  def updateStatus(id: Long, status: Short, bin: Array[Byte]): Future[Option[Int]] = {
+    val action = Image.filter(_.id === id)
+      .map(x => (x.status, x.bin))
+      .update((status, Some(bin)))
     db.run(action).map {
       // 正しい挙動（1件のレコードが更新される）
       case num: Int if num == 1 => Some(num)
@@ -52,6 +54,12 @@ trait ImageModelTrait {
     }
   }
 
+  /**
+   * 画像を最新20件取得する
+   * 
+   * @param limit: Int 何件取得するか。デフォルト20
+   * @return Future[Option[Seq[ImageRow]]]
+   */
   def images(limit: Int = 20): Future[Option[Seq[ImageRow]]] = {
     val action = Image.filter(_.status === AVAILABLE)
       .sortBy(_.createdAt.desc)
@@ -62,6 +70,26 @@ trait ImageModelTrait {
       case _ => None
     }.recover {
       case e => None
+    }
+  }
+
+  /**
+   * 画像を取得する
+   * 
+   * @param id: Long
+   * @return Future[Option[ImageRow]]
+   */
+  def image(id: Long): Future[Option[ImageRow]] = {
+    val action = Image.filter(_.id === id).result
+    db.run(action).map {
+      case images: Seq[ImageRow] if images.length > 0
+          => Some(images(0))
+      case _ => None
+    }.recover {
+      case e => {
+        println("error on database")
+        None
+      }
     }
   }
 

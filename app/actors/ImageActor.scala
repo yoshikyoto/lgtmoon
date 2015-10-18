@@ -18,7 +18,7 @@ case class ImageGenerateMessage(id: Long, keyword: String)
  */
 class ImageActor extends Actor {
   val downloadDir = "/tmp"
-  val convertedDir = Play.current.configuration.getString("image.converted.dir").get
+  val convertedDir = "/tmp" //Play.current.configuration.getString("image.converted.dir").get
 
   override def receive: Receive = {
     case ImageGenerateMessage(id, keyword) => {
@@ -30,7 +30,8 @@ class ImageActor extends Actor {
           ImageDownloader.download(url, downloadPath)
           val imagemagick = new ImageMagickAdapter()
           imagemagick.convert(downloadPath, convertedPath)
-          ImageModel.updateStatus(id, ImageModel.AVAILABLE)
+          val bin = ImageDownloader.binary(convertedPath)
+          ImageModel.updateStatus(id, ImageModel.AVAILABLE, bin)
         }
         // 画像検索がヒットしなかったとき
         case None => println("Error")

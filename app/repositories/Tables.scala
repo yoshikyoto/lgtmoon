@@ -22,18 +22,19 @@ trait Tables {
    *  @param id Database column id SqlType(bigserial), AutoInc, PrimaryKey
    *  @param contentType Database column content_type SqlType(varchar), Length(32,true)
    *  @param createdAt Database column created_at SqlType(timestamp)
-   *  @param status Database column status SqlType(int2) */
-  case class ImageRow(id: Long, contentType: String, createdAt: java.sql.Timestamp, status: Short)
+   *  @param status Database column status SqlType(int2)
+   *  @param bin Database column bin SqlType(bytea), Default(None) */
+  case class ImageRow(id: Long, contentType: String, createdAt: java.sql.Timestamp, status: Short, bin: Option[Array[Byte]] = None)
   /** GetResult implicit for fetching ImageRow objects using plain SQL queries */
-  implicit def GetResultImageRow(implicit e0: GR[Long], e1: GR[String], e2: GR[java.sql.Timestamp], e3: GR[Short]): GR[ImageRow] = GR{
+  implicit def GetResultImageRow(implicit e0: GR[Long], e1: GR[String], e2: GR[java.sql.Timestamp], e3: GR[Short], e4: GR[Option[Array[Byte]]]): GR[ImageRow] = GR{
     prs => import prs._
-    ImageRow.tupled((<<[Long], <<[String], <<[java.sql.Timestamp], <<[Short]))
+    ImageRow.tupled((<<[Long], <<[String], <<[java.sql.Timestamp], <<[Short], <<?[Array[Byte]]))
   }
   /** Table description of table image. Objects of this class serve as prototypes for rows in queries. */
   class Image(_tableTag: Tag) extends Table[ImageRow](_tableTag, "image") {
-    def * = (id, contentType, createdAt, status) <> (ImageRow.tupled, ImageRow.unapply)
+    def * = (id, contentType, createdAt, status, bin) <> (ImageRow.tupled, ImageRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(id), Rep.Some(contentType), Rep.Some(createdAt), Rep.Some(status)).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = (Rep.Some(id), Rep.Some(contentType), Rep.Some(createdAt), Rep.Some(status), bin).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get, _5)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column id SqlType(bigserial), AutoInc, PrimaryKey */
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
@@ -43,6 +44,8 @@ trait Tables {
     val createdAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_at")
     /** Database column status SqlType(int2) */
     val status: Rep[Short] = column[Short]("status")
+    /** Database column bin SqlType(bytea), Default(None) */
+    val bin: Rep[Option[Array[Byte]]] = column[Option[Array[Byte]]]("bin", O.Default(None))
 
     /** Index over (createdAt) (database name image_created_at) */
     val index1 = index("image_created_at", createdAt)
