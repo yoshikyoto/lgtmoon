@@ -18,20 +18,24 @@
                            class="form-keyword"
                            placeholder="キーワードを入力してEnter"/>
                     <span id="message">
-                        LGTM画像が生成され、ここにURLが表示されます
+                        Enterキーで画像検索
                     </span>
                 </form>
             </div>
         </section>
         <section class="lgtmoon-section center">
+            <h2>検索結果</h2>
+            <div id="search-results" class="images-block">
+                <div v-repeat="items" class="image-block">
+                    <img src="{{url}}">
+                </div>
+            </div>
+        </section>
+        <section class="lgtmoon-section center">
             <h2>最近生成された画像</h2>
-            <div id="images"
-                 class="images-block">
-                <div v-repeat="items"
-                     class="image-block">
-                    <a href="{{url}}">
-                        <img src="{{url}}">
-                    </a>
+            <div id="images" class="images-block">
+                <div v-repeat="items" class="image-block">
+                    <a href="{{url}}"><img src="{{url}}"></a>
                 </div>
             </div>
         </section>
