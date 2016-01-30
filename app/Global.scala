@@ -2,6 +2,7 @@
 import java.util.concurrent.Executors
 import externals.rabbitmq.RabbitMqConsumer
 import play.api._
+import java.util.concurrent.atomic.AtomicBoolean
 
 
 /**
@@ -11,6 +12,7 @@ import play.api._
  */
 object Global extends GlobalSettings {
   private[this] val rabbitMQConsumeExecutor = Executors.newSingleThreadExecutor()
+  private[this] val isRabbitMQConsumerStarted = new AtomicBoolean(false)
 
   /**
    * Play起動時に呼び出されるメソッド
@@ -18,15 +20,21 @@ object Global extends GlobalSettings {
   override def onStart(app: Application) {
     Logger.info("Application has started")
     // RabbitMQの監視を開始
-    rabbitMQConsumeExecutor.submit(new RabbitMqConsumer(app))
+    // テスト時は何度もonStartが走るのでその状況にも対応
+    if(!isRabbitMQConsumerStarted.getAndSet(true)) {
+      Logger.info("Rabbit MQ の監視を開始します...")
+      rabbitMQConsumeExecutor.submit(new RabbitMqConsumer(app))
+    }
   }
 
   /**
    * Play終了時に呼び出されるメソッド
    */
   override def onStop(app: Application) {
-    rabbitMQConsumeExecutor.shutdownNow()
-    Logger.info("Application shutdown...")
+    if(Play.current.mode != Mode.Test){
+      Logger.info("Rabbit MQ の監視を終了します")
+      rabbitMQConsumeExecutor.shutdownNow()
+    }
   }
 
 }
