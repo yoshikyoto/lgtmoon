@@ -2,7 +2,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-POST    /keyword.json                   controllers.ImageController.postKeyword
 GET     /search.json                    controllers.ImageSearchController.search(keyword: String)
 POST    /image.json                     controllers.ImageGenerateController.withUrl
 GET     /recent.json                    controllers.ImageController.recent
