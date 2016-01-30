@@ -14,26 +14,15 @@ import akka.actor.Props
 import externals.google.CustomSearchAdapter
 import utils._
 
+/** 画像検索コントローラー */
 class ImageSearchController extends BaseControllerTrait {
-  def search = Action.async { request =>
-    val jsonOpt = request.body.asJson
-    jsonOpt match {
-      case None => Future(NOT_JSON_RESPONSE)
-      case Some(json) => {
-        val keywordOpt = (json \ "keyword").asOpt[String]
-        keywordOpt match {
-          case None => Future(PARAMETER_KEYWORD_NOT_FOUND_RESPONSE)
-          case Some(keyword) => {
-            CustomSearchAdapter.imageUrls(keyword).map {
-              case None => CUSTOM_SEARCH_ERROR_RESPONSE
-              case Some(urls) => {
-                Ok(JsonBuilder.imageUrls(urls))
-              }
-            }
-          }
-        }
+  /** キーワードを受け取り検索結果を返す */
+  def search(keyword: String) = Action.async { request =>
+    CustomSearchAdapter.imageUrls(keyword).map {
+      case None => CUSTOM_SEARCH_ERROR_RESPONSE
+      case Some(urls) => {
+        Ok(JsonBuilder.imageUrls(urls))
       }
     }
   }
-
 }

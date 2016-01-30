@@ -13,8 +13,11 @@ object JsonBuilder {
    * @return String urlsをJson形式の文字列にしたもの
    */
   def imageUrls(urls: Seq[String]): String = {
-    val urlsJson = urls.map(url => JsString(url))
-    Json.stringify(JsArray(urlsJson))
+    println(urls)
+    println(urls.map(url => "url" -> JsString(url)))
+    val urlsJson = urls.map(url => JsObject(Seq("url" -> JsString(url))))
+    println(urlsJson)
+    Json.stringify(JsObject(Seq("images" -> JsArray(urlsJson))))
   }
 
   def images(images: Seq[ImageRow]): String = {
