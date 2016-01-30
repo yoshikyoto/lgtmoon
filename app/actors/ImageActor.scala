@@ -8,7 +8,7 @@ import utils.ImageDownloader
 import externals.imagemagick.ImageMagickAdapter
 import models.ImageModel
 
-case class ImageGenerateMessage(id: Long, keyword: String)
+case class ImageGenerateMessage(id: Long, url: String)
 
 /**
  * 画像idとkeywordを受け
@@ -21,21 +21,15 @@ class ImageActor extends Actor {
   val convertedDir = "/tmp" //Play.current.configuration.getString("image.converted.dir").get
 
   override def receive: Receive = {
-    case ImageGenerateMessage(id, keyword) => {
-      CustomSearchAdapter.imageUrl(keyword) map {
-        case Some(url) => {
-          val downloadPath = downloadDir + "/" + id
-          val convertedPath = convertedDir + "/" + id
-          println(downloadPath)
-          ImageDownloader.download(url, downloadPath)
-          val imagemagick = new ImageMagickAdapter()
-          imagemagick.convert(downloadPath, convertedPath)
-          val bin = ImageDownloader.binary(convertedPath)
-          ImageModel.updateStatus(id, ImageModel.AVAILABLE, bin)
-        }
-        // 画像検索がヒットしなかったとき
-        case None => println("Error")
-      }
+    case ImageGenerateMessage(id, url) => {
+      val downloadPath = downloadDir + "/" + id
+      val convertedPath = convertedDir + "/" + id
+      println(downloadPath)
+      ImageDownloader.download(url, downloadPath)
+      val imagemagick = new ImageMagickAdapter()
+      imagemagick.convert(downloadPath, convertedPath)
+      val bin = ImageDownloader.binary(convertedPath)
+      ImageModel.updateStatus(id, ImageModel.AVAILABLE, bin)
     }
   }
 
