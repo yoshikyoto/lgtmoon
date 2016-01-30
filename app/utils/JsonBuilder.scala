@@ -8,6 +8,15 @@ object JsonBuilder {
     Json.stringify(JsObject(Seq("url" -> JsString(url))))
   }
 
+  /**
+   * @param urls: Sea[String]
+   * @return String urlsをJson形式の文字列にしたもの
+   */
+  def imageUrls(urls: Seq[String]): String = {
+    val urlsJson = urls.map(url => JsString(url))
+    Json.stringify(JsArray(urlsJson))
+  }
+
   def images(images: Seq[ImageRow]): String = {
     val urls = images.map { image =>
       JsObject(Seq("url" -> JsString(UrlBuilder.imageUrl(image.id.toString))))

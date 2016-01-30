@@ -22,8 +22,13 @@ trait BaseControllerTrait extends Controller {
   /** jsonにkeywordが見つからなかった時のレスポンス */
   val PARAMETER_KEYWORD_NOT_FOUND_RESPONSE =
     BadRequest(JsonBuilder.badRequest("keywordパラメータが見つかりませんでした"))
-  
+
   /** データベースの接続時にエラーが出た時のレスポンス */
   val DATABASE_CONNECTION_ERROR_RESPONSE =
     InternalServerError(JsonBuilder.internalServerError("データベースの接続に失敗しました"))
+
+  /** Google Custom Search でエラーが出た時のレスポンス */
+  val CUSTOM_SEARCH_ERROR_RESPONSE =
+    InternalServerError(JsonBuilder.internalServerError("Google Search でエラーが発生しました"))
+
 }

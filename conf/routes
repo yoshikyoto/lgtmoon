@@ -3,6 +3,7 @@
 # ~~~~
 
 POST    /keyword.json                   controllers.ImageController.postKeyword
+POST    /search.json                    controllers.ImageSearchController.search
 GET     /recent.json                    controllers.ImageController.recent
 GET     /images/:id                     controllers.ImageBinaryController.image(id: Long)
 GET     /                               controllers.ApplicationController.index
