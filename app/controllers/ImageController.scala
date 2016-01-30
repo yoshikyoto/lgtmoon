@@ -21,7 +21,7 @@ import utils._
 /**
  * imagesのpost,getを行うためのcontroller
  */
-class ImageController extends Controller {
+class ImageController extends BaseControllerTrait {
   val imageActor = Akka.system.actorOf(Props(new ImageActor()))
 
   def postKeyword = Action.async { request =>
@@ -39,27 +39,13 @@ class ImageController extends Controller {
                 imageActor ! ImageGenerateMessage(id, keyword)
                 Ok(JsonBuilder.imageUrl(url))
               }
-              case None =>
-                InternalServerError(
-                  JsonBuilder.internalServerError(
-                    "データベースの接続に失敗しました"))
+              case None => DATABASE_CONNECTION_ERROR_RESPONSE
             }
           }
-          case None => {
-            println("no keyword")
-            Future(
-              BadRequest(
-                JsonBuilder.badRequest(
-                  "keywordが見つかりませんでした")))
-          }
+          case None => Future(PARAMETER_KEYWORD_NOT_FOUND_RESPONSE)
         }
       }
-      case None => {
-        Future(
-          BadRequest(
-            JsonBuilder.badRequest(
-              "Json形式でPOSTしてください")))
-      }
+      case None => Future(NOT_JSON_RESPONSE)
     }
   }
 
