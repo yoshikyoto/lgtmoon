@@ -30,6 +30,13 @@
             el: "#search-results",
             data: {
                 items: []
+            },
+            methods: {
+                post: function(event) {
+                    // post する画像のURL
+                    var url = $(event.target).attr('src');
+                    postImageUrl(url);
+                }
             }
         });
 
@@ -41,13 +48,29 @@
         $.ajax({
             url: '/search.json?keyword=' + keyword,
             type: 'GET',
-            dataType: 'json',
-            timeout: 10000,
+            dataType: 'json', // レスポンスのデータタイプ
+            timeout: 10000
         }).done(function(json, status, xhr) {
-            show("検索結果を表示します");
+            show("検索結果から画像を選び、クリックしてください。");
             vmSearchResults.items = json.images;
         }).fail(function(xhr, status, error) {
-            show(error)
+            show(error);
+        });
+    }
+
+    function postImageUrl(url) {
+        var data = {'url': url};
+        $.ajax({
+            url: '/image.json',
+            type: 'POST',
+            dataType: 'json', // レスポンスのデータタイプ
+            contentType: 'text/json',
+            data: JSON.stringify(data),
+            timeout: 10000
+        }).done(function(json, status, xhr) {
+            show("画像の生成が終わるまでしばらくお待ち下さい。");
+        }).fail(function(xhr, status, error) {
+            show(error);
         });
     }
 

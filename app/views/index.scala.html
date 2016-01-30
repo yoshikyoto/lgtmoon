@@ -27,7 +27,7 @@
             <h2>検索結果</h2>
             <div id="search-results" class="images-block">
                 <div v-repeat="items" class="image-block">
-                    <img src="{{url}}">
+                    <img src="{{url}}" v-on="click : post">
                 </div>
             </div>
         </section>
