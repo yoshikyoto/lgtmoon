@@ -6,9 +6,7 @@ import repositories.Tables.{Image, ImageRow}
 import slick.driver.PostgresDriver.api._
 import java.sql.Timestamp
 
-/**
- * imageテーブルのアクセスする
- */
+/** imageテーブルにアクセスする */
 object ImageModel extends ImageModelTrait {
 }
 
@@ -92,5 +90,4 @@ trait ImageModelTrait {
       }
     }
   }
-
 }
