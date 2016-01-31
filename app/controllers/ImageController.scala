@@ -22,7 +22,7 @@ import utils._
 class ImageController extends BaseControllerTrait {
   def recent = Action.async { request =>
     ImageModel.images(20).map {
-      case _ => InternalServerError("")
+      case None => InternalServerError("サーバーエラー")
       case Some(images) => Ok(JsonBuilder.images(images))
     }
   }
