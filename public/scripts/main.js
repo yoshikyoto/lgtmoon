@@ -11,7 +11,7 @@
         var form = $('#lgtmform');
         form.submit(function(event){
             event.preventDefault(); // 通常のpostは行わずAjax通信を行う
-            search(); 
+            search();
         });
         getRecent(); // 最近生成された画像の取得
     });
@@ -55,12 +55,16 @@
         }).done(function(json, status, xhr) {
             show("検索結果から画像を選び、クリックしてください。");
             vmSearchResults.items = json.images;
-            $('.overlay').addClass('hidden');
         }).fail(function(xhr, status, error) {
             show(error);
+        }).always(function() {
+            setTimeout(function() {
+                $('.overlay').addClass('hidden');
+            }, 3000);
         });
     }
 
+    /** 画像をクリックした時に、画像生成のリクエストを送る */
     function postImageUrl(url) {
         $('.overlay').removeClass('hidden');
         var data = {'url': url};
@@ -72,10 +76,13 @@
             data: JSON.stringify(data),
             timeout: 10000
         }).done(function(json, status, xhr) {
-            show("画像の生成が終わるまでしばらくお待ち下さい。");
-            $('.overlay').addClass('hidden');
+            show("LGTM画像が生成されます。しばらくお待ち下さい。");
         }).fail(function(xhr, status, error) {
             show(error);
+        }).always(function() {
+            setTimeout(function() {
+                $('.overlay').addClass('hidden');
+            }, 3000);
         });
     }
 
@@ -91,7 +98,7 @@
         }).fail(function(error) {
             console.log(error);
         });
-        setTimeout(getRecent, 30000);
+        setTimeout(getRecent, 10000);
     }
 
     /** @param message 検索フォームの横のmessageを表示する */
