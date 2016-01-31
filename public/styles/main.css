@@ -122,12 +122,14 @@
 
 /** 画像の詳細表示 */
 .modal {
-    z-index: 500;
+    z-index: 200;
     position: fixed;
     background-color: #fff;
     border: 1px solid #eef;
-    width: 500px;
-    top: 10%;
+    overflow: scroll;
+    top: 5%;
+    height: 80%;
+    width: 520px;
     /* leftとrightを固定にしてmarginするとセンタリングされる */
     left: 0px;
     right: 0px;
@@ -135,7 +137,7 @@
     padding: 10px 0px;
     text-align: center;
 }
-/** モーダル用のオーバーレイ */
+/** モーダル用の画面全体に広がるオーバーレイ */
 .full-overlay {
     position: fixed;
     top: 0px;
@@ -154,6 +156,7 @@
     font-size: 1.2em;
 }
 
+/** 画像の周りに額縁のように境界を出す */
 .gakubuchi {
     margin: 2px;
     border: 1px solid #eef;
@@ -162,7 +165,7 @@
 
 /** URL, GitHub Markdown などのテキストエリア */
 .modal input {
-    width: 400px;
+    width: 450px;
 }
 
 .hidden {
