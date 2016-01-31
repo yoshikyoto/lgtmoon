@@ -24,6 +24,13 @@
     margin-bottom: 10px;
 }
 
+/** ツイートボタン */
+.twitter-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
 /** footer */
 .footer {
     margin-top: 18px;
