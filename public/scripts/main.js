@@ -44,6 +44,7 @@
 
     /** 画像検索APIを叩き、結果を表示する */
     function search() {
+        $('input[name="keyword"]').prop('disabled', true);
         $('.result-section').removeClass('hidden');
         $('.overlay').removeClass('hidden');
         var keyword = $('input[name="keyword"]').val(); // 検索キーワードをフォームから取得
@@ -58,8 +59,10 @@
         }).fail(function(xhr, status, error) {
             show(error);
         }).always(function() {
+            // くるくるオーバーレイを無効化＆テキストエリア活性化。連打対策のため3秒待つ
             setTimeout(function() {
                 $('.overlay').addClass('hidden');
+                $('input[name="keyword"]').prop('disabled', false);
             }, 3000);
         });
     }
@@ -80,6 +83,7 @@
         }).fail(function(xhr, status, error) {
             show(error);
         }).always(function() {
+            // くるくるオーバーレイを無効化するが、連打対策のため3秒待つ
             setTimeout(function() {
                 $('.overlay').addClass('hidden');
             }, 3000);

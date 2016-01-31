@@ -36,7 +36,7 @@ class ImageMagickAdapter() {
     operation.font(font("Aileron-Light.otf"))
     operation.pointsize(12)
     operation.kerning(10);
-    operation.annotate(0, 0, 0, 64, "Looks  Good  To  Me")
+    operation.annotate(0, 0, 0, 54, "Looks  Good  To  Me")
     operation.addImage(afterPath)
     // コマンド実行
     val command = new ConvertCmd()
