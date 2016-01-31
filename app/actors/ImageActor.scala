@@ -11,10 +11,9 @@ import models.ImageModel
 case class ImageGenerateMessage(id: Long, url: String)
 
 /**
- * 画像idとkeywordを受け
- * 1. 画像検索し、
- * 2. 画像をダウンロードし、
- * 3. 変換キューに乗せる
+ * 画像idとURLを受け
+ * 1. 画像をダウンロードし、
+ * 2. その画像を変換キューに乗せる
  */
 class ImageActor extends Actor {
   val downloadDir = "/tmp"
