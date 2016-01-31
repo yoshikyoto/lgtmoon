@@ -25,10 +25,12 @@ $ ./lgtmoon ニコニコテレビちゃん
 * Slick 3.1
 * PostgreSQL
 * imagemagick
+* jQuery
+* vue.js
 
 ## License
 
-This software is licensed under the MIT License, see LICENSE.txt.
+This application is licensed under the MIT License, see LICENSE.txt.
 
 ## Usage
 
@@ -99,4 +101,14 @@ sql以下がSlick codegen のために必要なコードとなっています。
 ```
 $ cd sql
 $ sbt run
+```
+
+### Herokuへのデプロイ方法
+
+```
+$ heroku create <app-name>
+$ git checkout -b deploy
+# ここでHerokuでの設定に合わせてapplication.conf を用意
+$ git commit application.conf
+$ git push heroku deploy:master
 ```
