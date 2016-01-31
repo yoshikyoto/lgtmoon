@@ -27,8 +27,15 @@
     background-repeat: no-repeat;
 }
 
+/** 各sectionタグに付けるクラス */
 .lgtmoon-section {
     width: 80%;
+    position: relative;
+}
+
+/** くるくるを表示するために最小の高さを決める */
+.result-section {
+    min-height: 100px;
 }
 
 .form {
@@ -55,6 +62,7 @@
     margin-left: 10px;
 }
 
+/** 画像をタイル状に並べる */
 .images-block {
     -moz-column-count: 4;
     -webkit-column-count: 4;
@@ -67,6 +75,7 @@
     box-sizing: border-box;
 }
 
+/** images-block の画像ひとつ */
 .image-block {
     display: inline-block;
     box-sizing: border-box;
@@ -76,4 +85,26 @@
 .image-block img {
     width: 100%;
     height: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    opacity: 0.5;
+}
+
+/** センタリングのためにローディングのくるくろの横幅を指定する */
+.loader {
+    margin: 0px auto;
+    width: 100px;
+    height: 100px;
 }

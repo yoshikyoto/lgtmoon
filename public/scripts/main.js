@@ -44,6 +44,8 @@
 
     /** 画像検索APIを叩き、結果を表示する */
     function search() {
+        $('.result-section').removeClass('hidden');
+        $('.overlay').removeClass('hidden');
         var keyword = $('input[name="keyword"]').val(); // 検索キーワードをフォームから取得
         $.ajax({
             url: '/search.json?keyword=' + keyword,
@@ -53,12 +55,14 @@
         }).done(function(json, status, xhr) {
             show("検索結果から画像を選び、クリックしてください。");
             vmSearchResults.items = json.images;
+            $('.overlay').addClass('hidden');
         }).fail(function(xhr, status, error) {
             show(error);
         });
     }
 
     function postImageUrl(url) {
+        $('.overlay').removeClass('hidden');
         var data = {'url': url};
         $.ajax({
             url: '/image.json',
@@ -69,6 +73,7 @@
             timeout: 10000
         }).done(function(json, status, xhr) {
             show("画像の生成が終わるまでしばらくお待ち下さい。");
+            $('.overlay').addClass('hidden');
         }).fail(function(xhr, status, error) {
             show(error);
         });

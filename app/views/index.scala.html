@@ -23,11 +23,16 @@
                 </form>
             </div>
         </section>
-        <section class="lgtmoon-section center">
+        <section class="lgtmoon-section center result-section hidden">
             <h2>検索結果</h2>
             <div id="search-results" class="images-block">
                 <div v-repeat="items" class="image-block">
                     <img src="{{url}}" v-on="click : post">
+                </div>
+            </div>
+            <div class="overlay hidden">
+                <div class="loader">
+                    <img src="/assets/ajax-loader.gif">
                 </div>
             </div>
         </section>
