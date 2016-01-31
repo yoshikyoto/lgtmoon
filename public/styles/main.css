@@ -123,17 +123,28 @@
 /** 画像の詳細表示 */
 .modal {
     z-index: 500;
-    position: absolute;
+    position: fixed;
     background-color: #fff;
     border: 1px solid #eef;
     width: 500px;
-    top: 5px;
+    top: 10%;
     /* leftとrightを固定にしてmarginするとセンタリングされる */
     left: 0px;
     right: 0px;
     margin: 0px auto;
     padding: 10px 0px;
     text-align: center;
+}
+/** モーダル用のオーバーレイ */
+.full-overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    opacity: 0.5;
 }
 
 /** URL, GitHub Markdown などの文字 */

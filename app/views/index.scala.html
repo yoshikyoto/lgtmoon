@@ -49,8 +49,9 @@
                     <img src="{{url}}" v-on="click : detail">
                 </div>
             </div>
+            <!-- モーダル -->
             <div id="detail">
-                <div class="overlay hidden" v-on="click : close"></div>
+                <div class="full-overlay hidden" v-on="click : close"></div>
                 <div class="image-detail modal center hidden">
                     <a href="{{url}}">
                         <img src="{{url}}" class="gakubuchi">

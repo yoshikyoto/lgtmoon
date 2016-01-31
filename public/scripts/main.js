@@ -44,14 +44,14 @@
                 open: function (event) {
                     var url = $(event.target).attr('src');
                     // オーバーレイとモーダルを表示させる
-                    $('.recent-section .overlay').removeClass('hidden');
+                    $('.recent-section .full-overlay').removeClass('hidden');
                     $('.recent-section .modal').removeClass('hidden');
                     this.url = url;
                 },
                 /** 動画詳細モーダルを閉じる */
                 close: function(event) {
                     // オーバーレイとモーダルを消す
-                    $('.recent-section .overlay').addClass('hidden');
+                    $('.recent-section .full-overlay').addClass('hidden');
                     $('.recent-section .modal').addClass('hidden');
                 }
             }
