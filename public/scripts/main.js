@@ -3,6 +3,8 @@
     var vmImages
     /** 検索結果一覧を表示するviewmodel */
     var vmSearchResults
+    /** 画像の詳細情報を表示するviewmodel */
+    var vmDetail
 
     /** ページがロードされた時に呼ばれる関数 */
     $(function() {
@@ -23,11 +25,40 @@
             el: '#images',
             data: {
                 items: []
+            },
+            methods: {
+                /** 動画詳細モーダルを表示させる */
+                detail: function(event) {
+                    vmDetail.open(event);
+                },
+            }
+        });
+        // 画像詳細表示モーダルのview model を初期化する
+        vmDetail = new Vue({
+            el: '#detail',
+            data: {
+                url: ''
+            },
+            methods: {
+                /** 動画詳細モーダルを開く */
+                open: function (event) {
+                    var url = $(event.target).attr('src');
+                    // オーバーレイとモーダルを表示させる
+                    $('.recent-section .overlay').removeClass('hidden');
+                    $('.recent-section .modal').removeClass('hidden');
+                    this.url = url;
+                },
+                /** 動画詳細モーダルを閉じる */
+                close: function(event) {
+                    // オーバーレイとモーダルを消す
+                    $('.recent-section .overlay').addClass('hidden');
+                    $('.recent-section .modal').addClass('hidden');
+                }
             }
         });
         // 検索結果の view model を初期化
         vmSearchResults = new Vue({
-            el: "#search-results",
+            el: '#search-results',
             data: {
                 items: []
             },
@@ -39,14 +70,13 @@
                 }
             }
         });
-
     }
 
     /** 画像検索APIを叩き、結果を表示する */
     function search() {
         $('input[name="keyword"]').prop('disabled', true);
         $('.result-section').removeClass('hidden');
-        $('.overlay').removeClass('hidden');
+        $('.result-section .overlay').removeClass('hidden');
         var keyword = $('input[name="keyword"]').val(); // 検索キーワードをフォームから取得
         $.ajax({
             url: '/search.json?keyword=' + keyword,
@@ -61,7 +91,7 @@
         }).always(function() {
             // くるくるオーバーレイを無効化＆テキストエリア活性化。連打対策のため3秒待つ
             setTimeout(function() {
-                $('.overlay').addClass('hidden');
+                $('.result-section .overlay').addClass('hidden');
                 $('input[name="keyword"]').prop('disabled', false);
             }, 3000);
         });
@@ -69,7 +99,7 @@
 
     /** 画像をクリックした時に、画像生成のリクエストを送る */
     function postImageUrl(url) {
-        $('.overlay').removeClass('hidden');
+        $('.result-section .overlay').removeClass('hidden');
         var data = {'url': url};
         $.ajax({
             url: '/image.json',
@@ -85,7 +115,7 @@
         }).always(function() {
             // くるくるオーバーレイを無効化するが、連打対策のため3秒待つ
             setTimeout(function() {
-                $('.overlay').addClass('hidden');
+                $('.result-section .overlay').addClass('hidden');
             }, 3000);
         });
     }

@@ -116,6 +116,44 @@
     height: auto;
 }
 
+.image-block font {
+    width: 100%;
+}
+
+/** 画像の詳細表示 */
+.modal {
+    z-index: 500;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #eef;
+    width: 500px;
+    top: 5px;
+    /* leftとrightを固定にしてmarginするとセンタリングされる */
+    left: 0px;
+    right: 0px;
+    margin: 0px auto;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+/** URL, GitHub Markdown などの文字 */
+.modal h3 {
+    margin-top: 5px;
+    margin-bottom: 2px;
+    font-size: 1.2em;
+}
+
+.gakubuchi {
+    margin: 2px;
+    border: 1px solid #eef;
+    padding: 2px;
+}
+
+/** URL, GitHub Markdown などのテキストエリア */
+.modal input {
+    width: 400px;
+}
+
 .hidden {
     display: none;
 }
