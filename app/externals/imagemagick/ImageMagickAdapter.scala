@@ -33,10 +33,10 @@ class ImageMagickAdapter() {
     operation.strokewidth(5);
     operation.annotate(0, 0, 0, 0, "LGTM")
     // Looks Good To Me の文字
-    operation.font(font("Aileron-Light.otf"))
-    operation.pointsize(12)
-    operation.kerning(10);
-    operation.annotate(0, 0, 0, 54, "Looks  Good  To  Me")
+    operation.font(font("Aileron-Regular.otf"))
+    operation.pointsize(14)
+    operation.kerning(8);
+    operation.annotate(0, 0, 0, 64, "Looks  Good  To  Me")
     operation.addImage(afterPath)
     // コマンド実行
     val command = new ConvertCmd()
