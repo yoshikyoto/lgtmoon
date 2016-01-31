@@ -8,6 +8,12 @@
     src: url(/assets/fonts/ikafont.otf);
 }
 
+/** aタグにつけることで下線を消せる */
+.no-decoration {
+    text-decoration: none;
+}
+
+/** LGTMoon のタイトル部分 */
 .title {
     font-family: 'ikafont';
     font-size: 4em;
