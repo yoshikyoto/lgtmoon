@@ -9,13 +9,8 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import play.api.data.validation.ValidationError
 
-/**
- * Google Custom Search
- */
+/** GoogleCustomSearchClientを利用する */
 object CustomSearchAdapter extends CustomSearchAdapterTrait {
-  override val baseUrl = Play.current.configuration.getString("google.baseUrl").get
-  override val key = Play.current.configuration.getString("google.key").get
-  override val cx = Play.current.configuration.getString("google.cx").get
 }
 
 trait CustomSearchAdapterTrait {
@@ -41,47 +36,18 @@ trait CustomSearchAdapterTrait {
       and (__ \ "title").read[String]
   )(Item)
 
-  val baseUrl = "https://www.googleapis.com/customsearch/v1"
-  val key = ""
-  val cx = ""
-  val searchType = "image"
+  val client = infra.apiclient.GoogleCustomSearchClient
 
-  def search(keyword: String): Future[Option[Seq[Item]]] = {
-    val future = WS.url(baseUrl)
-      .withQueryString("searchType" -> searchType)
-      .withQueryString("key" -> key)
-      .withQueryString("cx" -> cx)
-      .withQueryString("q" -> keyword)
-      .get()
-    future.map {
-      response => {
-        (response.json \ "items").asOpt[Seq[Item]]
-      }
-    }
-  }
-
+  /**
+   * @param keyword: String 画像検索するキーワード
+   * @return Future[Option[Seq[String]]]
+   */
   def imageUrls(keyword: String): Future[Option[Seq[String]]] = {
-    search(keyword).map {
-      case None => None
-      case Some(items) => Some(items.map(item => item.link))
-    }
-  }
-
-  def imageUrl(keyword: String): Future[Option[String]] = {
-    search(keyword).map {
-      itemsOpt => {
-        itemsOpt match {
-          case None => None
-          case Some(items) => {
-            Some(items(1).link)
-          }
-        }
+    client.search(keyword).map { wsResponse => 
+      (wsResponse.json \ "items").asOpt[Seq[Item]] match {
+        case None => None
+        case Some(items) => Some(items.map(item => item.link))
       }
     }
   }
-
-  def generateUrl(keyword: String): String = {
-    return s"${baseUrl}?key=${key}&cx=${cx}&q=${keyword}";
-  }
-
 }
