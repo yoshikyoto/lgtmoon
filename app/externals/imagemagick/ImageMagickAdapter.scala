@@ -22,7 +22,7 @@ class ImageMagickAdapter() {
     afterPath: String) {
     val operation = new IMOperation()
     operation.addImage(beforePath)
-    operation.geometry(480, 480)
+    operation.geometry(400, 400)
     // LGTMの文字
     operation.gravity("center")
     operation.font(font("Aileron-Black.otf"))
