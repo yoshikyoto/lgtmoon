@@ -26,17 +26,17 @@ class ImageMagickAdapter() {
     // LGTMの文字
     operation.gravity("center")
     operation.font(font("Aileron-Black.otf"))
-    operation.pointsize(96)
+    operation.pointsize(80)
     operation.stroke("none")
     operation.fill("white")
-    operation.kerning(16);
+    operation.kerning(14);
     operation.strokewidth(5);
     operation.annotate(0, 0, 0, 0, "LGTM")
     // Looks Good To Me の文字
     operation.font(font("Aileron-Regular.otf"))
-    operation.pointsize(14)
+    operation.pointsize(12)
     operation.kerning(8);
-    operation.annotate(0, 0, 0, 64, "Looks  Good  To  Me")
+    operation.annotate(0, 0, 0, 52, "Looks  Good  To  Me")
     operation.addImage(afterPath)
     // コマンド実行
     val command = new ConvertCmd()

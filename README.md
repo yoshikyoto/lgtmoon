@@ -41,6 +41,12 @@ psql# create database lgtmoon owner postgres encoding 'UTF8';
 $ psql lgtmoon < create.sql
 ```
 
+Tips: How to start postgres daemon
+
+```
+$ postgres -D /usr/local/var/postgres
+```
+
 ### create application.conf
 
 Create `conf/application.conf`
