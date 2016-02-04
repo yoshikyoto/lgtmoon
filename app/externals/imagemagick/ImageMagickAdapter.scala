@@ -26,16 +26,16 @@ class ImageMagickAdapter() {
     // LGTMの文字
     operation.gravity("center")
     operation.font(font("Aileron-Black.otf"))
-    operation.pointsize(80)
+    operation.pointsize(72)
     operation.stroke("none")
     operation.fill("white")
-    operation.kerning(14);
+    operation.kerning(12);
     operation.strokewidth(5);
     operation.annotate(0, 0, 0, 0, "LGTM")
     // Looks Good To Me の文字
     operation.font(font("Aileron-Regular.otf"))
-    operation.pointsize(12)
-    operation.kerning(8);
+    operation.pointsize(11)
+    operation.kerning(6);
     operation.annotate(0, 0, 0, 52, "Looks  Good  To  Me")
     operation.addImage(afterPath)
     // コマンド実行
