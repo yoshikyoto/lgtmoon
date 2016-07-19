@@ -2,12 +2,8 @@ package externals.google
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.Play
-import play.api.Play.current
-import play.api.libs.ws._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import play.api.data.validation.ValidationError
 
 /** GoogleCustomSearchClientを利用する */
 object CustomSearchAdapter extends CustomSearchAdapterTrait {
@@ -38,10 +34,16 @@ trait CustomSearchAdapterTrait {
 
   val client = infra.apiclient.GoogleCustomSearchClient
 
+  def items(keyword: String): Future[Option[Seq[Item]]] = {
+    client.search(keyword).map { wsResponse =>
+      (wsResponse.json \ "items").asOpt[Seq[Item]]
+    }
+  }
+
   /**
    * @param keyword: String 画像検索するキーワード
    * @return Future[Option[Seq[String]]]
-   */
+    **/
   def imageUrls(keyword: String): Future[Option[Seq[String]]] = {
     client.search(keyword).map { wsResponse => 
       (wsResponse.json \ "items").asOpt[Seq[Item]] match {
