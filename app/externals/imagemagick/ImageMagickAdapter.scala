@@ -22,6 +22,7 @@ class ImageMagickAdapter() {
     afterPath: String) {
     val operation = new IMOperation()
     operation.addImage(beforePath)
+    operation.coalesce()
     operation.geometry(400, 400)
     // LGTMの文字
     operation.gravity("center")
