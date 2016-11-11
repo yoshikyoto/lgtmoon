@@ -4,12 +4,12 @@ import java.io._
 import play.api.Play
 import org.im4java.core._
 import infra.datasource.FontStorage
+import infra.command.ImageMagick
 
 /** imagemagickを利用するためのAdapter */
 class ImageMagickAdapter() {
-  /** imagemagickのバイナリのディレクトリ */
-  val imagemagickDir = Play.current.configuration.getString("imagemagick.dir").get
   val fontStorage = FontStorage
+  val imageMagick = ImageMagick
 
   /**
    * 画像の変換を行う
@@ -40,8 +40,6 @@ class ImageMagickAdapter() {
     operation.annotate(0, 0, 0, 52, "Looks  Good  To  Me")
     operation.addImage(afterPath)
     // コマンド実行
-    val command = new ConvertCmd()
-    command.setSearchPath(imagemagickDir)
-    command.run(operation)
+    imageMagick.command(operation)
   }
 }
