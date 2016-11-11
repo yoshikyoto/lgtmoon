@@ -13,7 +13,8 @@
         var form = $('#lgtmform');
         form.submit(function(event){
             event.preventDefault(); // 通常のpostは行わずAjax通信を行う
-            search();
+            // search();
+            submit();
         });
         getRecent(); // 最近生成された画像の取得
     });
@@ -72,6 +73,22 @@
         });
     }
 
+    /**
+     * 検索フォームに入力された文字列から、
+     * 画像URLをpostまたは検索実行のいずれかを行う
+     */
+    function submit() {
+        var urlRegexp = /^http:\/\//;
+        var keyword = $('input[name="keyword"]').val();
+        if(keyword.match(urlRegexp) === null) {
+            // マッチしない場合はURLではないのでsearch
+            search();
+        } else {
+            // マッチする場合はpostImageUrl
+            postImageUrl(keyword);
+        }
+    }
+
     /** 画像検索APIを叩き、結果を表示する */
     function search() {
         $('input[name="keyword"]').prop('disabled', true);
@@ -99,6 +116,7 @@
 
     /** 画像をクリックした時に、画像生成のリクエストを送る */
     function postImageUrl(url) {
+        $('input[name="keyword"]').prop('disabled', true);
         $('.result-section .overlay').removeClass('hidden');
         var data = {'url': url};
         $.ajax({
@@ -115,6 +133,7 @@
         }).always(function() {
             // くるくるオーバーレイを無効化するが、連打対策のため3秒待つ
             setTimeout(function() {
+                $('input[name="keyword"]').prop('disabled', false);
                 $('.result-section .overlay').addClass('hidden');
             }, 3000);
         });
