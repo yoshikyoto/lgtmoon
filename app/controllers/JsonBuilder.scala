@@ -14,10 +14,7 @@ object JsonBuilder {
    * @return String urlsをJson形式の文字列にしたもの
    */
   def imageUrls(urls: Seq[String]): String = {
-    println(urls)
-    println(urls.map(url => "url" -> JsString(url)))
     val urlsJson = urls.map(url => JsObject(Seq("url" -> JsString(url))))
-    println(urlsJson)
     Json.stringify(JsObject(Seq("images" -> JsArray(urlsJson))))
   }
 

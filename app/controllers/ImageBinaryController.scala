@@ -16,7 +16,6 @@ class ImageBinaryController extends Controller {
       case Some(image) => {
         image.bin match {
           case Some(bin) => {
-            println(bin)
             Result(
               header = ResponseHeader(200),
               body = Enumerator.fromStream(new ByteArrayInputStream(bin))
