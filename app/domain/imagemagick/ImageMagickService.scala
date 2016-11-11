@@ -1,4 +1,4 @@
-package externals.imagemagick
+package domain.imagemagick
 
 import java.io._
 import play.api.Play
@@ -6,8 +6,11 @@ import org.im4java.core._
 import infra.datasource.FontStorage
 import infra.command.ImageMagick
 
-/** imagemagickを利用するためのAdapter */
-class ImageMagickAdapter() {
+/** imagemagickを使ってlgtmoon画像を作ってくれるやつ */
+object ImageMagickService extends ImageMagickServiceTrait {
+}
+
+trait ImageMagickServiceTrait {
   val fontStorage = FontStorage
   val imageMagick = ImageMagick
 

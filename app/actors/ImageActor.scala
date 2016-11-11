@@ -5,7 +5,7 @@ import play.api.Play
 import akka.actor.Actor
 import externals.google.CustomSearchAdapter
 import infra.datasource.ImageStorage
-import externals.imagemagick.ImageMagickAdapter
+import domain.imagemagick.ImageMagickService
 import domain.image.ImageRepository
 
 case class ImageGenerateMessage(id: Long, url: String)
@@ -18,17 +18,18 @@ case class ImageGenerateMessage(id: Long, url: String)
 class ImageActor extends Actor {
   val downloadDir = "/tmp"
   val convertedDir = "/tmp"
+  val imageStorage = ImageStorage
   val imageRepository = ImageRepository
+  val imageMagickService = ImageMagickService
 
   override def receive: Receive = {
     case ImageGenerateMessage(id, url) => {
       val downloadPath = downloadDir + "/" + id
       val convertedPath = convertedDir + "/" + id
-      ImageStorage.download(url, downloadPath)
-      val imagemagick = new ImageMagickAdapter()
-      imagemagick.convert(downloadPath, convertedPath)
+      imageStorage.download(url, downloadPath)
+      imageMagickService.convert(downloadPath, convertedPath)
       // convertされた画像をバイナリで取得してDBに入れる
-      val bin = ImageStorage.binary(convertedPath)
+      val bin = imageStorage.binary(convertedPath)
       imageRepository.updateStatus(id, imageRepository.AVAILABLE, bin)
     }
   }
