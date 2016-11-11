@@ -1,4 +1,4 @@
-package externals.google
+package domain.externals.google
 
 /** 未使用 */
 case class SearchInformation(

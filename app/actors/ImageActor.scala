@@ -3,7 +3,6 @@ package actors
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.Play
 import akka.actor.Actor
-import externals.google.CustomSearchAdapter
 import infra.datasource.ImageStorage
 import domain.imagemagick.ImageMagickService
 import domain.image.ImageRepository

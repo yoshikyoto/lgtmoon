@@ -1,4 +1,4 @@
-package externals.google
+package domain.externals.google
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -6,10 +6,10 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
 /** GoogleCustomSearchClientを利用する */
-object CustomSearchAdapter extends CustomSearchAdapterTrait {
+object CustomSearchService extends CustomSearchServiceTrait {
 }
 
-trait CustomSearchAdapterTrait {
+trait CustomSearchServiceTrait {
   implicit val imageReads: Reads[Image] = (
     (__ \ "byteSize").read[Int]
       and (__ \ "contextLink").read[String]

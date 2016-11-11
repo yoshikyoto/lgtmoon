@@ -2,13 +2,14 @@ package domain.image.search
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import domain.externals.google.CustomSearchService
 
 object ImageSearchService extends ImageSearchServiceTrait {
 }
 
 
 trait ImageSearchServiceTrait {
-  val client = externals.google.CustomSearchAdapter
+  val client = CustomSearchService
 
   def images(keyword: String): Future[Option[Seq[Image]]] = {
     client.items(keyword).map {
