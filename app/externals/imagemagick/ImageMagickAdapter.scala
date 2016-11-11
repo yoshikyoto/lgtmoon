@@ -3,13 +3,13 @@ package externals.imagemagick
 import java.io._
 import play.api.Play
 import org.im4java.core._
+import infra.datasource.FontStorage
 
 /** imagemagickを利用するためのAdapter */
 class ImageMagickAdapter() {
   /** imagemagickのバイナリのディレクトリ */
   val imagemagickDir = Play.current.configuration.getString("imagemagick.dir").get
-  /** フォントファイルがあるディレクトリ */
-  val fontDir = Play.current.configuration.getString("imagemagick.fontDir").get
+  val fontStorage = FontStorage
 
   /**
    * 画像の変換を行う
@@ -26,7 +26,7 @@ class ImageMagickAdapter() {
     operation.geometry(400, 400)
     // LGTMの文字
     operation.gravity("center")
-    operation.font(font("Aileron-Black.otf"))
+    operation.font(fontStorage.path("Aileron-Black.otf"))
     operation.pointsize(72)
     operation.stroke("none")
     operation.fill("white")
@@ -34,7 +34,7 @@ class ImageMagickAdapter() {
     operation.strokewidth(5);
     operation.annotate(0, 0, 0, 0, "LGTM")
     // Looks Good To Me の文字
-    operation.font(font("Aileron-Regular.otf"))
+    operation.font(fontStorage.path("Aileron-Regular.otf"))
     operation.pointsize(11)
     operation.kerning(6);
     operation.annotate(0, 0, 0, 52, "Looks  Good  To  Me")
@@ -44,15 +44,4 @@ class ImageMagickAdapter() {
     command.setSearchPath(imagemagickDir)
     command.run(operation)
   }
-
-  /**
-   * imagemagickに渡すべきフォントのパスを取得する
-   *
-   * @param fontName: String e.g. "Aileron-Regular.otf"
-   * @return String ImageMagickに渡すべきフォントのパス
-   */
-  def font(fontName: String): String = {
-    fontDir + "/" + fontName
-  }
-
 }
