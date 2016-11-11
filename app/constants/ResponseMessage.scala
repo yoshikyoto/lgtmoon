@@ -1,4 +1,0 @@
-package constants
-
-object ResponseMessage {
-}
