@@ -15,7 +15,6 @@ import externals.google.CustomSearchAdapter
 import domain.image.ImageRepository
 import actors.ImageActor
 import actors.ImageGenerateMessage
-import utils._
 
 /** LGTMoonが持っているimagesの情報を返すcontroller */
 class ImageController extends BaseControllerTrait {

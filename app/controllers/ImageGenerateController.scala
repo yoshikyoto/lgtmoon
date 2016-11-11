@@ -16,7 +16,6 @@ import domain.image.ImageRepository
 import actors.ImageActor
 import actors.ImageGenerateMessage
 import infra.util.UrlBuilder
-import utils._
 
 /** 画像生成を行うコントロラー */
 class ImageGenerateController extends BaseControllerTrait {

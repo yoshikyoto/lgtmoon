@@ -12,7 +12,6 @@ import play.api.Play.current
 import play.api.libs.concurrent.Akka
 import akka.actor.Props
 import externals.google.CustomSearchAdapter
-import utils._
 
 trait BaseControllerTrait extends Controller {
   /** Json以外のデータ形式が来た時のレスポンス */
