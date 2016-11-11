@@ -78,7 +78,7 @@
      * 画像URLをpostまたは検索実行のいずれかを行う
      */
     function submit() {
-        var urlRegexp = /^http:\/\//;
+        var urlRegexp = /^https?:\/\//;
         var keyword = $('input[name="keyword"]').val();
         if(keyword.match(urlRegexp) === null) {
             // マッチしない場合はURLではないのでsearch
