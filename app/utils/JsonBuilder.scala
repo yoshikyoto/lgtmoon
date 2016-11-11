@@ -2,6 +2,7 @@ package utils
 
 import play.api.libs.json._
 import repositories.Tables.ImageRow
+import infra.util.UrlBuilder
 
 object JsonBuilder {
   def imageUrl(url: String): String = {
