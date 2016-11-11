@@ -1,12 +1,8 @@
 # lgtmoon
 
-## What's this
+キーワードを入力するだけで簡単にLGTM画像を生成できるWevアプリです。
 
-キーワードを入力するだけでLGTM画像を作成してくれるアプリです。
-
-Generate LGTM image from keyword.
-
-## URL
+## 動作URL
 
 http://lgtmoon.herokuapp.com/
 
@@ -26,31 +22,32 @@ This application is licensed under the MIT License, see LICENSE.txt.
 
 ## API
 
-See Wiki.
+[Wiki](https://github.com/yoshikyoto/lgtmoon/wiki) を御覧ください。
 
-## Deploy
+## 動作環境作成手順
 
-### create Database
+### データベースの作成
 
-Execute sql/create.sql
+`sql/create.sql` をデータベースに流してください。
 
-Example
+例: 
 
 ```
 psql# create database lgtmoon owner postgres encoding 'UTF8';
 $ psql lgtmoon < create.sql
 ```
 
-Tips: How to start postgres daemon
+Tips: postgresデーモンの起動方法
 
 ```
 $ postgres -D /usr/local/var/postgres
 ```
 
-### create application.conf
+### application.conf の作成
 
-Create `conf/application.conf`
-You can see `conf/application.conf.template` as referense.
+`conf/application.conf.template` を参考に `conf/application.conf` を作成してください。
+
+TODO: どこを設定すればいいか書く
 
 ## Tips
 
@@ -64,7 +61,7 @@ $ cd sql
 $ sbt run
 ```
 
-### First deploy for Heroku
+### Herokuにデプロイする例
 
 ```
 $ heroku create <app-name>
@@ -75,7 +72,7 @@ $ git checkout -b deploy
 $ git commit application.conf
 $ git push heroku deploy:master
 ```
-#### API Test Example with curl
+#### curl でAPIを叩く
 
 ```
 $ curl http://host/image.json -X POST -H "content-type: application/json" -d '{"url":url}'
