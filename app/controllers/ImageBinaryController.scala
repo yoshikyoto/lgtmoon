@@ -6,13 +6,13 @@ import play.api._
 import play.api.mvc._
 import play.api.libs.iteratee.Enumerator
 import java.io.ByteArrayInputStream
-import models.ImageModel
+import domain.image.ImageRepository
 
 /** 画像のバイナリデータを返すコントローラー */
 class ImageBinaryController extends Controller {
   /** idを受け取り画像のバイナリデータを返す */
   def image(id: Long)  = Action.async { request =>
-    ImageModel.image(id).map {
+    ImageRepository.image(id).map {
       case Some(image) => {
         image.bin match {
           case Some(bin) => {

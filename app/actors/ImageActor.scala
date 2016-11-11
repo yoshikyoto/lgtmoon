@@ -6,7 +6,7 @@ import akka.actor.Actor
 import externals.google.CustomSearchAdapter
 import utils.ImageDownloader
 import externals.imagemagick.ImageMagickAdapter
-import models.ImageModel
+import domain.image.ImageRepository
 
 case class ImageGenerateMessage(id: Long, url: String)
 
@@ -18,6 +18,7 @@ case class ImageGenerateMessage(id: Long, url: String)
 class ImageActor extends Actor {
   val downloadDir = "/tmp"
   val convertedDir = "/tmp" //Play.current.configuration.getString("image.converted.dir").get
+  val imageRepository = ImageRepository
 
   override def receive: Receive = {
     case ImageGenerateMessage(id, url) => {
@@ -28,7 +29,7 @@ class ImageActor extends Actor {
       val imagemagick = new ImageMagickAdapter()
       imagemagick.convert(downloadPath, convertedPath)
       val bin = ImageDownloader.binary(convertedPath)
-      ImageModel.updateStatus(id, ImageModel.AVAILABLE, bin)
+      imageRepository.updateStatus(id, imageRepository.AVAILABLE, bin)
     }
   }
 

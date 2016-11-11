@@ -13,7 +13,7 @@ import play.api.libs.concurrent.Akka
 import akka.actor.Props
 import externals.rabbitmq.RabbitMqPublisher
 import externals.google.CustomSearchAdapter
-import models.ImageModel
+import domain.image.ImageRepository
 import actors.ImageActor
 import actors.ImageGenerateMessage
 import utils._
@@ -21,7 +21,7 @@ import utils._
 /** LGTMoonが持っているimagesの情報を返すcontroller */
 class ImageController extends BaseControllerTrait {
   def recent = Action.async { request =>
-    ImageModel.images(20).map {
+    ImageRepository.images(20).map {
       case None => InternalServerError("サーバーエラー")
       case Some(images) => Ok(JsonBuilder.images(images))
     }

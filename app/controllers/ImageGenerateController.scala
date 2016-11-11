@@ -13,7 +13,7 @@ import play.api.libs.concurrent.Akka
 import akka.actor.Props
 import externals.rabbitmq.RabbitMqPublisher
 import externals.google.CustomSearchAdapter
-import models.ImageModel
+import domain.image.ImageRepository
 import actors.ImageActor
 import actors.ImageGenerateMessage
 import utils._
@@ -33,7 +33,7 @@ class ImageGenerateController extends BaseControllerTrait {
             case None => Future(PARAMETER_KEYWORD_NOT_FOUND_RESPONSE)
             case Some(url)  => {
               // とりあえずURLだけ先に払い出して返す
-              ImageModel.create() map {
+              ImageRepository.create() map {
                 case None => DATABASE_CONNECTION_ERROR_RESPONSE
                 case Some(id) => {
                   val lgtmUrl = UrlBuilder.imageUrl(id.toString)

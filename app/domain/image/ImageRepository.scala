@@ -1,22 +1,23 @@
-package models
+package domain.image
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import repositories.Tables.{Image, ImageRow}
 import slick.driver.PostgresDriver.api._
 import java.sql.Timestamp
+import infra.datasource.LgtmoonDatabase
 
 /** imageテーブルにアクセスする */
-object ImageModel extends ImageModelTrait {
+object ImageRepository extends ImageRepositoryTrait {
 }
 
-trait ImageModelTrait {
-  // TODO このへんdaoに移す
-  val db = Database.forConfig("pg_database")
+trait ImageRepositoryTrait {
+
+  val db = LgtmoonDatabase
 
   // status定数
-  val CONVERTING: Short = 0;
-  val AVAILABLE: Short = 1;
+  val CONVERTING: Short = 0
+  val AVAILABLE: Short = 1
 
   /**
    * status=0でレコードを作成する
@@ -85,7 +86,6 @@ trait ImageModelTrait {
       case _ => None
     }.recover {
       case e => {
-        println("error on database")
         None
       }
     }
