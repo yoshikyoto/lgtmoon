@@ -19,7 +19,9 @@ class ImageBinaryController extends Controller {
             Result(
               header = ResponseHeader(200),
               body = Enumerator.fromStream(new ByteArrayInputStream(bin))
-            ).withHeaders(CONTENT_TYPE -> "image/png")
+            ).withHeaders(
+              CONTENT_TYPE -> "image/png",
+              CACHE_CONTROL -> "max-age=3600")
           }
           case None => NotFound("Not Found")
         }
