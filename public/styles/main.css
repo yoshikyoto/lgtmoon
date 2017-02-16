@@ -127,6 +127,11 @@
     width: 100%;
 }
 
+
+.text-align-center {
+    text-align: center;
+}
+
 /** 画像の詳細表示 */
 .modal {
     z-index: 200;
