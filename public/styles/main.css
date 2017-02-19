@@ -27,7 +27,14 @@
 /** ツイートボタン */
 .twitter-button {
     position: absolute;
-    right: 10px;
+    left: 320px;
+    top: 34px;
+}
+
+/** ↑部分の広告 */
+.top-amazon-ad {
+    position: absolute;
+    right: 0px;
     top: 10px;
 }
 
