@@ -30,6 +30,8 @@ class ImageGenerateController extends BaseControllerTrait {
           (json \ "url").asOpt[String] match {
             case None => Future(PARAMETER_KEYWORD_NOT_FOUND_RESPONSE)
             case Some(url)  => {
+              val xForwardedFor = request.remoteAddress
+              Logger.info(xForwardedFor)
               // とりあえずURLだけ先に払い出して返す
               ImageRepository.create() map {
                 case None => DATABASE_CONNECTION_ERROR_RESPONSE
