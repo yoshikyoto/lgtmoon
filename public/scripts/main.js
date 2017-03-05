@@ -13,9 +13,10 @@
         var form = $('#lgtmform');
         form.submit(function(event){
             event.preventDefault(); // 通常のpostは行わずAjax通信を行う
-            // search();
             submit();
         });
+
+        $('.help-button').addEventListener("click", openHelp, false);
         getRecent(); // 最近生成された画像の取得
     });
 
@@ -73,6 +74,18 @@
         });
     }
 
+    /** ヘルプウィンドウを表示する */
+    function openHelp() {
+        $('.help').removeClass('hidden');
+        $('.full-overlay').removeClass('hidden');
+    }
+
+    /** ヘルプウィンドウを表示する */
+    function closeHelp() {
+        $('.help').addClass('hidden');
+        $('.full-overlay').addClass('hidden');
+    }
+
     /**
      * 検索フォームに入力された文字列から、
      * 画像URLをpostまたは検索実行のいずれかを行う
@@ -92,6 +105,7 @@
     /** 画像検索APIを叩き、結果を表示する */
     function search() {
         $('input[name="keyword"]').prop('disabled', true);
+        $('.form-submit').prop('disabled', true);
         $('.result-section').removeClass('hidden');
         $('.result-section .overlay').removeClass('hidden');
         var keyword = $('input[name="keyword"]').val(); // 検索キーワードをフォームから取得
@@ -110,6 +124,7 @@
             setTimeout(function() {
                 $('.result-section .overlay').addClass('hidden');
                 $('input[name="keyword"]').prop('disabled', false);
+                $('.form-submit').prop('disabled', false);
             }, 3000);
         });
     }
@@ -117,6 +132,7 @@
     /** 画像をクリックした時に、画像生成のリクエストを送る */
     function postImageUrl(url) {
         $('input[name="keyword"]').prop('disabled', true);
+        $('.form-submit').prop('disabled', true);
         $('.result-section .overlay').removeClass('hidden');
         var data = {'url': url};
         $.ajax({
@@ -134,6 +150,7 @@
             // くるくるオーバーレイを無効化するが、連打対策のため3秒待つ
             setTimeout(function() {
                 $('input[name="keyword"]').prop('disabled', false);
+                $('.form-submit').prop('disabled', false);
                 $('.result-section .overlay').addClass('hidden');
             }, 3000);
         });

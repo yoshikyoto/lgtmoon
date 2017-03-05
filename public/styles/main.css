@@ -105,7 +105,7 @@
 .form-keyword {
     border: 1px solid #eef;
     float: left;
-    margin: 0px 0px 0px 8px;
+    margin: 2px 0px 0px 8px;
     border-radius: 3px;
     height: 25px;
     width: 300px;
@@ -116,6 +116,10 @@
     position: relative;
     background-color: #def;
     padding: 10px;
+}
+
+.form-submit {
+    height: 25px;
 }
 
 #message {
@@ -183,6 +187,7 @@
     background-color: #000;
     color: #fff;
     opacity: 0.5;
+    z-index: 100;
 }
 
 /** URL, GitHub Markdown などの文字 */
