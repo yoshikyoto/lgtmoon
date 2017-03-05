@@ -16,7 +16,6 @@
             submit();
         });
 
-        $('.help-button').addEventListener("click", openHelp, false);
         getRecent(); // 最近生成された画像の取得
     });
 
