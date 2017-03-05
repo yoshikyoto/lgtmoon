@@ -31,6 +31,22 @@
     top: 34px;
 }
 
+/** ヘルプのウィンドウ */
+.help {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 840px;
+    border: 1px solid #CCF;
+    background-color: #FFF;
+    z-index: 200;
+    padding: 0px 10px;
+}
+
+.help-section-title {
+    margin: 10px 0px;
+}
+
 /** 右上部分の広告 */
 .top-amazon-ad {
     position: absolute;
@@ -97,6 +113,7 @@
 }
 
 .form-block {
+    position: relative;
     background-color: #def;
     padding: 10px;
 }
