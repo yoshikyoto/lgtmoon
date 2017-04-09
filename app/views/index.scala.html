@@ -66,32 +66,38 @@
           <img src="{{url}}" v-on="click : detail">
         </div>
       </div>
-      
+    </section>
+
+    <section class="lgtmoon-section center recent-section text-align-center">
+      <iframe src="https://rcm-fe.amazon-adsystem.com/e/cm?f=ifr&t=yoshikiutakat-22&o=9&p=48&l=bn1&mode=videogames-jp&browse=637394&fc1=000000&lt1=_top&lc1=A43907&bg1=EFEFCC" marginwidth="0" marginheight="0" width="728" height="90" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+    </section>
+
+    <section class="lgtmoon-section center recent-section">
       <h2>ランダムピックアップ</h2>
       <div id="random-images" class="images-block">
         <div v-repeat="items" class="image-block">
           <img src="{{url}}" v-on="click : detail">
         </div>
       </div>
+    </section>
 
-      <!-- モーダル -->
-      <div id="detail">
-        <div class="full-overlay hidden" v-on="click : close"></div>
-        <div class="image-detail modal center hidden">
-          <a href="{{url}}">
-            <img src="{{url}}" class="gakubuchi">
-          </a>
-          <h3>Image URL</h3>
-          <input type="text" value="{{url}}"/>
-          <h3>GitHub Markdown</h3>
-          <input type="text" value="![LGTM]({{url}})" />
-        </div>
+    <section class="lgtmoon-section center recent-section text-align-center">
+      <iframe src="https://rcm-fe.amazon-adsystem.com/e/cm?f=ifr&t=yoshikiutakat-22&o=9&p=48&l=bn1&mode=books-jp&browse=202188011&fc1=000000&lt1=_top&lc1=A43907&bg1=EFEFCC" marginwidth="0" marginheight="0" width="728" height="90" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+    </section>
+
+    <!-- モーダル -->
+    <div id="detail">
+      <div class="full-overlay hidden" v-on="click : close"></div>
+      <div class="image-detail modal center hidden">
+        <a href="{{url}}">
+          <img src="{{url}}" class="gakubuchi">
+        </a>
+        <h3>Image URL</h3>
+        <input type="text" value="{{url}}"/>
+        <h3>GitHub Markdown</h3>
+        <input type="text" value="![LGTM]({{url}})" />
       </div>
-    </section>
-
-    <section class="lgtmoon-section center text-align-center">
-      <iframe src="https://rcm-fe.amazon-adsystem.com/e/cm?f=ifr&t=yoshikiutakat-22&o=9&p=48&l=bn1&mode=videogames-jp&browse=637394&fc1=000000&lt1=_top&lc1=A43907&bg1=EFEFCC" marginwidth="0" marginheight="0" width="728" height="90" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
-    </section>
+    </div>
 
     <section class="lgtmoon-section center">
       <h2 class="help-section-title">使い方</h2>
