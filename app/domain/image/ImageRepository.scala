@@ -1,9 +1,12 @@
 package domain.image
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import repositories.Tables.{Image, ImageRow}
+import scala.concurrent._
+import scala.concurrent.duration._
+import repositories._
+import repositories.Tables.{ImageRow, Image, GetResultImageRow}
 import slick.driver.PostgresDriver.api._
+import slick.jdbc.GetResult
 import java.sql.Timestamp
 import infra.datasource.LgtmoonDatabase
 
@@ -83,6 +86,28 @@ trait ImageRepositoryTrait {
     db.run(action).map {
       case images: Seq[ImageRow] if images.length > 0
           => Some(images(0))
+      case _ => None
+    }.recover {
+      case e => {
+        None
+      }
+    }
+  }
+
+  implicit val GetByteArr = GetResult(r => r.nextBytes)
+
+  /**
+    * random() はpostgres専用な気がする
+    */
+  def randomIds(limit: Int = 20): Future[Option[Seq[Int]]] = {
+    val action =  sql"""
+      SELECT id FROM image
+      WHERE status = 1
+      ORDER BY random()
+      LIMIT 20
+    """.as[Int]
+    db.run(action).map {
+      case ids: Seq[Int] => Some(ids)
       case _ => None
     }.recover {
       case e => {

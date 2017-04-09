@@ -23,4 +23,11 @@ class ImageController extends BaseControllerTrait {
       case Some(images) => Ok(JsonBuilder.images(images))
     }
   }
+
+  def random = Action.async { request =>
+    ImageRepository.randomIds().map {
+      case None => InternalServerError("データベース接続エラー")
+      case Some(ids) => Ok(JsonBuilder.imagesByIds(ids))
+    }
+  }
 }

@@ -66,6 +66,14 @@
           <img src="{{url}}" v-on="click : detail">
         </div>
       </div>
+      
+      <h2>ランダムピックアップ</h2>
+      <div id="random-images" class="images-block">
+        <div v-repeat="items" class="image-block">
+          <img src="{{url}}" v-on="click : detail">
+        </div>
+      </div>
+
       <!-- モーダル -->
       <div id="detail">
         <div class="full-overlay hidden" v-on="click : close"></div>

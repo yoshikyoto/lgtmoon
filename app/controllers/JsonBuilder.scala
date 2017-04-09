@@ -25,6 +25,13 @@ object JsonBuilder {
     Json.stringify(JsObject(Seq("images" -> JsArray(urls))))
   }
 
+  def imagesByIds(ids: Seq[Int]): String = {
+    val urls = ids.map { id =>
+      JsObject(Seq("url" -> JsString(UrlBuilder.imageUrl(id.toString))))
+    }
+    Json.stringify(JsObject(Seq("images" -> JsArray(urls))))
+  }
+
   def badRequest(message: String = "リクエストが不正です"): String = {
     Json.stringify(JsObject(Seq(
       "code" -> JsNumber(400),

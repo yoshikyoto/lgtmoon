@@ -1,6 +1,8 @@
 (function() {
     /** 画像一覧を表示するviewmodel */
     var vmImages
+    /** ランダム画像一覧を表示するviewmodel */
+    var vmRandomImages
     /** 検索結果一覧を表示するviewmodel */
     var vmSearchResults
     /** 画像の詳細情報を表示するviewmodel */
@@ -17,6 +19,7 @@
         });
 
         getRecent(); // 最近生成された画像の取得
+        getRandom(); // ランダム画像の取得
     });
 
     /** view model の初期化をする */
@@ -33,6 +36,18 @@
                     vmDetail.open(event);
                 },
             }
+        });
+        // ランダム画像表示 view model 初期化
+        vmRandomImages = new Vue({
+            el: '#random-images',
+            data: {
+                items: []
+            },
+            methods: {
+                detail: function(event) {
+                    vmDetail.open(event);
+                },
+            },
         });
         // 画像詳細表示モーダルのview model を初期化する
         vmDetail = new Vue({
@@ -158,7 +173,7 @@
     /** 最近の画像を取得して表示する */
     function getRecent() {
         $.ajax({
-            url: '/recent.json',
+            url: '/api/v1/images/recent.json',
             type: 'GET',
             cache: true,
             dataType: 'json'
@@ -169,6 +184,21 @@
         });
         setTimeout(getRecent, 10000);
     }
+
+    /** ランダムで画像を取得 */
+    function getRandom() {
+        $.ajax({
+            url: '/api/v1/images/random.json',
+            type: 'GET',
+            cache: true,
+            dataType: 'json'
+        }).done(function(json, status, xhr) {
+            vmRandomImages.items = json.images;
+        }).fail(function(error) {
+            console.log(error);
+        });
+    }
+
 
     /** @param message 検索フォームの横のmessageを表示する */
     function show(message) {
