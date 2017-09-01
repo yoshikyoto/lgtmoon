@@ -54,8 +54,6 @@ class ImageGenerateController extends BaseControllerTrait {
     request.body.asMultipartFormData match {
       case None => Future(INVALID_IMAGE_RESPONSE)
       case Some(data) => {
-        println(data.file("file"))
-        Future(Ok(""))
         data.file("file") match {
           case None => Future(INVALID_IMAGE_RESPONSE)
           case Some(file) => {

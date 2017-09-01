@@ -208,22 +208,22 @@
     }
 
     function initializeDropzone() {
-        console.log("initalize dropzone");
         $(".form-block").dropzone({
             url: "/image_binary.json",
             clickable: true,
             accept: function(file, done) {
                 console.log("file uplaod accepted");
-                console.log(file);
+                show("ファイルアップロード中...")
                 done()
             },
             success: function(file, message) {
                 console.log("file uplaod succeeded");
-                console.log(message);
+                var json = JSON.parse(message)
+                show(json.url);
             },
             error: function (file, message) {
                 console.log("file uplaod error");
-                console.log(message);
+                show("サーバーエラー");
             },
             complete: function (file) {
                 console.log("file upload processing complete");
