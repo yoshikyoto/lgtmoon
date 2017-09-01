@@ -230,3 +230,7 @@
     width: 100px;
     height: 100px;
 }
+
+.dz-preview {
+    display: none;
+}

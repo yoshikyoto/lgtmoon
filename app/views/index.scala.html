@@ -14,7 +14,9 @@
     <title>LGTMoon - 最もシンプルなLGTM画像ジェネレーター</title>
     <script type="text/javascript" src="/assets/scripts/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/assets/scripts/vue.min.js"></script>
+    <script type="text/javascript" src="/assets/scripts/dropzone.js"></script>
     <script type="text/javascript" src="/assets/scripts/main.js"></script>
+    <script type="text/javascript" src="/assets/scripts/upload.js"></script>
     <link rel="stylesheet" href="/assets/styles/main.css" type="text/css" />
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   </head>
@@ -29,7 +31,7 @@
       <div class="twitter-button">
         <a href="https://twitter.com/share" class="twitter-share-button"{count} data-hashtags="LGTMoon">Tweet</a>
       </div>
-      <div class="form-block">
+      <div class="form-block" >
         <form id="lgtmform"
               class="form">
           <input type="text"
@@ -40,11 +42,12 @@
             検索/画像生成
           </button>
           <span id="message"></span>
+          </form>
           <!-- <span class="help-button">ヘルプ</span> -->
         </form>
       </div>
     </section>
-    
+
     <section class="lgtmoon-section center result-section hidden">
       <h2>検索結果</h2>
       <div id="search-results" class="images-block">

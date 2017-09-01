@@ -4,6 +4,7 @@
 
 GET     /search.json                    controllers.ImageSearchController.search(keyword: String)
 POST    /image.json                     controllers.ImageGenerateController.withUrl
+POST    /image_binary.json              controllers.ImageGenerateController.withBinary
 GET     /api/v1/images/recent.json                    controllers.ImageController.recent
 GET     /api/v1/images/random.json      controllers.ImageController.random
 GET     /images/:id                     controllers.ImageBinaryController.image(id: Long)

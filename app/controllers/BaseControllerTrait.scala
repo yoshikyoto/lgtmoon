@@ -21,6 +21,9 @@ trait BaseControllerTrait extends Controller {
   val PARAMETER_KEYWORD_NOT_FOUND_RESPONSE =
     BadRequest(JsonBuilder.badRequest("keywordパラメータが見つかりませんでした"))
 
+  val INVALID_IMAGE_RESPONSE =
+    BadRequest(JsonBuilder.badRequest("画像ではないかおかしな形式です"))
+
   /** データベースの接続時にエラーが出た時のレスポンス */
   val DATABASE_CONNECTION_ERROR_RESPONSE =
     InternalServerError(JsonBuilder.internalServerError("データベースの接続に失敗しました"))
@@ -28,5 +31,4 @@ trait BaseControllerTrait extends Controller {
   /** Google Custom Search でエラーが出た時のレスポンス */
   val CUSTOM_SEARCH_ERROR_RESPONSE =
     InternalServerError(JsonBuilder.internalServerError("Google Search でエラーが発生しました"))
-
 }

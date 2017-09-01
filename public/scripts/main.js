@@ -18,6 +18,8 @@
             submit();
         });
 
+        initializeDropzone();
+
         getRecent(); // 最近生成された画像の取得
         getRandom(); // ランダム画像の取得
     });
@@ -204,4 +206,29 @@
     function show(message) {
         $('#message').text(message);
     }
+
+    function initializeDropzone() {
+        console.log("initalize dropzone");
+        $(".form-block").dropzone({
+            url: "/image_binary.json",
+            clickable: true,
+            accept: function(file, done) {
+                console.log("file uplaod accepted");
+                console.log(file);
+                done()
+            },
+            success: function(file, message) {
+                console.log("file uplaod succeeded");
+                console.log(message);
+            },
+            error: function (file, message) {
+                console.log("file uplaod error");
+                console.log(message);
+            },
+            complete: function (file) {
+                console.log("file upload processing complete");
+            }
+        });
+    }
+
 }).call(this);

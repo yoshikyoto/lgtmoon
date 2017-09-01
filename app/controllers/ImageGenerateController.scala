@@ -2,6 +2,7 @@ package controllers
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import java.io.File
 import play.api._
 import play.api.mvc._
 import org.joda.time.DateTime
@@ -14,7 +15,9 @@ import akka.actor.Props
 import domain.image.ImageRepository
 import actors.ImageActor
 import actors.ImageGenerateMessage
+import actors.ImageDownloadAndGenerateMessage
 import infra.util.UrlBuilder
+import infra.datasource.ImageStorage
 
 /** 画像生成を行うコントロラー */
 class ImageGenerateController extends BaseControllerTrait {
@@ -37,12 +40,38 @@ class ImageGenerateController extends BaseControllerTrait {
                 case None => DATABASE_CONNECTION_ERROR_RESPONSE
                 case Some(id) => {
                   val lgtmUrl = UrlBuilder.imageUrl(id.toString)
-                  imageActor ! ImageGenerateMessage(id, url)
+                  imageActor ! ImageDownloadAndGenerateMessage(id, url)
                   Ok(JsonBuilder.imageUrl(lgtmUrl))
                 }
               }
             }
           }
+      }
+    }
+  }
+
+  def withBinary = Action.async { request =>
+    request.body.asMultipartFormData match {
+      case None => Future(INVALID_IMAGE_RESPONSE)
+      case Some(data) => {
+        println(data.file("file"))
+        Future(Ok(""))
+        data.file("file") match {
+          case None => Future(INVALID_IMAGE_RESPONSE)
+          case Some(file) => {
+            // TODO file validation
+            ImageRepository.create().map {
+              case None => DATABASE_CONNECTION_ERROR_RESPONSE
+              case Some(id) => {
+                val lgtmImageUrl = UrlBuilder.imageUrl(id.toString)
+                val tmpPath = ImageStorage.getTmpPath(id.toString)
+                file.ref.moveTo(new File(tmpPath))
+                imageActor ! ImageGenerateMessage(id)
+                Ok(JsonBuilder.imageUrl(lgtmImageUrl))
+              }
+            }
+          }
+        }
       }
     }
   }
