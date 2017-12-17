@@ -48,7 +48,7 @@
 }
 
 /** 右上部分の広告 */
-.top-amazon-ad {
+.top-ad {
     position: absolute;
     right: 0px;
     top: 10px;
