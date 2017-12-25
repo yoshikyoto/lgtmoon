@@ -55,22 +55,21 @@
         vmDetail = new Vue({
             el: '#detail',
             data: {
-                url: ''
+                url: '',
+                seen: false,
             },
             methods: {
                 /** 動画詳細モーダルを開く */
                 open: function (event) {
                     var url = $(event.target).attr('src');
                     // オーバーレイとモーダルを表示させる
-                    $('.full-overlay').removeClass('hidden');
-                    $('.modal').removeClass('hidden');
                     this.url = url;
+                    this.seen = true
                 },
                 /** 動画詳細モーダルを閉じる */
                 close: function(event) {
                     // オーバーレイとモーダルを消す
-                    $('.full-overlay').addClass('hidden');
-                    $('.modal').addClass('hidden');
+                    this.seen = false
                 }
             }
         });

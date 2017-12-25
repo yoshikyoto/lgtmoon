@@ -13,7 +13,6 @@
     <script type="text/javascript" src="/assets/scripts/main.js"></script>
     <script type="text/javascript" src="/assets/scripts/upload.js"></script>
     <link rel="stylesheet" href="/assets/styles/main.css" type="text/css" />
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   </head>
   <body class="lgtmoon-body">
     <section class="lgtmoon-section center top">
@@ -24,7 +23,7 @@
         @ad.top()
       </div>
       <div class="twitter-button">
-        <a href="https://twitter.com/share" class="twitter-share-button"{count} data-hashtags="LGTMoon">Tweet</a>
+        @twitter.button()
       </div>
       <div class="form-block" >
         <form id="lgtmform"
@@ -38,7 +37,6 @@
           </button>
           <span id="message"></span>
           </form>
-          <!-- <span class="help-button">ヘルプ</span> -->
         </form>
       </div>
     </section>
@@ -85,8 +83,8 @@
 
     <!-- モーダル -->
     <div id="detail">
-      <div class="full-overlay hidden" v-on="click : close"></div>
-      <div class="image-detail modal center hidden">
+      <div class="full-overlay" v-show='seen' v-on="click : close"></div>
+      <div class="image-detail modal center" v-show='seen'>
         <a href="{{url}}">
           <img src="{{url}}" class="gakubuchi">
         </a>
