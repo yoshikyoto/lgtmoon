@@ -1,15 +1,18 @@
 (function() {
     /** 画像一覧を表示するviewmodel */
-    var vmImages
+    var vmImages;
     /** ランダム画像一覧を表示するviewmodel */
-    var vmRandomImages
+    var vmRandomImages;
     /** 検索結果一覧を表示するviewmodel */
-    var vmSearchResults
+    var vmSearchResults;
     /** 画像の詳細情報を表示するviewmodel */
-    var vmDetail
+    var vmDetail;
+
+    var vmMenu;
 
     /** ページがロードされた時に呼ばれる関数 */
     $(function() {
+        console.log("onload");
         initializeViewModel(); // view model の初期化
         // キーワード検索のハンドラを登録
         var form = $('#lgtmform');
@@ -26,6 +29,32 @@
 
     /** view model の初期化をする */
     function initializeViewModel() {
+        console.log("itit");
+        vmMenu = new Vue({
+            el: '#lgtmoon-menu',
+            data: {
+                items: [
+                    {
+                        id: 0,
+                        text: '最近生成された画像',
+                    },
+                    {
+                        id: 1,
+                        text: 'ランダムピックアップ',
+                    },
+                    {
+                        id: 2,
+                        text: '使い方',
+                    },
+                ]
+            },
+            methods: {
+                click: function(id) {
+                    console.log(id);
+                }
+            }
+        });
+        console.log(vmMenu);
         // 最近の画像の view model 初期化
         vmImages  = new Vue({
             el: '#images',
@@ -34,8 +63,8 @@
             },
             methods: {
                 /** 動画詳細モーダルを表示させる */
-                detail: function(event) {
-                    vmDetail.open(event);
+                detail: function(item) {
+                    vmDetail.open(item.url);
                 },
             }
         });
@@ -46,8 +75,8 @@
                 items: []
             },
             methods: {
-                detail: function(event) {
-                    vmDetail.open(event);
+                detail: function(item) {
+                    vmDetail.open(item.url);
                 },
             },
         });
@@ -56,14 +85,15 @@
             el: '#detail',
             data: {
                 url: '',
+                githubMarkdown: '',
                 seen: false,
             },
             methods: {
                 /** 動画詳細モーダルを開く */
-                open: function (event) {
-                    var url = $(event.target).attr('src');
+                open: function (url) {
                     // オーバーレイとモーダルを表示させる
                     this.url = url;
+                    this.githubMarkdown = '![LGTM](' + this.url + ')';
                     this.seen = true
                 },
                 /** 動画詳細モーダルを閉じる */
@@ -80,25 +110,11 @@
                 items: []
             },
             methods: {
-                post: function(event) {
-                    // post する画像のURL
-                    var url = $(event.target).attr('src');
-                    postImageUrl(url);
+                post: function(item) {
+                    postImageUrl(item.url);
                 }
             }
         });
-    }
-
-    /** ヘルプウィンドウを表示する */
-    function openHelp() {
-        $('.help').removeClass('hidden');
-        $('.full-overlay').removeClass('hidden');
-    }
-
-    /** ヘルプウィンドウを表示する */
-    function closeHelp() {
-        $('.help').addClass('hidden');
-        $('.full-overlay').addClass('hidden');
     }
 
     /**
