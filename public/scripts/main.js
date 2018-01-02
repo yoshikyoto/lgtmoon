@@ -7,12 +7,13 @@
     var vmSearchResults;
     /** 画像の詳細情報を表示するviewmodel */
     var vmDetail;
-
+    /** ヘルプのviewmodel */
+    var vmHelp;
     var vmMenu;
+    var menuIndex = 0;
 
     /** ページがロードされた時に呼ばれる関数 */
     $(function() {
-        console.log("onload");
         initializeViewModel(); // view model の初期化
         // キーワード検索のハンドラを登録
         var form = $('#lgtmform');
@@ -29,42 +30,21 @@
 
     /** view model の初期化をする */
     function initializeViewModel() {
-        console.log("itit");
-        vmMenu = new Vue({
-            el: '#lgtmoon-menu',
-            data: {
-                items: [
-                    {
-                        id: 0,
-                        text: '最近生成された画像',
-                    },
-                    {
-                        id: 1,
-                        text: 'ランダムピックアップ',
-                    },
-                    {
-                        id: 2,
-                        text: '使い方',
-                    },
-                ]
-            },
-            methods: {
-                click: function(id) {
-                    console.log(id);
-                }
-            }
-        });
-        console.log(vmMenu);
         // 最近の画像の view model 初期化
         vmImages  = new Vue({
             el: '#images',
             data: {
-                items: []
+                items: [],
+                seen: true,
+                menuIndex: menuIndex,
             },
             methods: {
                 /** 動画詳細モーダルを表示させる */
                 detail: function(item) {
                     vmDetail.open(item.url);
+                },
+                setSeen: function(seen) {
+                    this.seen = seen;
                 },
             }
         });
@@ -72,13 +52,24 @@
         vmRandomImages = new Vue({
             el: '#random-images',
             data: {
-                items: []
+                items: [],
+                seen: false,
+                menuIndex: menuIndex,
+                index: 1,
             },
             methods: {
                 detail: function(item) {
                     vmDetail.open(item.url);
                 },
             },
+        });
+        // ヘルプ表示
+        vmHelp = new Vue({
+            el: '#lgtmoon-help',
+            data: {
+                seen: false,
+                menuIndex: menuIndex,
+            }
         });
         // 画像詳細表示モーダルのview model を初期化する
         vmDetail = new Vue({
@@ -115,6 +106,40 @@
                 }
             }
         });
+
+        /** メニューのviewmodel かならず他のvmの後に定義しなければならない */
+        vmMenu = new Vue({
+            el: '#lgtmoon-menu',
+            data: {
+                items: [
+                    {
+                        text: '最近生成された画像',
+                        vm: vmImages,
+                        index: 0,
+                    },
+                    {
+                        text: 'ランダムピックアップ',
+                        vm: vmRandomImages,
+                        index: 1,
+                    },
+                    {
+                        text: '使い方',
+                        vm: vmHelp,
+                        index: 2,
+                    },
+                ]
+            },
+            methods: {
+                /** メニューがクリックされた時 */
+                click: function(item) {
+                    for (let i in this.items) {
+                        this.items[i].vm.seen = false;
+                    }
+                    item.vm.seen = true;
+                }
+            }
+        });
+
     }
 
     /**

@@ -68,34 +68,34 @@
       </div>
     </div>
 
-    @**
-    <section id="lgtmoon-menu" class="lgtmoon-section center">
-      <h2 v-for="item in items" v-on:click="click(item.id)">
+    @* メニュー *@
+    <section id="lgtmoon-menu" class="lgtmoon-section center menu-section">
+      <h2 v-for="item in items" v-on:click="click(item)" class="menu-item"
+          v-bind:class="{ 'menu-item-selected' : item.vm.seen }">
         {{ item.text }}
       </h2>
     </section>
-    **@
 
-    <section class="lgtmoon-section center recent-section">
-      <h2>最近生成された画像</h2>
-      <div id="images" class="images-block">
+    <section class="lgtmoon-section center recent-section" id="images">
+      <div class="images-block" v-show="seen">
         <div v-for="item in items" class="image-block">
           <img :src="item.url" v-on:click="detail(item)">
         </div>
       </div>
     </section>
 
-    <section class="lgtmoon-section center recent-section">
-      <h2>ランダムピックアップ</h2>
-      <div id="random-images" class="images-block">
+    <section class="lgtmoon-section center recent-section" id="random-images" >
+      <div class="images-block" v-show="seen">
         <div v-for="item in items" class="image-block">
           <img :src="item.url" v-on:click="detail(item)">
         </div>
       </div>
     </section>
 
-    <section class="lgtmoon-section center">
-      @module.help()
+    <section class="lgtmoon-section center" id="lgtmoon-help">
+      <div v-show="seen">
+        @module.help()
+      </div>
     </section>
 
     </article>

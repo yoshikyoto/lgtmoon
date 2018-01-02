@@ -31,6 +31,34 @@
     top: 34px;
 }
 
+/** メニュー */
+.menu-section {
+    overflow: hidden;
+}
+
+.menu-item {
+    width: 300px;
+    padding: 5px 0px;
+    text-align: center;
+    vertical-align: middle;
+    float: left;
+    cursor : pointer;
+}
+
+.menu-item:hover {
+    background: #ccf;
+    color: 333;
+}
+
+.menu-item-selected {
+    background: #009;
+    color: #ffffff;
+}
+
+.menu:after {
+    clear: both;
+}
+
 /** ヘルプのウィンドウ */
 .help {
     position: absolute;
