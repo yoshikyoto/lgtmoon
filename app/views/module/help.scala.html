@@ -54,7 +54,7 @@ GitHubにプルリクエストを出して頂いても構いません。
 <ul>
   <li>「かっこいい gif」のように検索するとgifアニメーションからLGTM画像を作成できたりします。</li>
   <li>縦長の画像より横長の画像の方がクールなLGTM画像ができます。</li>
-  <li>白が多い画像ですとLGTMの文字が見づらくなる
+  <li>白が多い画像ですとLGTMの文字が見づらくなります。画面の中心あたりにLGTMの文字がかさなりますので、それを意識して画像を選択すると良いでしょう。</li>
 </ul>
 
 <h2 class="help-section-title">リンク</h2>
@@ -65,6 +65,11 @@ GitHubにプルリクエストを出して頂いても構いません。
       yoshiki_utakata
     </a>
   </li>
+  <li>GitHub
+    <a href="https://github.com/yoshikyoto/lgtmoon" target="_blank">
+      yoshikyoto/lgtmoon
+    </a>
+  </li>
   <li>
     <a href="http://yoshiki-utakata.hatenablog.com/" target="_blank">製作者ブログ</a>
   </li>
@@ -73,4 +78,19 @@ GitHubにプルリクエストを出して頂いても構いません。
       LGTM画像を驚くほど簡単に作れるWebサービス with Scala
     </a>
   </li>
+</ul>
+
+<h2 class="help-section-title">技術的な話</h2>
+
+LGTMoonは、Scala, Play Framework を利用しており、非同期画像処理部分は Scala の Akka Actor を利用しています（RabbitMQなどは利用していません）。
+また、フロントエンドには Vue.js 、画像処理部分には ImageMagick を利用しています。
+
+<h2 class="help-section-title">参考</h2>
+
+<ul>
+  <li><a href="http://amzn.to/2m8aD54" target="_blank">Scalaスケーラブルプログラミング第2版</a>: Scalaで大規模なコードを書くなら読んでおきたい本です</li>
+  <li><a href="http://amzn.to/2AGdMhL" target="_blank">Scala関数型デザイン&プログラミング―Scalazコントリビューターによる関数型徹底ガイド</a>: 関数型プログラミングを意識してScalaを書きたいのであれば読んでおきたい本です</li>
+  <li><a href="http://amzn.to/2mcXYyi" target="_blank">Akka実践バイブル アクターモデルによる並行・分散システムの実現</a>: Akka Actor などを利用した並行処理などを理解するためのバイブルです</li>
+  <li><a href="https://www.playframework.com/documentation/ja/2.4.x/Home" target="_blank">Scala Play 2.4.x ドキュメント</a></li>
+  <li><a href="https://jp.vuejs.org/index.html" target="_blank">Vue.js</a></li>
 </ul>
