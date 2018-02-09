@@ -61,6 +61,9 @@
                 detail: function(item) {
                     vmDetail.open(item.url);
                 },
+                reload: function() {
+                    getRandom();
+                }
             },
         });
         // ヘルプ表示
@@ -223,12 +226,14 @@
             vmImages.items = json.images;
         }).fail(function(error) {
             console.log(error);
+        }).always(function() {
+            setTimeout(getRecent, 10000);
         });
-        setTimeout(getRecent, 10000);
     }
 
     /** ランダムで画像を取得 */
     function getRandom() {
+        $('.random-image-overlay').removeClass('hidden');
         $.ajax({
             url: '/api/v1/images/random.json',
             type: 'GET',
@@ -238,6 +243,11 @@
             vmRandomImages.items = json.images;
         }).fail(function(error) {
             console.log(error);
+        }).always(function() {
+            // 連打対策＆画像読み込みのため3秒待つ
+            setTimeout(function() {
+                $('.random-image-overlay').addClass('hidden');
+            }, 1000);
         });
     }
 
