@@ -1,0 +1,38 @@
+openapi: "3.0.0"
+info:
+  description: ""
+  version: ""
+  title: "LGTMoon API"
+  contact:
+    email: "yoshiki_utakata@yahoo.co.jp"
+paths:
+  /recent.json:
+    get:
+      tags:
+      - "recent"
+      summary: "最近生成された画像を取得する"
+      description: ""
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  "images":
+                      $ref: "#/components/schemas/Images"
+components:
+  schemas:
+    "Images":
+      type: array
+      items:
+        $ref: "#/components/schemas/Image"
+      example:
+      - "url": "http://lgtmoon.herokuapp.com/images/1291"
+      - "url": "http://lgtmoon.herokuapp.com/images/1290"
+    "Image":
+      type: object
+      properties:
+        "url":
+          type: string
