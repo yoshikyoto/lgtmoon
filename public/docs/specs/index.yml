@@ -6,7 +6,7 @@ info:
   contact:
     email: "yoshiki_utakata@yahoo.co.jp"
 paths:
-  /recent.json:
+  "/api/v1/images/recent.json":
     get:
       tags:
       - "recent"
