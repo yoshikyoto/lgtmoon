@@ -79,7 +79,13 @@
 .top-ad {
     position: absolute;
     right: 0px;
-    top: 10px;
+    top: 0px;
+}
+
+/** 右上広告の「スポンサーリンク」の文字 */
+.top-ad-text {
+    padding-top: 0px;
+    font-size: 0.75em;
 }
 
 /** footer */
@@ -211,6 +217,10 @@
 
 .text-align-center {
     text-align: center;
+}
+
+.text-align-right {
+    text-align: right;
 }
 
 /** 画像の詳細表示 */
