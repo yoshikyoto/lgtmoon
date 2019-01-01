@@ -1,6 +1,6 @@
 package infra.datasource
 
-import slick.driver.PostgresDriver.api._
+import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.Future
 import slick.dbio.DBIOAction
 
