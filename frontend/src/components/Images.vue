@@ -1,7 +1,7 @@
 <template>
   <div class="images-block">
     <div v-for="item in items" class="image-block">
-      <img :src="item.url" v-on:click="detail(item)" class="image">
+      <img :src="item.url" v-on:click="select(item)" class="image">
     </div>
   </div>
 </template>
@@ -11,7 +11,12 @@
      name: 'Images',
      props: [
          'items'
-     ]
+     ],
+     methods: {
+         select(item) {
+             this.$emit('select', item)
+         }
+     }
  }
 </script>
 

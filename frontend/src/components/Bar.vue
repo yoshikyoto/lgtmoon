@@ -16,9 +16,10 @@
         <span id="message" class="form-message" v-text="message"></span>
       </form>
     </div>
-    <div v-if="images.length != 0">
+    <div v-if="images.length != 0"
+         class="search-result-block">
       <h2>検索結果</h2>
-      <Images :items.sync="images"/>
+      <Images :items.sync="images" @select="select"/>
       <Loading v-if="isInputDisabled"/>
     </div>
   </div>
@@ -35,7 +36,7 @@
          Images,
          Loading
      },
-     data() {
+     data () {
          return {
              keyword: '',
              message: '',
@@ -44,14 +45,14 @@
          }
      },
      methods: {
-         submit(event) {
+         submit (event) {
              if(this.isUrl(this.keyword)) {
                  this.generate(this.keyword)
              } else {
                  this.search(this.keyword)
              }
          },
-         search(keyword) {
+         search (keyword) {
              this.isInputDisabled = true
              axios.get('/search.json', {
                  params: {
@@ -65,7 +66,7 @@
                  this.isInputDisabled = false
              });
          },
-         generate(imageUrl) {
+         generate (imageUrl) {
              this.isInputDisabled = true
              axios.post('/image.json', {
                  url: imageUrl
@@ -77,8 +78,11 @@
                  this.isInputDisabled = false
              });
          },
-         isUrl(url) {
+         isUrl (url) {
              return !(url.match(/^https?:\/\//) === null)
+         },
+         select (image) {
+             this.generate(image.url)
          }
      }
  }
@@ -104,5 +108,8 @@
  }
  .form-message {
      margin-left: 10px;
+ }
+ .search-result-block {
+     position: relative;
  }
 </style>
