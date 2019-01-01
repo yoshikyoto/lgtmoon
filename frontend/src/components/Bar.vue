@@ -19,11 +19,7 @@
     <div v-if="images.length != 0">
       <h2>検索結果</h2>
       <Images :items.sync="images"/>
-      <div class="overlay" v-if="isInputDisabled">
-        <div class="loader">
-          <img src="/assets/loader.gif">
-        </div>
-      </div>
+      <Loading v-if="isInputDisabled"/>
     </div>
   </div>
 </template>
@@ -31,11 +27,13 @@
 <script>
  import axios from 'axios'
  import Images from '@/components/Images'
+ import Loading from '@/components/Loading'
 
  export default {
      name: 'bar',
      components: {
-         Images
+         Images,
+         Loading
      },
      data() {
          return {
@@ -107,20 +105,4 @@
  .form-message {
      margin-left: 10px;
  }
- .overlay {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    color: #fff;
-    opacity: 0.5;
- }
- .loader {
-    margin: 0px auto;
-    width: 100px;
-    height: 100px;
- }
-
 </style>
