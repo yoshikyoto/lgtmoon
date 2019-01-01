@@ -1,26 +1,19 @@
 <template>
-  <section class="lgtmoon-section center result-section hidden">
-    <h2>検索結果</h2>
-    <div id="search-results" class="images-block">
-      <div v-for="item in items" class="image-block">
-        <img :src="item.url" v-on:click="post(item)">
-      </div>
-    </div>
-    <div class="overlay hidden">
-      <div class="loader">
-        <img src="/assets/ajax-loader.gif">
-      </div>
-    </div>
+  <section class="lgtmoon-section center recent-section" id="images">
+    <Images :items.sync="items"/>
   </section>
 </template>
 
 <script>
  import axios from 'axios'
+ import Images from '@/components/Images'
 
  export default {
      name: 'Recent',
+     components: {
+         Images
+     },
      mounted() {
-         console.log(this.items)
          axios.get('/api/v1/images/recent.json').then((response) => {
              this.items = response.data.images
          });
