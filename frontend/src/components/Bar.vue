@@ -12,7 +12,7 @@
                class="form-submit"
                @click.prevent="submit()"
                value="検索/画像生成"
-               :disabled="isInputDisabled"></input>
+               :disabled="isInputDisabled"/>
         <span id="message" class="form-message" v-text="message"></span>
       </form>
     </div>

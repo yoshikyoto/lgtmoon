@@ -1,8 +1,10 @@
 <template>
   <div class="lgtmoon-header">
-    <a href="/" class="no-decoration">
-      <h1 class="title">LGTMoon</h1>
-    </a>
+    <h1 class="title">
+      <a href="/" class="no-decoration">
+        LGTMoon
+      </a>
+    </h1>
   </div>
 </template>
 
@@ -20,13 +22,15 @@
  }
  @font-face {
      font-family: 'ikafont';
-     src: url('/fonts/ikafont.otf') format('opentype');
+     src: url('/assets/fonts/ikafont.otf') format('opentype');
  }
  .title {
      font-family: 'ikafont', Impact;
      font-size: 4em;
-     color: #003;
      margin-top: 0px;
      margin-bottom: 0px;
+ }
+ .title a {
+     color: #003;
  }
 </style>
