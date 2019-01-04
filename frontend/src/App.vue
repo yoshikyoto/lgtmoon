@@ -3,13 +3,16 @@
     <Header/>
     <Bar/>
     <div class="menu">
-      <div v-on:click="recent()" class="menu-item">
+      <div v-on:click="recent()" class="menu-item"
+           :class="{ 'menu-item-selected' : selected == 0 }">
         最近の画像
       </div>
-      <div v-on:click="random()" class="menu-item">
+      <div v-on:click="random()" class="menu-item"
+           :class="{ 'menu-item-selected' : selected == 1 }">
         ランダム
       </div>
-      <div v-on:click="help()" class="menu-item">
+      <div v-on:click="help()" class="menu-item"
+           :class="{ 'menu-item-selected' : selected == 2 }">
         使い方
       </div>
     </div>
@@ -75,11 +78,14 @@
      text-align: center;
      vertical-align: middle;
      float: left;
-     cursor : pointer;
+     cursor: pointer;
+     font-size: 1.5em;
+     font-weight: bold;
+     color: #300;
  }
  .menu-item:hover {
      background: #ccf;
-     color: 333;
+     color: #600;
  }
  .menu-item-selected {
      background: #009;
