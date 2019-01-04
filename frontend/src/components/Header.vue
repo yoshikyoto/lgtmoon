@@ -8,9 +8,6 @@
   </div>
 </template>
 
-<script>
-</script>
-
 <style>
  .lgtmoon-header {
      background-image: url(/assets/ink/ink002.png);
