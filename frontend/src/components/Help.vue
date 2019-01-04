@@ -96,5 +96,14 @@
       <li><a href="https://jp.vuejs.org/index.html" target="_blank">Vue.js</a></li>
     </ul>
     <h2 class="help-section-title">LGTMoonは無料で利用できます</h2>
+    <div>
+      <ul>
+        <li>
+          <a href="http://amzn.asia/0UX34TT" target="_blank">
+            Amazonほしいものリスト
+          </a>
+        </li>
+      </ul>
+    </div>
   </section>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="lgtmoon-app">
+  <div class="lgtmoon-app center">
     <Header/>
     <Bar/>
     <div class="menu">
@@ -15,7 +15,7 @@
     </div>
     <Recent v-show="selected == 0"/>
     <Random v-show="selected == 1"/>
-    <Help v-show="selected == 2"/>
+    <Help/>
   </div>
 </template>
 
@@ -59,6 +59,12 @@
      font-family: 'Avenir', Helvetica, Arial, sans-serif;
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;
+     width: 900px;
+     position: relative;
+ }
+ .center {
+    margin-left: auto;
+    margin-right: auto;
  }
  .menu:after {
      clear: both;
