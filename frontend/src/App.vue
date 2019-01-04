@@ -1,6 +1,7 @@
 <template>
   <div class="lgtmoon-app center">
     <Header/>
+    <AdTop/>
     <Bar/>
     <div class="menu">
       <div v-on:click="recent()" class="menu-item"
@@ -28,6 +29,7 @@
  import Recent from '@/components/Recent'
  import Random from '@/components/Random'
  import Help from '@/components/Help'
+ import AdTop from '@/components/adsense/AdTop'
 
  export default {
      name: 'app',
@@ -41,7 +43,8 @@
          Bar,
          Recent,
          Random,
-         Help
+         Help,
+         AdTop
      },
      methods: {
          recent() {
