@@ -10,6 +10,8 @@ yarn install
 yarn run serve
 ```
 
+And access http://localhost:8080/index.scala.html
+
 ### Compiles and minifies for production
 ```
 yarn run build
