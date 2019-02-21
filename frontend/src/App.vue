@@ -17,7 +17,6 @@
     </div>
     <Recent v-show="selected == 0"/>
     <Random v-show="selected == 1"/>
-    <Help/>
   </div>
 </template>
 
@@ -25,7 +24,6 @@
  import Bar from '@/components/Bar'
  import Recent from '@/components/Recent'
  import Random from '@/components/Random'
- import Help from '@/components/Help'
 
  export default {
      name: 'app',
@@ -37,8 +35,7 @@
      components: {
          Bar,
          Recent,
-         Random,
-         Help
+         Random
      },
      methods: {
          recent() {

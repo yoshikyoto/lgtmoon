@@ -6,6 +6,7 @@
   position: relative;
 }
 
+/** タイトル */
 .lgtmoon-header {
   background-image: url(/assets/ink/ink002.png);
   background-size: 150px;
@@ -30,4 +31,21 @@
 
 .title a {
   color: #003;
+}
+
+/** 右上部分の広告 */
+.top-ad {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+/** 右上広告の「スポンサーリンク」の文字 */
+.top-ad-text {
+    padding-top: 0px;
+    font-size: 0.75em;
+}
+
+.text-align-center {
+    text-align: center;
 }
