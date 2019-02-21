@@ -1,19 +1,17 @@
 <template>
-  <div class="lgtmoon-app center">
-    <Header/>
-    <AdTop/>
+  <div>
     <Bar/>
     <div class="menu">
       <div v-on:click="recent()" class="menu-item"
-           :class="{ 'menu-item-selected' : selected == 0 }">
+        :class="{ 'menu-item-selected' : selected == 0 }">
         最近の画像
       </div>
       <div v-on:click="random()" class="menu-item"
-           :class="{ 'menu-item-selected' : selected == 1 }">
+        :class="{ 'menu-item-selected' : selected == 1 }">
         ランダム
       </div>
       <div v-on:click="help()" class="menu-item"
-           :class="{ 'menu-item-selected' : selected == 2 }">
+        :class="{ 'menu-item-selected' : selected == 2 }">
         使い方
       </div>
     </div>
@@ -24,12 +22,10 @@
 </template>
 
 <script>
- import Header from '@/components/Header'
  import Bar from '@/components/Bar'
  import Recent from '@/components/Recent'
  import Random from '@/components/Random'
  import Help from '@/components/Help'
- import AdTop from '@/components/adsense/AdTop'
 
  export default {
      name: 'app',
@@ -39,12 +35,10 @@
          }
      },
      components: {
-         Header,
          Bar,
          Recent,
          Random,
-         Help,
-         AdTop
+         Help
      },
      methods: {
          recent() {
@@ -61,13 +55,6 @@
 </script>
 
 <style>
- .lgtmoon-app {
-     font-family: 'Avenir', Helvetica, Arial, sans-serif;
-     -webkit-font-smoothing: antialiased;
-     -moz-osx-font-smoothing: grayscale;
-     width: 900px;
-     position: relative;
- }
  .center {
     margin-left: auto;
     margin-right: auto;
