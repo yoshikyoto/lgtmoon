@@ -35,17 +35,21 @@
 
 /** 右上部分の広告 */
 .top-ad {
-    position: absolute;
-    right: 0px;
-    top: 0px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
 }
 
 /** 右上広告の「スポンサーリンク」の文字 */
 .top-ad-text {
-    padding-top: 0px;
-    font-size: 0.75em;
+  padding-top: 0px;
+  font-size: 0.75em;
 }
 
 .text-align-center {
-    text-align: center;
+  text-align: center;
+}
+
+.position-relative {
+  position: relative;
 }

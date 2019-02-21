@@ -1,7 +1,7 @@
 <template>
   <div>
     <Bar/>
-    <div class="menu">
+    <div class="menu position-relative">
       <div v-on:click="recent()" class="menu-item"
         :class="{ 'menu-item-selected' : selected == 0 }">
         最近の画像
@@ -15,40 +15,80 @@
         使い方
       </div>
     </div>
-    <Recent v-show="selected == 0"/>
-    <Random v-show="selected == 1"/>
-    <Help v-show="selected == 2"/>
+    <section class="lgtmoon-section center recent-section position-relative image-section">
+      <Images :items.sync="recentItems" @select="showDetail" v-show="selected == 0"/>
+      <Images :items.sync="randomItems" @select="showDetail" v-show="selected == 1"/>
+      <Help v-show="selected == 2"/>
+      <ImageDetail v-if="isShowingDetail" :url="image.url" @close="closeDetail"/>
+      <Loading v-if="isLoading"/>
+    </section>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   import Bar from '@/components/Bar'
-  import Recent from '@/components/Recent'
-  import Random from '@/components/Random'
+  import Images from '@/components/Images'
+  import ImageDetail from '@/components/ImageDetail'
   import Help from '@/components/Help'
+  import Loading from '@/components/Loading'
 
   export default {
     name: 'app',
     data() {
       return {
-        selected: 0
+        selected: 0,
+        isShowingDetail: false,
+        isLoading: false,
+        recentItems: [],
+        randomItems: [],
+        image: null
       }
     },
     components: {
       Bar,
-      Recent,
-      Random,
-      Help
+      Help,
+      Images,
+      ImageDetail,
+      Loading
+    },
+    mounted() {
+      // 最新の画像を読み込む
+      axios.get('/api/v1/images/recent.json').then((response) => {
+        this.recentItems = response.data.images
+      });
+      // 30秒ごとに画像一覧を更新
+      setInterval(function () {
+        axios.get('/api/v1/images/recent.json').then((response) => {
+          this.items = response.data.images
+        });
+      }, 30000);
     },
     methods: {
-      recent() {
+      recent () {
         this.selected = 0
       },
-      random() {
+      random () {
+        // 連打対策
+        if (this.isLoading) {
+          return;
+        }
         this.selected = 1
+        this.isLoading = true
+        axios.get('/api/v1/images/random.json').then((response) => {
+          this.randomItems = response.data.images
+          this.isLoading = false
+        });
       },
-      help() {
+      help () {
         this.selected = 2
+      },
+      showDetail (image) {
+        this.isShowingDetail = true
+        this.image = image
+      },
+      closeDetail () {
+        this.isShowingDetail = false;
       }
     }
   }
@@ -61,6 +101,9 @@
   }
   .menu:after {
     clear: both;
+  }
+  .menu {
+    height: 50px;
   }
   .menu-item {
     width: 300px;
@@ -80,5 +123,8 @@
   .menu-item-selected {
     background: #009;
     color: #ffffff;
+  }
+  .image-section {
+    min-height: 200px;
   }
 </style>
