@@ -10,7 +10,8 @@ yarn install
 yarn run serve
 ```
 
-And access http://localhost:8080/index.scala.html
+* Start Scala Play server
+* and access http://localhost:8080/index.scala.html
 
 ### Compiles and minifies for production
 ```
