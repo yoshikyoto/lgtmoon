@@ -10,7 +10,7 @@
           :disabled="isInputDisabled"/>
         <input type="submit"
           class="form-submit"
-          @click.prevent="submit()"
+          @click.prevent="submit"
           value="検索/画像生成"
           :disabled="isInputDisabled"/>
         <span id="message" class="form-message" v-text="message"></span>
@@ -51,7 +51,7 @@
     },
     methods: {
       /** 入力内容に応じて処理をする */
-      submit (event) {
+      submit () {
         if(this.isUrl(this.keyword)) {
           // URLが入力された場合は画像生成
           this.generate(this.keyword)
