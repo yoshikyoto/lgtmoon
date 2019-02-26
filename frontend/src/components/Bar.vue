@@ -5,14 +5,17 @@
         <input type="text"
           name="keyword"
           class="form-input-text"
-          placeholder="キーワードで画像検索/URLで直接生成 【例】ラブライブ"
+          placeholder="キーワードで画像検索・URLで直接生成"
           v-model="keyword"
           :disabled="isInputDisabled"/>
-        <input type="submit"
-          class="form-submit"
-          @click.prevent="submit"
-          value="検索/画像生成"
-          :disabled="isInputDisabled"/>
+        <label class="form-submit">
+          <span v-text="submitButtonLabel"></span>
+          <input type="submit"
+            class="hidden"
+            @click.prevent="submit"
+            value="検索/画像生成"
+            :disabled="isInputDisabled"/>
+        </label>
         <span id="message" class="form-message" v-text="message"></span>
       </form>
     </div>
@@ -46,8 +49,20 @@
         /** 検索結果の画像 */
         images: [],
         /** 検索窓とボタンを無効化するかどうか（連打対策） */
-        isInputDisabled: false
+        isInputDisabled: false,
       }
+    },
+    computed: {
+      /** 入力された文字列がURLかどうか */
+      isInputUrl () {
+        return this.isUrl(this.keyword)
+      },
+      submitButtonLabel () {
+        if (this.isInputUrl) {
+          return '画像生成'
+        }
+        return '画像検索'
+      },
     },
     methods: {
       /** 入力内容に応じて処理をする */
@@ -96,6 +111,7 @@
       select (image) {
         this.generate(image.url)
       },
+      /** 検索結果を閉じる */
       close () {
         this.images = []
       }
@@ -114,12 +130,23 @@
     float: left;
     margin: -2px 0px 0px 8px;
     border-radius: 3px;
-    height: 25px;
+    height: 26px;
     width: 300px;
     font-size: 13px;
+    border-radius: 5px 0px 0px 5px;
   }
   .form-submit {
     height: 25px;
+    width: 100px;
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+    color: #fff;
+    background: #009;
+    border-radius: 0 5px 5px 0;
+  }
+  .form-submit:hover {
+    background-color: #ccf;
+    color: #300;
   }
   .form-message {
     margin-left: 10px;
@@ -127,6 +154,7 @@
   .search-result-block {
     position: relative;
   }
+  /* 検索結果を閉じるボタン */
   .close {
     position: absolute;
     top: 10px;
