@@ -49,7 +49,7 @@ rabbitmq.originalPictureQueueName = "original_pictures"
 
 # Database
 pg_database = {
-  url = "jdbc:postgresql://localhost/lgtmoon?user=postgres&password=postgres"
+  url = "jdbc:postgresql://127.0.0.1/lgtmoon?user=postgres&password=postgres"
   driver = org.postgresql.Driver
   connectionPool = disabled
   keepAliveConnection = true

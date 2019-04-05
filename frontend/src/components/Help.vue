@@ -61,23 +61,35 @@
     <h2 class="help-section-title">リンク</h2>
 
     <ul>
-      <li>製作者twitter
+      <li>
+        twitter
         <a href="https://twitter.com/yoshiki_utakata" target="_blank">
           yoshiki_utakata
         </a>
       </li>
-      <li>GitHub
+      <li>
+        GitHub
         <a href="https://github.com/yoshikyoto/lgtmoon" target="_blank">
           yoshikyoto/lgtmoon
         </a>
       </li>
       <li>
-        <a href="http://yoshiki-utakata.hatenablog.com/" target="_blank">製作者ブログ</a>
+        ブログ
+        <a href="http://yoshiki-utakata.hatenablog.com/" target="_blank">ブログ</a>
       </li>
-      <li>Qiita記事
-        <a href="http://qiita.com/yoshikyoto/items/4910b1a4bcefe7f5ab8c" target="_blank">
-          LGTM画像を驚くほど簡単に作れるWebサービス with Scala
-        </a>
+      <li>関連技術記事
+        <ul>
+          <li>
+            <a href="http://qiita.com/yoshikyoto/items/4910b1a4bcefe7f5ab8c" target="_blank">
+              LGTM画像を驚くほど簡単に作れるWebサービス with Scala
+            </a>
+          </li>
+          <li>
+            <a href="https://www.utakata.work/entry/20190226/1551145958" target="_blank">
+              Heroku の PostgresQL を無料の hobby-dev から 9ドル/月の hobby-basic にアップグレードする
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
 

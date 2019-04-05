@@ -72,6 +72,10 @@ secretの値を変更
 play.crypto.secret = "changeme"
 ```
 
+## 注意点
+
+Herokuにデプロイする際に楽なので、`node_modules`やコンパイル後のCSSもすべてリポジトリに含めています。
+
 
 ## Tips
 
@@ -89,6 +93,13 @@ $ sbt run
 
 ```
 $ heroku create <app-name>
+$ cd frontend
+$ yarn run build
+$ yarn run release
+$ cd ..
+$ git add public
+$ git commit
+
 $ git checkout -b deploy
 
 # create application.conf for heroku here
