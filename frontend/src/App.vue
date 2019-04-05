@@ -57,12 +57,12 @@
       axios.get('/api/v1/images/recent.json').then((response) => {
         this.recentItems = response.data.images
       });
-      // 30秒ごとに画像一覧を更新
+      // 10秒ごとに画像一覧を更新
       setInterval(function () {
         axios.get('/api/v1/images/recent.json').then((response) => {
-          this.items = response.data.images
+          this.recentItems = response.data.images
         });
-      }, 30000);
+      }, 10000);
     },
     methods: {
       recent () {
