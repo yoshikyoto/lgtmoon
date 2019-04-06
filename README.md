@@ -1,17 +1,19 @@
 # lgtmoon
 
-キーワードを入力するだけで簡単にLGTM画像を生成できるWevアプリです。
+キーワードを入力するだけで簡単にLGTM画像を生成できるWebアプリです。
 
-## 動作URL
+LGTMoon is the web service to generate LGTM Image.
 
-http://lgtmoon.herokuapp.com/
+## URL
+
+https://lgtmoon.herokuapp.com/
 
 ## Dependency
 
 * Scala 2.11
 * Play Framwork 2.5
 * Slick 3.2
-* PostgreSQL 9 or 10
+* PostgreSQL 10
 * imagemagick
 * vue.js
 
@@ -21,13 +23,15 @@ This application is licensed under the MIT License, see LICENSE.txt.
 
 ## API
 
-[Wiki](https://github.com/yoshikyoto/lgtmoon/wiki) を御覧ください。
+[Wiki](https://github.com/yoshikyoto/lgtmoon/wiki) をご覧ください。
+
+See [Wiki](https://github.com/yoshikyoto/lgtmoon/wiki).
 
 ## 動作環境作成手順
 
-### データベースの作成
+### Create Database
 
-`sql/create.sql` をデータベースに流してください。
+`sql/init/1_create.sql` をデータベースに流してください。
 
 例:
 
@@ -42,7 +46,7 @@ Tips: postgresデーモンの起動方法
 $ postgres -D /usr/local/var/postgres
 ```
 
-### application.conf の作成
+### application.conf
 
 `conf/application.conf.sample` を参考に `conf/application.conf` を作成してください。
 
@@ -81,7 +85,7 @@ Herokuにデプロイする際に楽なので、`node_modules`やコンパイル
 
 ### Slick Codegen
 
-sql以下がSlick codegen のために必要なコードとなっています。
+sql直下がSlick codegen のために必要なコードとなっています。
 実行するには以下のコマンドを叩けばOkです。
 
 ```
@@ -89,7 +93,7 @@ $ cd sql
 $ sbt run
 ```
 
-### Herokuにデプロイする例
+### Deploy to Heroku
 
 ```
 $ heroku create <app-name>
