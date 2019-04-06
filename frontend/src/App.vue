@@ -54,13 +54,14 @@
     },
     mounted() {
       // 最新の画像を読み込む
+      const thisVue = this
       axios.get('/api/v1/images/recent.json').then((response) => {
-        this.recentItems = response.data.images
+        thisVue.recentItems = response.data.images
       });
       // 10秒ごとに画像一覧を更新
       setInterval(function () {
         axios.get('/api/v1/images/recent.json').then((response) => {
-          this.recentItems = response.data.images
+          thisVue.recentItems = response.data.images
         });
       }, 10000);
     },
