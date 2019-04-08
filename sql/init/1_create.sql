@@ -1,4 +1,4 @@
-create table Image (
+create table if not exists image (
        id            bigserial          primary key,
        content_type  varchar(32)        not null,
        created_at    timestamp          not null default current_timestamp,
