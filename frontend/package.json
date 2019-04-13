@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "node script/release.js",
+    "deploy": "node script/deploy.js",
     "release": "npm run build && npm run deploy"
   },
   "dependencies": {
