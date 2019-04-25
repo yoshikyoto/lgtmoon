@@ -58,12 +58,12 @@
       axios.get('/api/v1/images/recent.json').then((response) => {
         thisVue.recentItems = response.data.images
       });
-      // 10秒ごとに画像一覧を更新
+      const pollingIntervalSeconds = 30
       setInterval(function () {
         axios.get('/api/v1/images/recent.json').then((response) => {
           thisVue.recentItems = response.data.images
         });
-      }, 10000);
+      }, pollingIntervalSeconds * 1000);
     },
     methods: {
       recent () {
