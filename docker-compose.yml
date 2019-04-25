@@ -8,7 +8,7 @@ postgresql:
   environment:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
-    POSTGRES_DB: lgmtoon
+    POSTGRES_DB: lgtmoon
     POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
   hostname: postgres
   restart: always

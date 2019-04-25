@@ -33,6 +33,13 @@
   color: #003;
 }
 
+/** tweetボタン */
+.tweet-button {
+  position: absolute;
+  left: 320px;
+  top: 36px;
+}
+
 /** 右上部分の広告 */
 .top-ad {
   position: absolute;

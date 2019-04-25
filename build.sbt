@@ -4,7 +4,7 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.12"
 
 libraryDependencies ++= Seq(
   jdbc,
@@ -13,9 +13,10 @@ libraryDependencies ++= Seq(
   specs2 % Test,
   "com.rabbitmq" % "amqp-client" % "3.4.4",
   "com.typesafe.slick" %% "slick" % "3.2.3",
-  "com.typesafe.slick" %% "slick-codegen" % "3.1.0",
+  "com.typesafe.slick" %% "slick-codegen" % "3.2.3",
   "org.postgresql" % "postgresql" % "42.2.5",
-  "org.im4java" % "im4java" % "1.4.0"
+  "org.im4java" % "im4java" % "1.4.0",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.3"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"

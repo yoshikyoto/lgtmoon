@@ -84,10 +84,10 @@
           }
         }).then((response) => {
           this.images = response.data.images
-          this.isInputDisabled = false
+          this.enableInputInSec(5)
         }).catch((error) => {
           this.message = "画像検索でエラーが発生しました"
-          this.isInputDisabled = false
+          this.enableInputInSec(5)
         });
       },
       /** 画像URLを渡すとLGTM生成APIを叩く */
@@ -97,11 +97,18 @@
           url: imageUrl
         }).then((response) => {
           this.message = '生成中 ' + response.data.url
-          this.isInputDisabled = false
+          this.enableInputInSec(5)
         }).catch((error) => {
           this.message = "生成中にエラーが発生しました"
-          this.isInputDisabled = false
+          this.enableInputInSec(5)
         });
+      },
+      /** second秒後にinputをenabledにする */
+      enableInputInSec (second) {
+        const thisVue = this
+        setTimeout(function () {
+          thisVue.isInputDisabled = false
+        }, second * 1000);
       },
       /** URLかどうかを判定する */
       isUrl (url) {
