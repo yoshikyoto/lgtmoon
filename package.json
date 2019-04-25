@@ -1,5 +1,8 @@
 {
   "scripts": {
     "heroku-postbuild": "cd frontend && yarn install && yarn run release"
+  },
+  "engines": {
+    "node": "10.3.0"
   }
 }
