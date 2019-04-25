@@ -1,1 +1,1 @@
-web: target/start -Dhttp.port=${PORT} ${JAVA_OPTS}
+web: sbt start -Dhttp.port=${PORT} ${JAVA_OPTS}
