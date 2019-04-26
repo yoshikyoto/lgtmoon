@@ -29,6 +29,13 @@ See [Wiki](https://github.com/yoshikyoto/lgtmoon/wiki).
 
 ## 動作環境作成手順
 
+### PostgreSQL on docker for Local development
+
+```
+docker-compose up -d
+psql -U postgres -h 127.0.0.1 lgtmoon --password
+```
+
 ### Create Database
 
 `sql/init/1_create.sql` をデータベースに流してください。
