@@ -1,16 +1,16 @@
 version: "2"
 services:
-  lgtmoon-app:
-    image: lgtmoon:latest
-    container_name: lgtmoon-app
-    volumes:
-      - .:/opt/lgtmoon
-    ports:
-      - 9000:9000
-    command:
-      - "bash"
-      - "-c"
-      - "sbt run"
+#  lgtmoon-app:
+#    image: lgtmoon:latest
+#    container_name: lgtmoon-app
+#    volumes:
+#      - .:/opt/lgtmoon
+#    ports:
+#      - 9000:9000
+#    command:
+#      - "bash"
+#      - "-c"
+#      - "sbt run"
   lgtmoon-postgresql:
     image: postgres:10.5
     container_name: lgtmoon-postgresql

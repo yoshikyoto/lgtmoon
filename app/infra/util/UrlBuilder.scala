@@ -10,6 +10,6 @@ trait UrlBuilderTrait {
   val path = Play.current.configuration.getString("storage.path").getOrElse("")
 
   def imageUrl(fileName: String): String = {
-    "https://" + host + path + "/" +  fileName
+    "//" + host + path + "/" +  fileName
   }
 }
