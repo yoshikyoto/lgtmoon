@@ -32,6 +32,10 @@ object JsonBuilder {
     Json.stringify(JsObject(Seq("images" -> JsArray(urls))))
   }
 
+  def error(message: String): String = {
+    Json.stringify(JsObject(Seq("message" -> JsString(message))))
+  }
+
   def badRequest(message: String = "リクエストが不正です"): String = {
     Json.stringify(JsObject(Seq(
       "code" -> JsNumber(400),

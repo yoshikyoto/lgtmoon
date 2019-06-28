@@ -17,10 +17,11 @@ import actors.ImageGenerateMessage
 
 /** LGTMoonが持っているimagesの情報を返すcontroller */
 class ImageController extends BaseControllerTrait {
+
   def recent = Action.async { request =>
-    ImageRepository.images(20).map {
-      case None => InternalServerError("サーバーエラー")
-      case Some(images) => Ok(JsonBuilder.images(images))
+    ImageRepository.imageIds(20).map {
+      case None => InternalServerError(JsonBuilder.error("サーバーエラー"))
+      case Some(imageIds) => Ok(JsonBuilder.imagesByIds(imageIds.map(_.toInt)))
     }
   }
 

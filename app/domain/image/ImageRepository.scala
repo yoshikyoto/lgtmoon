@@ -75,6 +75,20 @@ trait ImageRepositoryTrait {
     }
   }
 
+  def imageIds(limit: Int): Future[Option[Seq[Long]]] = {
+    val action = Image.filter(_.status === AVAILABLE)
+      .sortBy(_.createdAt.desc)
+      .map(p => p.id)
+      .take(limit)
+      .result
+    db.run(action).map {
+      case images: Seq[ImageRow] => Some(images)
+      case _ => None
+    }.recover {
+      case e => None
+    }
+  }
+
   /**
    * 画像を取得する
    * 
