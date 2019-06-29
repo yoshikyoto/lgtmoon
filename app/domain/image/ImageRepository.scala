@@ -56,25 +56,6 @@ trait ImageRepositoryTrait {
     }
   }
 
-  /**
-   * 画像を最新20件取得する
-   *
-   * @param limit: Int 何件取得するか。デフォルト20
-   * @return Future[Option[Seq[ImageRow]]]
-   */
-  def images(limit: Int = 20): Future[Option[Seq[ImageRow]]] = {
-    val action = Image.filter(_.status === AVAILABLE)
-      .sortBy(_.createdAt.desc)
-      .take(limit)
-      .result
-    db.run(action).map {
-      case images: Seq[ImageRow] => Some(images)
-      case _ => None
-    }.recover {
-      case e => None
-    }
-  }
-
   def imageIds(limit: Int): Future[Option[Seq[Long]]] = {
     val action = Image.filter(_.status === AVAILABLE)
       .sortBy(_.createdAt.desc)
@@ -82,7 +63,7 @@ trait ImageRepositoryTrait {
       .take(limit)
       .result
     db.run(action).map {
-      case images: Seq[ImageRow] => Some(images)
+      case imageIds: Seq[Long] => Some(imageIds)
       case _ => None
     }.recover {
       case e => None
