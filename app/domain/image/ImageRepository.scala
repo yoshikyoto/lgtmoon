@@ -5,7 +5,7 @@ import scala.concurrent._
 import scala.concurrent.duration._
 import repositories._
 import repositories.Tables.{ImageRow, Image, GetResultImageRow}
-import slick.driver.PostgresDriver.api._
+import slick.jdbc.PostgresProfile.api._
 import slick.jdbc.GetResult
 import java.sql.Timestamp
 import infra.datasource.LgtmoonDatabase
