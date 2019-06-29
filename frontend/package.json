@@ -13,7 +13,7 @@
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.0",
     "@vue/cli-service": "^3.2.0",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "cpx": "^1.5.0",
     "vue": "^2.5.17"
   },
