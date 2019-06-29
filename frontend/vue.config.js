@@ -10,7 +10,7 @@ module.exports = {
     index: {
       entry: 'src/main.js',
       template: 'public/index.html',
-      filename: 'index.scala.html'
+      filename: 'index.html'
     }
   }
 }
