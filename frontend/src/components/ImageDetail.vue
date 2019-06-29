@@ -7,7 +7,7 @@
         <img :src="url" class="image-detail-image">
       </a>
       <h3 class="image-detail-headding">Image URL</h3>
-      <input class="image-detail-text" type="text" :value="url" />
+      <input class="image-detail-text" type="text" :value="getImageUrl()" />
       <h3 class="image-detail-headding">GitHub Markdown</h3>
       <input class="image-detail-text" type="text" :value="getGithubMarkdown()" />
     </div>
@@ -23,8 +23,11 @@
          close() {
              this.$emit('close');
          },
+         getImageUrl(){
+             return document.location.protocol + this.url;
+         },
          getGithubMarkdown() {
-             return '![LGTM](' + this.url + ')'
+             return '![LGTM](' + document.location.protocol + this.url + ')';
          }
      }
   }
