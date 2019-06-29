@@ -24,7 +24,7 @@ trait ImageRepositoryTrait {
 
   /**
    * status=0でレコードを作成する
-   * 
+   *
    * @return Future[Option[Long]] 画像のID
    */
   def create(): Future[Option[Long]] = {
@@ -38,7 +38,7 @@ trait ImageRepositoryTrait {
 
   /**
    * レコードのstatusを更新する
-   * 
+   *
    * @param id: Long 画像ID
    * @param status: Short 更新後のstatusの値
    * @return Future[Option[Int]]
@@ -58,7 +58,7 @@ trait ImageRepositoryTrait {
 
   /**
    * 画像を最新20件取得する
-   * 
+   *
    * @param limit: Int 何件取得するか。デフォルト20
    * @return Future[Option[Seq[ImageRow]]]
    */
@@ -91,7 +91,7 @@ trait ImageRepositoryTrait {
 
   /**
    * 画像を取得する
-   * 
+   *
    * @param id: Long
    * @return Future[Option[ImageRow]]
    */

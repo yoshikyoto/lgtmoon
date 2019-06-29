@@ -10,12 +10,12 @@
     "release": "npm run build && npm run deploy"
   },
   "dependencies": {
-    "cpx": "^1.5.0",
-    "vue": "^2.5.17",
-    "@vue/cli-service": "^3.2.0",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.0",
-    "axios": "^0.18.0"
+    "@vue/cli-service": "^3.2.0",
+    "axios": "^0.18.0",
+    "cpx": "^1.5.0",
+    "vue": "^2.5.17"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
