@@ -55,12 +55,12 @@
     mounted() {
       // 最新の画像を読み込む
       const thisVue = this
-      axios.get('/api/v1/images/recent.json').then((response) => {
+      axios.get('/api/v1/images/recent').then((response) => {
         thisVue.recentItems = response.data.images
       });
       const pollingIntervalSeconds = 30
       setInterval(function () {
-        axios.get('/api/v1/images/recent.json').then((response) => {
+        axios.get('/api/v1/images/recent').then((response) => {
           thisVue.recentItems = response.data.images
         });
       }, pollingIntervalSeconds * 1000);
@@ -76,7 +76,7 @@
         }
         this.selected = 1
         this.isLoading = true
-        axios.get('/api/v1/images/random.json').then((response) => {
+        axios.get('/api/v1/images/random').then((response) => {
           this.randomItems = response.data.images
           this.isLoading = false
         });

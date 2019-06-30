@@ -78,7 +78,7 @@
       /** 画像検索を行う */
       search (keyword) {
         this.isInputDisabled = true
-        axios.get('/search.json', {
+        axios.get('/api/v1/search', {
           params: {
             keyword: keyword
           }
@@ -93,7 +93,7 @@
       /** 画像URLを渡すとLGTM生成APIを叩く */
       generate (imageUrl) {
         this.isInputDisabled = true
-        axios.post('/image.json', {
+        axios.post('/api/v1/images/url', {
           url: imageUrl
         }).then((response) => {
           this.message = '生成中 ' + response.data.url

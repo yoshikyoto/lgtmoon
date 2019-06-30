@@ -2,13 +2,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# deprecated api
-GET     /search.json                    @controllers.ImageSearchController.search(keyword: String)
-POST    /image.json                     @controllers.ImageGenerateController.withUrl
-POST    /image_binary.json              @controllers.ImageGenerateController.withBinary
-GET     /api/v1/images/recent.json      @controllers.ImageController.recent
-GET     /api/v1/images/random.json      @controllers.ImageController.random
-
 # API
 GET     /api/v1/search                  @controllers.ImageSearchController.search(keyword: String)
 POST    /api/v1/images/url              @controllers.ImageGenerateController.withUrl
