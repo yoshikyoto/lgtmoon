@@ -25,7 +25,8 @@ class ImageBinaryController extends Controller {
               header = ResponseHeader(200),
               body =  HttpEntity.Strict(ByteString.fromArray(bin), Some("image/png"))
             ).withHeaders(
-              "Cache-Control" -> "max-age=3600"
+              // 1週間
+              "Cache-Control" -> "max-age=604800"
             )
           }
           case None => NotFound("Not Found")
