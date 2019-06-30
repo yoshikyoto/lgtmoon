@@ -1,11 +1,8 @@
 package controllers
 
-import play.api.mvc._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
+import play.api.mvc.Action
+import play.api.libs.json.Json
 import scala.concurrent.ExecutionContext.Implicits.global
-import domain.image.search.ImageSearchService
-import domain.image.search._
 import scala.concurrent.Future
 import javax.inject.Inject
 import image.ImageSearcher

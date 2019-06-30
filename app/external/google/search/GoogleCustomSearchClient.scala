@@ -7,10 +7,11 @@ import play.api.Play.current
 import play.api.libs.ws._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import javax.inject.Inject
 import image.ImageSearcher
 
 /** GoogleCustomSearchのAPIを叩くクライアント */
-class GoogleCustomSearchClient extends ImageSearcher {
+class GoogleCustomSearchClient @Inject() extends ImageSearcher {
   val baseUrl = Play.current.configuration.getString("google.baseUrl").get
   val key = Play.current.configuration.getString("google.key").get
   val cx = Play.current.configuration.getString("google.cx").get
