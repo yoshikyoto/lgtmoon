@@ -7,6 +7,7 @@ import scala.concurrent.Future
 import javax.inject.Inject
 import image.ImageSearcher
 import response.Image
+import response.Error
 import response.JsonConvert
 
 /** 画像検索コントローラー */
@@ -17,7 +18,7 @@ class ImageSearchController @Inject() (
   /** キーワードを受け取り検索結果を返す */
   def search(keyword: String) = Action.async { request =>
     imageSearcher.urls(keyword) map {
-      case None => CUSTOM_SEARCH_ERROR_RESPONSE
+      case _ => InternalServerError(Json.toJson(Error("Server Error")))
       case Some(urls) => Ok(Json.obj("images" -> Json.toJson(urlsToImages(urls))))
     }
   }
