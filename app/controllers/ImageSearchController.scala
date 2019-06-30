@@ -18,7 +18,7 @@ class ImageSearchController @Inject() (
   def search(keyword: String) = Action.async { request =>
     imageSearcher.urls(keyword) map {
       case None => CUSTOM_SEARCH_ERROR_RESPONSE
-      case Some(urls) => Ok(Json.obj("images" -> Json.toJson(urls.map(url => Image(url)))))
+      case Some(urls) => Ok(Json.obj("images" -> Json.toJson(urlsToImages(urls))))
     }
   }
 
