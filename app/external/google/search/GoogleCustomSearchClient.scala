@@ -2,19 +2,21 @@ package external.google.search
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.Play
-import play.api.Play.current
 import play.api.libs.ws.WSClient
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.Configuration
 import javax.inject.Inject
 import image.ImageSearcher
 
 /** GoogleCustomSearchのAPIを叩くクライアント */
-class GoogleCustomSearchClient @Inject() (ws: WSClient) extends ImageSearcher {
-  val baseUrl = Play.current.configuration.getString("google.baseUrl").get
-  val key = Play.current.configuration.getString("google.key").get
-  val cx = Play.current.configuration.getString("google.cx").get
+class GoogleCustomSearchClient @Inject() (
+  ws: WSClient,
+  config: Configuration
+) extends ImageSearcher {
+  val baseUrl = config.getString("google.baseUrl").get
+  val key = config.getString("google.key").get
+  val cx = config.getString("google.cx").get
   val searchType = "image"
 
   implicit val imageReads: Reads[Image] = (
@@ -40,7 +42,7 @@ class GoogleCustomSearchClient @Inject() (ws: WSClient) extends ImageSearcher {
   )(Item)
 
   /**
-   * 画像検索を行う
+   * 画像検索を行い検索結果のURLを返す
    */
   def urls(keyword: String): Future[Option[Seq[String]]] = {
     ws.url(baseUrl)
