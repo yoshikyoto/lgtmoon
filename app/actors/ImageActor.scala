@@ -7,6 +7,7 @@ import play.api.libs.concurrent.Akka
 import infra.datasource.ImageStorage
 import domain.imagemagick.ImageMagickService
 import domain.image.ImageRepository
+import javax.inject.Inject
 
 case class ImageGenerateMessage(id: Long)
 
@@ -17,11 +18,12 @@ case class ImageDownloadAndGenerateMessage(id: Long, url: String)
  * 1. 画像をダウンロードし、
  * 2. その画像を変換キューに乗せる
  */
-class ImageActor extends Actor {
+class ImageActor @Inject() (
+  val imageRepository: ImageRepository
+) extends Actor {
   val downloadDir = "/tmp"
   val destDir = "/tmp"
   val imageStorage = ImageStorage
-  val imageRepository = ImageRepository
   val imageMagickService = ImageMagickService
 
   override def receive: Receive = {

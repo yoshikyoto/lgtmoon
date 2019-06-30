@@ -18,11 +18,15 @@ import actors.ImageGenerateMessage
 import actors.ImageDownloadAndGenerateMessage
 import infra.util.UrlBuilder
 import infra.datasource.ImageStorage
+import javax.inject.Inject
 
 /** 画像生成を行うコントロラー */
-class ImageGenerateController extends BaseControllerTrait {
+class ImageGenerateController @Inject() (
+  val imageRepository: ImageRepository,
+  val imageActor: ImageActor
+) extends BaseControllerTrait {
   /** 非同期で画像生成をするためのActor */
-  val imageActor = Akka.system.actorOf(Props(new ImageActor()))
+  val actor = Akka.system.actorOf(Props(imageActor))
 
   /** postされたurlから画像生成をする */
   def withUrl = Action.async { request =>
@@ -36,11 +40,11 @@ class ImageGenerateController extends BaseControllerTrait {
               val xForwardedFor = request.remoteAddress
               Logger.info(xForwardedFor)
               // とりあえずURLだけ先に払い出して返す
-              ImageRepository.create() map {
+              imageRepository.create() map {
                 case None => DATABASE_CONNECTION_ERROR_RESPONSE
                 case Some(id) => {
                   val lgtmUrl = UrlBuilder.imageUrl(id.toString)
-                  imageActor ! ImageDownloadAndGenerateMessage(id, url)
+                  actor ! ImageDownloadAndGenerateMessage(id, url)
                   Ok(JsonBuilder.imageUrl(lgtmUrl))
                 }
               }
@@ -58,13 +62,13 @@ class ImageGenerateController extends BaseControllerTrait {
           case None => Future(INVALID_IMAGE_RESPONSE)
           case Some(file) => {
             // TODO file validation
-            ImageRepository.create().map {
+            imageRepository.create().map {
               case None => DATABASE_CONNECTION_ERROR_RESPONSE
               case Some(id) => {
                 val lgtmImageUrl = UrlBuilder.imageUrl(id.toString)
                 val tmpPath = ImageStorage.getTmpPath(id.toString)
                 file.ref.moveTo(new File(tmpPath))
-                imageActor ! ImageGenerateMessage(id)
+                actor ! ImageGenerateMessage(id)
                 Ok(JsonBuilder.imageUrl(lgtmImageUrl))
               }
             }

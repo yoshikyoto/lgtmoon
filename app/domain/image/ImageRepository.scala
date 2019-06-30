@@ -11,10 +11,7 @@ import java.sql.Timestamp
 import infra.datasource.LgtmoonDatabase
 
 /** imageテーブルにアクセスする */
-object ImageRepository extends ImageRepositoryTrait {
-}
-
-trait ImageRepositoryTrait {
+class ImageRepository {
 
   val db = LgtmoonDatabase
 

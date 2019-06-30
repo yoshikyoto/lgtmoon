@@ -11,12 +11,14 @@ import play.api.http.HttpEntity
 import java.io.ByteArrayInputStream
 import domain.image.ImageRepository
 import akka.util.ByteString
+import javax.inject.Inject
 
 /** 画像のバイナリデータを返すコントローラー */
-class ImageBinaryController extends Controller {
+class ImageBinaryController @Inject() (val imageRepository: ImageRepository)
+    extends Controller {
   /** idを受け取り画像のバイナリデータを返す */
   def image(id: Long)  = Action.async { request =>
-    ImageRepository.image(id).map {
+    imageRepository.image(id).map {
       case Some(image) => {
         image.bin match {
           case Some(bin) => {
