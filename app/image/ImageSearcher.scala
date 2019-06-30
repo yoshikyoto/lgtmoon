@@ -9,7 +9,7 @@ trait ImageSearcher {
   def urls(keyword: String): Future[Option[Seq[String]]]
 }
 
-class GoogleCustomSearchClient extends ImageSearcher{
+class GoogleCustomSearchClient extends ImageSearcher {
   def urls(keyword: String): Future[Option[Seq[String]]] = {
     return Future(Some(Seq("http://test.example")))
   }
