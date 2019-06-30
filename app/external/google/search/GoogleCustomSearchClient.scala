@@ -4,14 +4,14 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.Play
 import play.api.Play.current
-import play.api.libs.ws._
+import play.api.libs.ws.WSClient
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import javax.inject.Inject
 import image.ImageSearcher
 
 /** GoogleCustomSearchのAPIを叩くクライアント */
-class GoogleCustomSearchClient @Inject() extends ImageSearcher {
+class GoogleCustomSearchClient @Inject() (ws: WSClient) extends ImageSearcher {
   val baseUrl = Play.current.configuration.getString("google.baseUrl").get
   val key = Play.current.configuration.getString("google.key").get
   val cx = Play.current.configuration.getString("google.cx").get
@@ -43,7 +43,7 @@ class GoogleCustomSearchClient @Inject() extends ImageSearcher {
    * 画像検索を行う
    */
   def urls(keyword: String): Future[Option[Seq[String]]] = {
-    WS.url(baseUrl)
+    ws.url(baseUrl)
       .withQueryString("searchType" -> searchType)
       .withQueryString("key" -> key)
       .withQueryString("cx" -> cx)
