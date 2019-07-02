@@ -1,4 +1,4 @@
-package actors
+package actor
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.Play

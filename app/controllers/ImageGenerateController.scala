@@ -12,21 +12,21 @@ import play.api.libs.json._
 import play.api.Play.current
 import play.api.libs.concurrent.Akka
 import akka.actor.Props
+import akka.actor.ActorRef
 import domain.image.ImageRepository
-import actors.ImageActor
-import actors.ImageGenerateMessage
-import actors.ImageDownloadAndGenerateMessage
+import actor.ImageActor
+import actor.ImageGenerateMessage
+import actor.ImageDownloadAndGenerateMessage
 import infra.util.UrlBuilder
 import infra.datasource.ImageStorage
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 
 /** 画像生成を行うコントロラー */
 class ImageGenerateController @Inject() (
   val imageRepository: ImageRepository,
-  val imageActor: ImageActor
+  @Named("image-actor") imageActor: ActorRef
+
 ) extends BaseControllerTrait {
-  /** 非同期で画像生成をするためのActor */
-  val actor = Akka.system.actorOf(Props(imageActor))
 
   /** postされたurlから画像生成をする */
   def withUrl = Action.async { request =>
@@ -44,7 +44,7 @@ class ImageGenerateController @Inject() (
                 case None => DATABASE_CONNECTION_ERROR_RESPONSE
                 case Some(id) => {
                   val lgtmUrl = UrlBuilder.imageUrl(id.toString)
-                  actor ! ImageDownloadAndGenerateMessage(id, url)
+                  imageActor ! ImageDownloadAndGenerateMessage(id, url)
                   Ok(JsonBuilder.imageUrl(lgtmUrl))
                 }
               }
@@ -68,7 +68,7 @@ class ImageGenerateController @Inject() (
                 val lgtmImageUrl = UrlBuilder.imageUrl(id.toString)
                 val tmpPath = ImageStorage.getTmpPath(id.toString)
                 file.ref.moveTo(new File(tmpPath))
-                actor ! ImageGenerateMessage(id)
+                imageActor ! ImageGenerateMessage(id)
                 Ok(JsonBuilder.imageUrl(lgtmImageUrl))
               }
             }
