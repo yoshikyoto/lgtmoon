@@ -11,6 +11,11 @@ module.exports = {
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html'
+    },
+    en: {
+      entry: 'src/main.js',
+      template: 'public/en.html',
+      filename: 'en.html'
     }
   }
 }

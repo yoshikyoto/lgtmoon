@@ -5,7 +5,7 @@
         <input type="text"
           name="keyword"
           class="form-input-text"
-          placeholder="キーワードで画像検索・URLで直接生成"
+          placeholder="Search by keyword / Generate by URL"
           v-model="keyword"
           :disabled="isInputDisabled"/>
         <label class="form-submit">
@@ -13,7 +13,7 @@
           <input type="submit"
             class="hidden"
             @click.prevent="submit"
-            value="検索/画像生成"
+            value="Search"
             :disabled="isInputDisabled"/>
         </label>
         <span id="message" class="form-message" v-text="message"></span>
@@ -59,9 +59,9 @@
       },
       submitButtonLabel () {
         if (this.isInputUrl) {
-          return '画像生成'
+          return 'Generate!'
         }
-        return '画像検索'
+        return 'Search'
       },
     },
     methods: {
@@ -136,7 +136,6 @@
     border: 1px solid #eef;
     float: left;
     margin: -2px 0px 0px 8px;
-    border-radius: 3px;
     height: 26px;
     width: 300px;
     font-size: 13px;
@@ -166,7 +165,7 @@
     position: absolute;
     top: 10px;
     right: 5px;
-    font-color: #238;
+    color: #238;
   }
   .close:hover {
     text-decoration: underline;
