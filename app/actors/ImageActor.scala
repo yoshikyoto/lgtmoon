@@ -5,7 +5,7 @@ import play.api.Play
 import akka.actor.Actor
 import play.api.libs.concurrent.Akka
 import infra.datasource.ImageStorage
-import domain.imagemagick.ImageMagickService
+import image.ImageConverter
 import domain.image.ImageRepository
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ case class ImageDownloadAndGenerateMessage(id: Long, url: String)
  */
 class ImageActor @Inject() (
   val imageRepository: ImageRepository,
-  val imageMagickService: ImageMagickService
+  val imageConverter: ImageConverter
 ) extends Actor {
   val downloadDir = "/tmp"
   val destDir = "/tmp"
@@ -31,7 +31,7 @@ class ImageActor @Inject() (
       val downloadPath = downloadDir + "/" + id
       val convertedPath = destDir + "/" + id
       imageStorage.download(url, downloadPath)
-      imageMagickService.convert(downloadPath, convertedPath)
+      imageConverter.convert(downloadPath, convertedPath)
       // convertされた画像をバイナリで取得してDBに入れる
       val bin = imageStorage.binary(convertedPath)
       imageRepository.updateStatus(id, imageRepository.AVAILABLE, bin)
@@ -40,7 +40,7 @@ class ImageActor @Inject() (
     case ImageGenerateMessage(id) => {
       val sourcePath = downloadDir + "/" + id
       val destPath = destDir + "/" + id
-      imageMagickService.convert(sourcePath, destPath)
+      imageConverter.convert(sourcePath, destPath)
       // convertされた画像をバイナリで取得してDBに入れる
       val bin = imageStorage.binary(destPath)
       imageRepository.updateStatus(id, imageRepository.AVAILABLE, bin)
