@@ -24,10 +24,10 @@
              this.$emit('close');
          },
          getImageUrl(){
-             return document.location.protocol + this.url;
+             return this.url;
          },
          getGithubMarkdown() {
-             return '![LGTM](' + document.location.protocol + this.url + ')';
+             return '![LGTM](' + this.url + ')';
          }
      }
   }

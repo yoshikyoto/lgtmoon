@@ -6,10 +6,9 @@ object UrlBuilder extends UrlBuilderTrait {
 }
 
 trait UrlBuilderTrait {
-  val host = Play.current.configuration.getString("storage.hostName").getOrElse("localhost")
-  val path = Play.current.configuration.getString("storage.path").getOrElse("")
+  val base = Play.current.configuration.getString("image.baseUrl").getOrElse("http://localhost:9000/images")
 
   def imageUrl(fileName: String): String = {
-    "//" + host + path + "/" +  fileName
+    base + "/" +  fileName
   }
 }
