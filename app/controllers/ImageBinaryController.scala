@@ -14,8 +14,9 @@ import akka.util.ByteString
 import javax.inject.Inject
 
 /** 画像のバイナリデータを返すコントローラー */
-class ImageBinaryController @Inject() (val imageRepository: ImageRepository)
-    extends Controller {
+class ImageBinaryController @Inject() (
+  val imageRepository: ImageRepository
+) extends Controller {
   /** idを受け取り画像のバイナリデータを返す */
   def image(id: Long)  = Action.async { request =>
     imageRepository.image(id).map {

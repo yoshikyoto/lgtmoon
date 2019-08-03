@@ -7,8 +7,9 @@ import javax.inject.Inject
 import domain.image.ImageRepository
 
 /** LGTMoonが持っているimagesの情報を返すcontroller */
-class ImageController @Inject() (val imageRepository: ImageRepository)
-    extends BaseControllerTrait {
+class ImageController @Inject() (
+  val imageRepository: ImageRepository
+) extends BaseControllerTrait {
 
   def recent = Action.async { request =>
     imageRepository.imageIds(20).map {

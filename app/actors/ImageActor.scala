@@ -19,12 +19,12 @@ case class ImageDownloadAndGenerateMessage(id: Long, url: String)
  * 2. その画像を変換キューに乗せる
  */
 class ImageActor @Inject() (
-  val imageRepository: ImageRepository
+  val imageRepository: ImageRepository,
+  val imageMagickService: ImageMagickService
 ) extends Actor {
   val downloadDir = "/tmp"
   val destDir = "/tmp"
   val imageStorage = ImageStorage
-  val imageMagickService = ImageMagickService
 
   override def receive: Receive = {
     case ImageDownloadAndGenerateMessage(id, url) => {
