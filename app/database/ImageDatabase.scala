@@ -5,6 +5,8 @@ import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import image.ImageRepository
+import java.sql.Timestamp
+import repositories.Tables.ImageRow
 
 class ImageDatabase extends ImageRepository {
   val db = Database.forConfig("pg_database")
