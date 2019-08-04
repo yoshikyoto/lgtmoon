@@ -7,4 +7,5 @@ import com.google.inject.ImplementedBy
 trait ImageRepository {
   def recentIds(limit: Int): Future[Option[Seq[Int]]]
   def randomIds(limit: Int): Future[Option[Seq[Int]]]
+  def binary(id: Int): Future[Option[Array[Byte]]]
 }

@@ -35,7 +35,7 @@ class ImageController @Inject() (
     }
   }
 
-  /** imageのIDの配列を受けとって ImageResponse の配列に変換する */
+  /** image のIDの配列を受けとって ImageResponse の配列に変換する */
   def toImageResponses(imageIds: Seq[Int]): Seq[ImageResponse] = {
     imageResponseFactory.create(urlBuilder.images(imageIds))
   }

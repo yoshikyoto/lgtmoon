@@ -48,4 +48,22 @@ class ImageDatabase extends ImageRepository {
       }
     }
   }
+
+  /** 画像のバイナリを取得する */
+  def binary(id: Int): Future[Option[Array[Byte]]] = {
+    // DBのidはLong型なのでIntからLongに変換する
+    val action = Image.filter(_.id === id.toLong).result
+    db.run(action).map {
+      case images: Seq[ImageRow] if images.length > 0
+      => Some(images(0))
+      case _ => None
+    }.map {
+      case Some(image) => image.bin
+      case _ => None
+    }.recover {
+      case e => {
+        None
+      }
+    }
+  }
 }

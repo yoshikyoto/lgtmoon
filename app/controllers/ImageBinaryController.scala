@@ -9,7 +9,7 @@ import play.api.mvc.{Action, Result, ResponseHeader}
 import play.api.libs.iteratee.Enumerator
 import play.api.http.HttpEntity
 import java.io.ByteArrayInputStream
-import domain.image.ImageRepository
+import image.ImageRepository
 import akka.util.ByteString
 import javax.inject.Inject
 
@@ -18,22 +18,17 @@ class ImageBinaryController @Inject() (
   val imageRepository: ImageRepository
 ) extends Controller {
   /** idを受け取り画像のバイナリデータを返す */
-  def image(id: Long)  = Action.async { request =>
-    imageRepository.image(id).map {
-      case Some(image) => {
-        image.bin match {
-          case Some(bin) => {
-            /** bin: Array[Byte] */
-            Result(
-              header = ResponseHeader(200),
-              body =  HttpEntity.Strict(ByteString.fromArray(bin), Some("image/png"))
-            ).withHeaders(
-              // 1週間
-              "Cache-Control" -> "max-age=604800"
-            )
-          }
-          case None => NotFound("Not Found")
-        }
+  def image(id: Int)  = Action.async { request =>
+    imageRepository.binary(id).map {
+      case Some(bin) => {
+        /** bin: Array[Byte] */
+        Result(
+          header = ResponseHeader(200),
+          body =  HttpEntity.Strict(ByteString.fromArray(bin), Some("image/png"))
+        ).withHeaders(
+          // 1週間
+          "Cache-Control" -> "max-age=604800"
+        )
       }
       case None => NotFound("Not Found")
     }

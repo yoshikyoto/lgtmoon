@@ -10,7 +10,7 @@ GET     /api/v1/images/recent           @controllers.ImageController.recent
 GET     /api/v1/images/random           @controllers.ImageController.random
 
 # Others
-GET     /images/:id                     @controllers.ImageBinaryController.image(id: Long)
+GET     /images/:id                     @controllers.ImageBinaryController.image(id: Int)
 GET     /                               @controllers.Assets.at(path="/public", file="index.html")
 
 
