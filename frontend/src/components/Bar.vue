@@ -5,7 +5,7 @@
         <input type="text"
           name="keyword"
           class="form-input-text"
-          placeholder="Search by keyword / Generate by URL"
+          placeholder="キーワードで画像検索 or URLを直接入力"
           v-model="keyword"
           :disabled="isInputDisabled"/>
         <label class="form-submit">
@@ -59,9 +59,9 @@
       },
       submitButtonLabel () {
         if (this.isInputUrl) {
-          return 'Generate!'
+          return 'LGTM画像生成'
         }
-        return 'Search'
+        return '検索/生成'
       },
     },
     methods: {
