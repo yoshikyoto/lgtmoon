@@ -10,17 +10,17 @@ import akka.actor.ActorRef
 import domain.image.ImageRepository
 import actor.ImageGenerateMessage
 import actor.ImageDownloadAndGenerateMessage
-import infra.util.UrlBuilder
 import infra.datasource.ImageStorage
 import javax.inject.{Inject, Named}
 import play.api.libs.json.Json
 import controllers.module.JsonConvert
-import controllers.response.ErrorResponse
+import controllers.response.{ErrorResponse, ImageResponse}
 
 /** 画像生成を行うコントロラー */
 class ImageGenerateController @Inject() (
   imageRepository: ImageRepository,
-  @Named("image-actor") imageActor: ActorRef
+  @Named("image-actor") imageActor: ActorRef,
+  urlBuilder: UrlBuilder
 ) extends Controller with JsonConvert {
 
   /** postされたurlから画像生成をする */
@@ -38,9 +38,8 @@ class ImageGenerateController @Inject() (
             imageRepository.create() map {
               case None => internalServerErrorWith("データベース接続エラー")
               case Some(id) => {
-                val lgtmUrl = UrlBuilder.imageUrl(id.toString)
                 imageActor ! ImageDownloadAndGenerateMessage(id, url)
-                Ok(JsonBuilder.imageUrl(lgtmUrl))
+                Ok(Json.toJson(ImageResponse(urlBuilder.image(id.toInt))))
               }
             }
           }
@@ -60,11 +59,11 @@ class ImageGenerateController @Inject() (
             imageRepository.create().map {
               case None => internalServerErrorWith("データベース接続エラー")
               case Some(id) => {
-                val lgtmImageUrl = UrlBuilder.imageUrl(id.toString)
+                val lgtmImageUrl = urlBuilder.image(id.toInt)
                 val tmpPath = ImageStorage.getTmpPath(id.toString)
                 file.ref.moveTo(new File(tmpPath))
                 imageActor ! ImageGenerateMessage(id)
-                Ok(JsonBuilder.imageUrl(lgtmImageUrl))
+                Ok(Json.toJson(ImageResponse(lgtmImageUrl)))
               }
             }
           }
