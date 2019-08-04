@@ -14,7 +14,7 @@ class ImageMagick @Inject() (
   val font: Font,
   val config: Configuration
 ) extends ImageConverter {
-  val imagemagickDir = config.getString("imagemagick.dir").get
+  val imagemagickDir: String = config.get[String]("imagemagick.dir")
 
 
   /**
