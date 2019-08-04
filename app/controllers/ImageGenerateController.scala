@@ -3,8 +3,9 @@ package controllers
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import java.io.File
+
 import play.api._
-import play.api.mvc._
+import play.api.mvc.{Action, AnyContent, Controller}
 import akka.actor.ActorRef
 import domain.image.ImageRepository
 import actor.ImageGenerateMessage
@@ -20,48 +21,44 @@ import controllers.response.ErrorResponse
 class ImageGenerateController @Inject() (
   imageRepository: ImageRepository,
   @Named("image-actor") imageActor: ActorRef
-) extends BaseControllerTrait with JsonConvert {
+) extends Controller with JsonConvert {
 
   /** postされたurlから画像生成をする */
-  def withUrl = Action.async { request =>
+  def withUrl: Action[AnyContent] = Action.async { request =>
     val jsonOpt = request.body.asJson
     jsonOpt match {
       case None => Future(badRequestWith("Json形式でPOSTしてください"))
       case Some(json) => {
-          (json \ "url").asOpt[String] match {
-            case None => Future(badRequestWith("keywordパラメータは必須です"))
-            case Some(url)  => {
-              val xForwardedFor = request.remoteAddress
-              Logger.info(xForwardedFor)
-              // とりあえずURLだけ先に払い出して返す
-              imageRepository.create() map {
-                case None => DATABASE_CONNECTION_ERROR_RESPONSE
-                case Some(id) => {
-                  val lgtmUrl = UrlBuilder.imageUrl(id.toString)
-                  imageActor ! ImageDownloadAndGenerateMessage(id, url)
-                  Ok(JsonBuilder.imageUrl(lgtmUrl))
-                }
+        (json \ "url").asOpt[String] match {
+          case None => Future(badRequestWith("keywordパラメータは必須です"))
+          case Some(url) => {
+            val xForwardedFor = request.remoteAddress
+            Logger.info(xForwardedFor)
+            // とりあえずURLだけ先に払い出して返す
+            imageRepository.create() map {
+              case None => internalServerErrorWith("データベース接続エラー")
+              case Some(id) => {
+                val lgtmUrl = UrlBuilder.imageUrl(id.toString)
+                imageActor ! ImageDownloadAndGenerateMessage(id, url)
+                Ok(JsonBuilder.imageUrl(lgtmUrl))
               }
             }
           }
+        }
       }
     }
   }
 
-  def badRequestWith(message: String): play.api.mvc.Result = {
-    BadRequest(Json.toJson(ErrorResponse(message)))
-  }
-
-  def withBinary = Action.async { request =>
+  def withBinary: Action[AnyContent] = Action.async { request =>
     request.body.asMultipartFormData match {
-      case None => Future(INVALID_IMAGE_RESPONSE)
+      case None => Future(badRequestWith("multipart/form-data形式ではありません"))
       case Some(data) => {
         data.file("file") match {
-          case None => Future(INVALID_IMAGE_RESPONSE)
+          case None => Future(badRequestWith("fileパラメータは必須です"))
           case Some(file) => {
             // TODO file validation
             imageRepository.create().map {
-              case None => DATABASE_CONNECTION_ERROR_RESPONSE
+              case None => internalServerErrorWith("データベース接続エラー")
               case Some(id) => {
                 val lgtmImageUrl = UrlBuilder.imageUrl(id.toString)
                 val tmpPath = ImageStorage.getTmpPath(id.toString)
@@ -74,5 +71,13 @@ class ImageGenerateController @Inject() (
         }
       }
     }
+  }
+
+  def badRequestWith(message: String): play.api.mvc.Result = {
+    BadRequest(Json.toJson(ErrorResponse(message)))
+  }
+
+  def internalServerErrorWith(message: String): play.api.mvc.Result = {
+    InternalServerError(Json.toJson(ErrorResponse(message)))
   }
 }
