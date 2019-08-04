@@ -6,10 +6,9 @@ import java.io.File
 
 import play.api.mvc.{Action, AnyContent, InjectedController}
 import akka.actor.ActorRef
-import image.ImageRepository
+import image.{ImageRepository, ImageTemporaryStorage}
 import actor.ImageGenerateMessage
 import actor.ImageDownloadAndGenerateMessage
-import infra.datasource.ImageStorage
 import javax.inject.{Inject, Named}
 import play.api.libs.json.Json
 import controllers.module.JsonConvert
@@ -19,7 +18,8 @@ import controllers.response.{ErrorResponse, ImageResponse}
 class ImageGenerateController @Inject() (
   imageRepository: ImageRepository,
   @Named("image-actor") imageActor: ActorRef,
-  urlBuilder: UrlBuilder
+  urlBuilder: UrlBuilder,
+  imageTemporaryStorage: ImageTemporaryStorage
 ) extends InjectedController with JsonConvert {
 
   /** postされたurlから画像生成をする */
@@ -58,8 +58,7 @@ class ImageGenerateController @Inject() (
               case None => internalServerErrorWith("データベース接続エラー")
               case Some(id) => {
                 val lgtmImageUrl = urlBuilder.image(id.toInt)
-                val tmpPath = ImageStorage.getTmpPath(id.toString)
-                file.ref.moveTo(new File(tmpPath))
+                file.ref.moveTo(new File(imageTemporaryStorage.srcPath(id.toInt)))
                 imageActor ! ImageGenerateMessage(id)
                 Ok(Json.toJson(ImageResponse(lgtmImageUrl)))
               }

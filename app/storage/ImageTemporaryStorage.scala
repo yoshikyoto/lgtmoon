@@ -14,7 +14,7 @@ import java.io.{
 /** 画像のバイナリを一時的に保存するストレージ */
 class ImageTemporaryStorage @Inject() (
   config: Configuration
-){
+) extends image.ImageTemporaryStorage {
   /** 変換前の画像が保存されるパス */
   val srcDir: String = config.get[String]("storage.image.src.dir")
 
