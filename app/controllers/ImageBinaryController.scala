@@ -21,9 +21,7 @@ class ImageBinaryController @Inject() (
   def image(id: Int): Action[AnyContent]  = Action.async { request =>
     imageRepository.binary(id).map {
       case Some(bin) => {
-        Result(
-          header = ResponseHeader(200),
-          body =  HttpEntity.Strict(
+        imageOk(HttpEntity.Strict(
             ByteString.fromArray(bin),
             Some("image/png")
           )
@@ -34,5 +32,12 @@ class ImageBinaryController @Inject() (
       }
       case None => NotFound("Not Found")
     }
+  }
+
+  def imageOk(body: HttpEntity.Strict): Result = {
+    Result(
+      header = ResponseHeader(200),
+      body = body
+    )
   }
 }

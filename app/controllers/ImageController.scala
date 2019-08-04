@@ -1,7 +1,7 @@
 package controllers
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.mvc.{Action, AnyContent, InjectedController}
+import play.api.mvc.{Action, AnyContent, InjectedController, Result}
 import javax.inject.Inject
 import image.ImageRepository
 import play.api.libs.json.Json
@@ -19,7 +19,7 @@ class ImageController @Inject() (
 
   def recent: Action[AnyContent] = Action.async { request =>
     imageRepository.recentIds(20).map {
-      case None => InternalServerError(Json.toJson(ErrorResponse("データベース接続エラー")))
+      case None => internalServerErrorWith("データベース接続エラー")
       case Some(imageIds) => Ok(Json.obj(
         "images" -> Json.toJson(toImageResponses(imageIds))
       ))
@@ -28,11 +28,15 @@ class ImageController @Inject() (
 
   def random: Action[AnyContent] = Action.async { request =>
     imageRepository.randomIds(20).map {
-      case None => InternalServerError(Json.toJson(ErrorResponse("データベース接続エラー")))
+      case None => internalServerErrorWith("データベース接続エラー")
       case Some(imageIds) =>Ok(Json.obj(
         "images" -> Json.toJson(toImageResponses(imageIds))
       ))
     }
+  }
+
+  def internalServerErrorWith(message: String): Result = {
+    InternalServerError(Json.toJson(ErrorResponse(message)))
   }
 
   /** image のIDの配列を受けとって ImageResponse の配列に変換する */

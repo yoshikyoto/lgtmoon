@@ -4,7 +4,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import java.io.File
 
-import play.api.mvc.{Action, AnyContent, InjectedController}
+import play.api.mvc.{Action, AnyContent, InjectedController, Result}
 import akka.actor.ActorRef
 import image.{ImageRepository, ImageTemporaryStorage}
 import actor.ImageGenerateMessage
@@ -69,11 +69,11 @@ class ImageGenerateController @Inject() (
     }
   }
 
-  def badRequestWith(message: String): play.api.mvc.Result = {
+  def badRequestWith(message: String): Result = {
     BadRequest(Json.toJson(ErrorResponse(message)))
   }
 
-  def internalServerErrorWith(message: String): play.api.mvc.Result = {
+  def internalServerErrorWith(message: String): Result = {
     InternalServerError(Json.toJson(ErrorResponse(message)))
   }
 }
