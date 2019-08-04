@@ -5,7 +5,6 @@ import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import image.ImageRepository
-import java.sql.Timestamp
 import repositories.Tables.ImageRow
 
 class ImageDatabase extends ImageRepository {
@@ -25,10 +24,7 @@ class ImageDatabase extends ImageRepository {
       case imageIds: Seq[Long] => Some(imageIds.map(_.toInt))
       case _ => None
     }.recover {
-      case e => {
-        println(e)
-        None
-      }
+      case e => None
     }
   }
 
@@ -44,9 +40,7 @@ class ImageDatabase extends ImageRepository {
       case ids: Seq[Int] => Some(ids)
       case _ => None
     }.recover {
-      case e => {
-        None
-      }
+      case e => None
     }
   }
 
@@ -55,16 +49,14 @@ class ImageDatabase extends ImageRepository {
     // DBのidはLong型なのでIntからLongに変換する
     val action = Image.filter(_.id === id.toLong).result
     db.run(action).map {
-      case images: Seq[ImageRow] if images.length > 0
-      => Some(images(0))
+      case images: Seq[ImageRow] if images.nonEmpty
+      => Some(images.head)
       case _ => None
     }.map {
       case Some(image) => image.bin
       case _ => None
     }.recover {
-      case e => {
-        None
-      }
+      case e => None
     }
   }
 
