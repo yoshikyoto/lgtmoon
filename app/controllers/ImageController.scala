@@ -1,7 +1,7 @@
 package controllers
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.mvc.Action
+import play.api.mvc.{Action, AnyContent, Controller}
 import javax.inject.Inject
 import image.ImageRepository
 import play.api.libs.json.Json
@@ -15,9 +15,9 @@ class ImageController @Inject() (
   imageRepository: ImageRepository,
   urlBuilder: UrlBuilder,
   imageResponseFactory: ImageResponseFactory
-) extends BaseControllerTrait with JsonConvert {
+) extends Controller with JsonConvert {
 
-  def recent = Action.async { request =>
+  def recent: Action[AnyContent] = Action.async { request =>
     imageRepository.recentIds(20).map {
       case None => InternalServerError(Json.toJson(ErrorResponse("データベース接続エラー")))
       case Some(imageIds) => Ok(Json.obj(
@@ -26,7 +26,7 @@ class ImageController @Inject() (
     }
   }
 
-  def random = Action.async { request =>
+  def random: Action[AnyContent] = Action.async { request =>
     imageRepository.randomIds(20).map {
       case None => InternalServerError(Json.toJson(ErrorResponse("データベース接続エラー")))
       case Some(imageIds) =>Ok(Json.obj(
