@@ -8,18 +8,18 @@ import play.api.libs.json.Json
 import controllers.response.ImageResponseFactory
 import controllers.module.JsonConvert
 import controllers.response.ImageResponse
+import controllers.response.ErrorResponse
 
 /** LGTMoonが持っているimagesの情報を返すcontroller */
 class ImageController @Inject() (
   imageRepository: ImageRepository,
   urlBuilder: UrlBuilder,
   imageResponseFactory: ImageResponseFactory
-
 ) extends BaseControllerTrait with JsonConvert {
 
   def recent = Action.async { request =>
     imageRepository.recentIds(20).map {
-      case None => InternalServerError(JsonBuilder.error("サーバーエラー"))
+      case None => InternalServerError(Json.toJson(ErrorResponse("データベース接続エラー")))
       case Some(imageIds) => Ok(Json.obj(
         "images" -> Json.toJson(toImageResponses(imageIds))
       ))
@@ -28,7 +28,7 @@ class ImageController @Inject() (
 
   def random = Action.async { request =>
     imageRepository.randomIds(20).map {
-      case None => InternalServerError("データベース接続エラー")
+      case None => InternalServerError(Json.toJson(ErrorResponse("データベース接続エラー")))
       case Some(imageIds) =>Ok(Json.obj(
         "images" -> Json.toJson(toImageResponses(imageIds))
       ))
