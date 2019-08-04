@@ -93,6 +93,32 @@ image.baseUrl = "https://yourhost:9000/images"
 
 Herokuにデプロイする際に楽なので、`node_modules`やコンパイル後のCSSもすべてリポジトリに含めています。
 
+## Contribute
+
+このコードはクリーンアーキテクチャーを意識して書かれています。
+（[参考](https://scrapbox.io/kadoyau/DDD%E3%81%AB%E9%96%A2%E3%82%8F%E3%82%8B%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3)）
+
+矢印のような依存関係になっています。例えば、Infra層はDomain層に依存しますが、
+Domain層はInfra層に依存してはいけません。
+
+![クリーンアーキテクチャーのイメージ図](https://gyazo.com/4df38ec2d5f7e302e56f7c87ee4052c9)
+
+### LGTMoonのクリーンアーキテクチャ構造
+
+Presentation層/UseCase層
+* LGTMoonは小さなアプリケーションで、ログイン機構が無いため、Presentation層とUseCase層は区別されていません
+* `app/controllers` 以下がこの層にあたります
+* `app/views` も一応この層と言えます
+* `app/actor` も UseCase層のものですが、現状は `app/actor` の整備が進んでいないためどこの層にも属さないような立ち位置になっています
+
+Domain層
+* `app/image` 以下がこの層にあたります
+* アプリケーションの核となる部分で、「このアプリケーションは何が可能なのか」といったことを表します
+
+Infra層
+* `app/storage`, `app/database`, `app/command`, `app/external`, あたりがこの層といえます
+* ストレージやデータベースにアクセスする部分です
+* OSやサーバー環境などに依存する部分です 
 
 ## Tips
 
