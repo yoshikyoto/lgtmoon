@@ -2,9 +2,12 @@ package storage
 
 import com.google.inject.Inject
 import java.net.URL
+
 import play.api.Configuration
 import java.io.{
   BufferedOutputStream,
+  InputStream,
+  FileInputStream,
   FileOutputStream
 }
 
@@ -27,14 +30,22 @@ class ImageTemporaryStorage @Inject() (
    * @return 保存されたバイナリの絶対パス */
   def save(id: Int, url: String): String = {
     val downloadSrcStream = new URL(url).openStream
-    val downloadSrcBuffer = Stream.continually(downloadSrcStream.read).takeWhile(-1 !=).map(_.byteValue).toArray
+    val downloadSrcBinary = streamToBinary(downloadSrcStream)
     // ダウンロードされたファイルはLGTM画像変換のためのソース画像のPATHに入る
-    val downloadDestPath = srcPath(id)
-    val downloadDestStream = new BufferedOutputStream(new FileOutputStream(downloadDestPath))
-    downloadDestStream.write(downloadSrcBuffer)
+    val downloadDestStream = new BufferedOutputStream(new FileOutputStream(srcPath(id)))
+    downloadDestStream.write(downloadSrcBinary)
     downloadDestStream.close()
     downloadSrcStream.close()
-    return downloadDestPath
+    srcPath(id)
   }
 
+  /** 変換後（dest）の画像のバイナリを取得する */
+  def convertedBinary(id: Int): Array[Byte] = {
+    streamToBinary(new FileInputStream(destPath(id)))
+  }
+
+  /** streamからデータを読んでバイナリを返す */
+  def streamToBinary(stream: InputStream): Array[Byte] = {
+    Stream.continually(stream.read).takeWhile(-1 !=).map(_.byteValue).toArray
+  }
 }
