@@ -14,9 +14,9 @@ class GoogleCustomSearchClient @Inject() (
   ws: WSClient,
   config: Configuration
 ) extends ImageSearcher {
-  val baseUrl = config.getString("google.baseUrl").get
-  val key = config.getString("google.key").get
-  val cx = config.getString("google.cx").get
+  val baseUrl = config.get[String]("google.baseUrl")
+  val key = config.get[String]("google.key")
+  val cx = config.get[String]("google.cx")
   val searchType = "image"
 
   implicit val imageReads: Reads[Image] = (

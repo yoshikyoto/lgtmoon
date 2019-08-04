@@ -6,7 +6,7 @@ import play.api.Configuration
 class UrlBuilder @Inject() (
   config: Configuration
 ){
-  val base = config.getString("image.baseUrl").get
+  val base = config.get[String]("image.baseUrl")
 
   def image(id: Int): String = base + "/" +  id
 
