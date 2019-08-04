@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.mvc.{Action, AnyContent, InjectedController}
+import play.api.mvc.{Action, AnyContent, InjectedController, Result}
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -20,10 +20,14 @@ class ImageSearchController @Inject() (
   /** キーワードを受け取り検索結果を返す */
   def search(keyword: String): Action[AnyContent] = Action.async { request =>
     imageSearcher.urls(keyword) map {
-      case None => InternalServerError(Json.toJson(ErrorResponse("Server Error")))
+      case None => internalServerErrorWith("検索でサーバーエラーが発生しました")
       case Some(urls) => Ok(Json.obj(
         "images" -> Json.toJson(imageResponseFactory.create(urls))
       ))
     }
+  }
+
+  def internalServerErrorWith(message: String): Result = {
+    InternalServerError(Json.toJson(ErrorResponse(message)))
   }
 }
