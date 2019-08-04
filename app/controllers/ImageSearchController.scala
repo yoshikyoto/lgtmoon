@@ -1,7 +1,8 @@
 package controllers
 
-import play.api.mvc.Action
+import play.api.mvc.{Action, AnyContent, Controller}
 import play.api.libs.json.Json
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import javax.inject.Inject
 import image.ImageSearcher
@@ -14,10 +15,10 @@ import controllers.module.JsonConvert
 class ImageSearchController @Inject() (
   imageSearcher: ImageSearcher,
   imageResponseFactory: ImageResponseFactory
-) extends BaseControllerTrait with JsonConvert {
+) extends Controller with JsonConvert {
 
   /** キーワードを受け取り検索結果を返す */
-  def search(keyword: String) = Action.async { request =>
+  def search(keyword: String): Action[AnyContent] = Action.async { request =>
     imageSearcher.urls(keyword) map {
       case None => InternalServerError(Json.toJson(ErrorResponse("Server Error")))
       case Some(urls) => Ok(Json.obj(
@@ -25,5 +26,4 @@ class ImageSearchController @Inject() (
       ))
     }
   }
-
 }
