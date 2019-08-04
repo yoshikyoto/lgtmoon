@@ -6,20 +6,24 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import javax.inject.Inject
 import image.ImageSearcher
-import controllers.response.ImageResponse
+import controllers.response.ImageResponseFactory
 import controllers.response.ErrorResponse
 import controllers.module.JsonConvert
 
+
 /** 画像検索コントローラー */
 class ImageSearchController @Inject() (
-  imageSearcher: ImageSearcher
+  imageSearcher: ImageSearcher,
+  imageResponseFactory: ImageResponseFactory
 ) extends BaseControllerTrait with JsonConvert {
 
   /** キーワードを受け取り検索結果を返す */
   def search(keyword: String) = Action.async { request =>
     imageSearcher.urls(keyword) map {
       case None => InternalServerError(Json.toJson(ErrorResponse("Server Error")))
-      case Some(urls) => Ok(Json.obj("images" -> Json.toJson(urlsToImages(urls))))
+      case Some(urls) => Ok(Json.obj(
+        "images" -> Json.toJson(imageResponseFactory.create(urls))
+      ))
     }
   }
 

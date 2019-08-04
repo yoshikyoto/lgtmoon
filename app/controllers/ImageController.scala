@@ -5,18 +5,23 @@ import play.api.mvc.Action
 import javax.inject.Inject
 import image.ImageRepository
 import play.api.libs.json.Json
+import controllers.response.ImageResponseFactory
+import controllers.module.JsonConvert
+import controllers.response.ImageResponse
 
 /** LGTMoonが持っているimagesの情報を返すcontroller */
 class ImageController @Inject() (
   imageRepository: ImageRepository,
-  urlBuilder: UrlBuilder
-) extends BaseControllerTrait {
+  urlBuilder: UrlBuilder,
+  imageResponseFactory: ImageResponseFactory
+
+) extends BaseControllerTrait with JsonConvert {
 
   def recent = Action.async { request =>
     imageRepository.recentIds(20).map {
       case None => InternalServerError(JsonBuilder.error("サーバーエラー"))
       case Some(imageIds) => Ok(Json.obj(
-        "images" -> Json.toJson(urlBuilder.images(imageIds))
+        "images" -> Json.toJson(toImageResponses(imageIds))
       ))
     }
   }
@@ -25,8 +30,13 @@ class ImageController @Inject() (
     imageRepository.randomIds(20).map {
       case None => InternalServerError("データベース接続エラー")
       case Some(imageIds) =>Ok(Json.obj(
-        "images" -> Json.toJson(urlBuilder.images(imageIds))
+        "images" -> Json.toJson(toImageResponses(imageIds))
       ))
     }
+  }
+
+  /** imageのIDの配列を受けとって ImageResponse の配列に変換する */
+  def toImageResponses(imageIds: Seq[Int]): Seq[ImageResponse] = {
+    imageResponseFactory.create(urlBuilder.images(imageIds))
   }
 }
