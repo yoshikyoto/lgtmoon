@@ -26,10 +26,10 @@ class ImageGenerateController @Inject() (
   def withUrl = Action.async { request =>
     val jsonOpt = request.body.asJson
     jsonOpt match {
-      case None => Future(BadRequest(Json.toJson(ErrorResponse("Json形式でPOSTしてください"))))
+      case None => Future(badRequestWith("Json形式でPOSTしてください"))
       case Some(json) => {
           (json \ "url").asOpt[String] match {
-            case None => Future(PARAMETER_KEYWORD_NOT_FOUND_RESPONSE)
+            case None => Future(badRequestWith("keywordパラメータは必須です"))
             case Some(url)  => {
               val xForwardedFor = request.remoteAddress
               Logger.info(xForwardedFor)
@@ -46,6 +46,10 @@ class ImageGenerateController @Inject() (
           }
       }
     }
+  }
+
+  def badRequestWith(message: String): play.api.mvc.Result = {
+    BadRequest(Json.toJson(ErrorResponse(message)))
   }
 
   def withBinary = Action.async { request =>

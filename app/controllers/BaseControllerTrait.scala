@@ -14,10 +14,6 @@ import akka.actor.Props
 
 trait BaseControllerTrait extends Controller {
 
-  /** jsonにkeywordが見つからなかった時のレスポンス */
-  val PARAMETER_KEYWORD_NOT_FOUND_RESPONSE =
-    BadRequest(JsonBuilder.badRequest("keywordパラメータが見つかりませんでした"))
-
   val INVALID_IMAGE_RESPONSE =
     BadRequest(JsonBuilder.badRequest("画像ではないかおかしな形式です"))
 
