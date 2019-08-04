@@ -101,7 +101,7 @@ Herokuにデプロイする際に楽なので、`node_modules`やコンパイル
 矢印のような依存関係になっています。例えば、Infra層はDomain層に依存しますが、
 Domain層はInfra層に依存してはいけません。
 
-![クリーンアーキテクチャーのイメージ図](https://gyazo.com/4df38ec2d5f7e302e56f7c87ee4052c9)
+![クリーンアーキテクチャーのイメージ図](https://i.gyazo.com/thumb/1000/4df38ec2d5f7e302e56f7c87ee4052c9-png.png)
 
 ### LGTMoonのクリーンアーキテクチャ構造
 
