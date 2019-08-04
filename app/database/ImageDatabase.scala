@@ -11,11 +11,11 @@ import repositories.Tables.ImageRow
 class ImageDatabase extends ImageRepository {
   val db = Database.forConfig("pg_database")
 
-  val CONVERTIONG: Short = 0
-  val AVAILABLE: Short = 1
+  val STATUS_PROCESSING: Short = 0
+  val STATUS_AVAILABLE: Short = 1
 
   def recentIds(limit: Int): Future[Option[Seq[Int]]] = {
-    val action = Image.filter(_.status === AVAILABLE)
+    val action = Image.filter(_.status === STATUS_AVAILABLE)
       .sortBy(_.createdAt.desc)
       .map(p => p.id)
       .take(limit)
@@ -33,6 +33,7 @@ class ImageDatabase extends ImageRepository {
   }
 
   def randomIds(limit: Int): Future[Option[Seq[Int]]] = {
+    // availableなIDを全部取得してきてランダムにシャッフルする
     val action =  sql"""
       SELECT id FROM image
       WHERE status = 1
@@ -64,6 +65,24 @@ class ImageDatabase extends ImageRepository {
       case e => {
         None
       }
+    }
+  }
+
+  /**
+   * 変換完了した画像のバイナリを保存してStatusをAvailableにする
+   * @return 正常に終了した場合 Future(Some(1)) （1はUpdateされたカラムの数）
+   * 更新に失敗した場合は None
+   */
+  def makeAvailable(id: Int, bin: Array[Byte]): Future[Option[Int]] = {
+    val action = Image.filter(_.id === id.toLong)
+      .map(x => (x.status, x.bin))
+      .update((STATUS_AVAILABLE, Some(bin)))
+    db.run(action).map {
+      // 正しい挙動（1件のレコードが更新される）
+      case num: Int if num == 1 => Some(num)
+      case _ => None
+    }.recover {
+      case e => None
     }
   }
 }

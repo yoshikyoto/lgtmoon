@@ -14,12 +14,11 @@ class ImageMagick @Inject() (
 ) extends ImageConverter {
   val imagemagickDir: String = config.get[String]("imagemagick.dir")
 
-
   /**
     * 画像の変換を行う
     *
-    * @param srcPath: String 生成前の画像のPATH
-    * @param destPath: String 生成後の画像のPATH
+    * @param srcPath 生成前の画像のPATH
+    * @param destPath 生成後の画像のPATH
     */
   def convert(srcPath: String, destPath: String) {
     val operation = new IMOperation()

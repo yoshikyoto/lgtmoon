@@ -1,11 +1,12 @@
 package actor
 
 import akka.actor.Actor
-import infra.datasource.ImageStorage
 import image.ImageConverter
-import domain.image.ImageRepository
-import javax.inject.Inject
+import image.ImageRepository
+import com.google.inject.Inject
+import storage.ImageTemporaryStorage
 
+// TODO idをIntにする
 case class ImageGenerateMessage(id: Long)
 
 case class ImageDownloadAndGenerateMessage(id: Long, url: String)
@@ -16,31 +17,28 @@ case class ImageDownloadAndGenerateMessage(id: Long, url: String)
  * 2. その画像を変換キューに乗せる
  */
 class ImageActor @Inject() (
-  val imageRepository: ImageRepository,
-  val imageConverter: ImageConverter
+  imageRepository: ImageRepository,
+  imageConverter: ImageConverter,
+  imageTemporaryStorage: ImageTemporaryStorage
 ) extends Actor {
-  val downloadDir = "/tmp"
-  val destDir = "/tmp"
-  val imageStorage = ImageStorage
 
   override def receive: Receive = {
     case ImageDownloadAndGenerateMessage(id, url) => {
-      val downloadPath = downloadDir + "/" + id
-      val convertedPath = destDir + "/" + id
-      imageStorage.download(url, downloadPath)
-      imageConverter.convert(downloadPath, convertedPath)
+      val srcImagePath = imageTemporaryStorage.save(id.toInt, url)
+      val destImagePath = imageTemporaryStorage.destPath(id.toInt)
+      imageConverter.convert(srcImagePath, destImagePath)
       // convertされた画像をバイナリで取得してDBに入れる
-      val bin = imageStorage.binary(convertedPath)
-      imageRepository.updateStatus(id, imageRepository.AVAILABLE, bin)
+      val bin = imageTemporaryStorage.convertedBinary(id.toInt)
+      imageRepository.makeAvailable(id.toInt, bin)
     }
 
     case ImageGenerateMessage(id) => {
-      val sourcePath = downloadDir + "/" + id
-      val destPath = destDir + "/" + id
+      val sourcePath = imageTemporaryStorage.srcPath(id.toInt)
+      val destPath = imageTemporaryStorage.destPath(id.toInt)
       imageConverter.convert(sourcePath, destPath)
       // convertされた画像をバイナリで取得してDBに入れる
-      val bin = imageStorage.binary(destPath)
-      imageRepository.updateStatus(id, imageRepository.AVAILABLE, bin)
+      val bin = imageTemporaryStorage.convertedBinary(id.toInt)
+      imageRepository.makeAvailable(id.toInt, bin)
     }
   }
 
