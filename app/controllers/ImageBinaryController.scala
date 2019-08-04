@@ -17,6 +17,7 @@ import javax.inject.Inject
 class ImageBinaryController @Inject() (
   val imageRepository: ImageRepository
 ) extends InjectedController {
+
   /** idを受け取り画像のバイナリデータを返す */
   def image(id: Int): Action[AnyContent]  = Action.async { request =>
     imageRepository.binary(id).map {
