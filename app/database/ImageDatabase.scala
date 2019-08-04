@@ -1,7 +1,10 @@
 package database
 
+import java.sql.Timestamp
+
 import repositories.Tables.Image
 import slick.jdbc.PostgresProfile.api._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import image.ImageRepository
@@ -59,6 +62,17 @@ class ImageDatabase extends ImageRepository {
       case e => None
     }
   }
+
+  /** status = STATUS_PROCESSING でレコードを作成する */
+  def create(): Future[Option[Int]] = {
+    val timestamp = new Timestamp(System.currentTimeMillis())
+    val imageRow = ImageRow(0, "", timestamp, STATUS_PROCESSING)
+    val action = for {
+      id <- Image returning Image.map(_.id) += imageRow
+    } yield Some(id.toInt)
+    db.run(action)
+  }
+
 
   /**
    * 変換完了した画像のバイナリを保存してStatusをAvailableにする

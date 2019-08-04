@@ -6,7 +6,7 @@ import java.io.File
 
 import play.api.mvc.{Action, AnyContent, InjectedController}
 import akka.actor.ActorRef
-import domain.image.ImageRepository
+import image.ImageRepository
 import actor.ImageGenerateMessage
 import actor.ImageDownloadAndGenerateMessage
 import infra.datasource.ImageStorage
@@ -24,15 +24,14 @@ class ImageGenerateController @Inject() (
 
   /** postされたurlから画像生成をする */
   def withUrl: Action[AnyContent] = Action.async { request =>
-    val jsonOpt = request.body.asJson
-    jsonOpt match {
+    val jsonOptional = request.body.asJson
+    jsonOptional match {
       case None => Future(badRequestWith("Json形式でPOSTしてください"))
       case Some(json) => {
         (json \ "url").asOpt[String] match {
           case None => Future(badRequestWith("keywordパラメータは必須です"))
           case Some(url) => {
-            val xForwardedFor = request.remoteAddress
-            // Logger.info(xForwardedFor)
+            // Logger.info(request.remoteAddress)
             // とりあえずURLだけ先に払い出して返す
             imageRepository.create() map {
               case None => internalServerErrorWith("データベース接続エラー")
@@ -54,7 +53,7 @@ class ImageGenerateController @Inject() (
         data.file("file") match {
           case None => Future(badRequestWith("fileパラメータは必須です"))
           case Some(file) => {
-            // TODO file validation
+            // ファイルバリデーションはしていない（どうせimagemagickで弾かれるし）
             imageRepository.create().map {
               case None => internalServerErrorWith("データベース接続エラー")
               case Some(id) => {
