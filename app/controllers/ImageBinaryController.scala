@@ -4,7 +4,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.mvc.{
   Action,
   AnyContent,
-  Controller,
+  InjectedController,
   ResponseHeader,
   Result
 }
@@ -16,7 +16,7 @@ import javax.inject.Inject
 /** 画像のバイナリデータを返すコントローラー */
 class ImageBinaryController @Inject() (
   val imageRepository: ImageRepository
-) extends Controller {
+) extends InjectedController {
   /** idを受け取り画像のバイナリデータを返す */
   def image(id: Int): Action[AnyContent]  = Action.async { request =>
     imageRepository.binary(id).map {
