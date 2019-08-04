@@ -11,34 +11,33 @@ https://lgtmoon.herokuapp.com/
 ## Dependency
 
 * Scala 2.11
-* Play Framwork 2.5
+* Play Framwork 2.6
 * Slick 3.2
 * PostgreSQL 10
 * imagemagick
-* vue.js
+* Vue.js
 
 ## License
 
 This application is licensed under the MIT License, see LICENSE.txt.
 
-## API
-
-[Wiki](https://github.com/yoshikyoto/lgtmoon/wiki) をご覧ください。
-
-See [Wiki](https://github.com/yoshikyoto/lgtmoon/wiki).
-
 ## 動作環境作成手順
 
-### PostgreSQL on docker for Local development
+### Dockerを使ったPostgreSQL環境の構築
 
-```
+```sh
 docker-compose up -d
+
+# 接続確認
+# localhost の 5432 が docker の 5432 にプロキシされる設定になっています
+# 詳しくは docker-compose.yml を見てください
 psql -U postgres -h 127.0.0.1 lgtmoon --password
 ```
 
-### Create Database
+### Dockerを使わない場合
 
 `sql/init/1_create.sql` をデータベースに流してください。
+（Dockerの場合はこのSQLが自動的に流れる設定になっているはずです）
 
 例:
 
@@ -47,21 +46,27 @@ psql# create database lgtmoon owner postgres encoding 'UTF8';
 $ psql lgtmoon < create.sql
 ```
 
-Tips: postgresデーモンの起動方法
-
-```
-$ postgres -D /usr/local/var/postgres
-```
+PostgreSQLの操作などについてはwikiなどを見てください。
 
 ### application.conf
 
-`conf/application.conf.sample` を参考に `conf/application.conf` を作成してください。
+`conf/application.conf.sample` を参考に `conf/application.conf` を作成し、
+下記を設定してください。
 
-postgresのパスワードなどの設定
+secretの値を変更
+
+```
+play.crypto.secret = "changeme"
+```
+
+PostgreSQLの接続情報の設定
 
 ```
 pg_database = {
-  ...
+  url = "jdbc:postgresql://127.0.0.1/lgtmoon?user=postgres&password=postgres"
+  driver = org.postgresql.Driver
+  connectionPool = disabled
+  keepAliveConnection = true
 }
 ```
 
@@ -71,16 +76,17 @@ imagemagickのPATHの設定
 imagemagick.dir = /usr/:/usr/bin
 ```
 
-画像配信のホストの設定
+storageの設定
 
 ```
-storage.hostName = "lgtmoon.herokuapp.com"
+storage.image.src.dir = "/tmp"
+storage.image.dest.dir = "/tmp"
 ```
 
-secretの値を変更
+image.baseUrl の設定
 
 ```
-play.crypto.secret = "changeme"
+image.baseUrl = "https://yourhost:9000/images"
 ```
 
 ## 注意点
@@ -117,9 +123,4 @@ $ git checkout -b deploy
 
 $ git commit application.conf
 $ git push heroku deploy:master
-```
-#### curl でAPIを叩く
-
-```
-$ curl http://host/image.json -X POST -H "content-type: application/json" -d '{"url":url}'
 ```
