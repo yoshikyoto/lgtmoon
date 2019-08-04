@@ -13,7 +13,7 @@ class ImageTemporaryStorage @Inject() (
   config: Configuration
 ){
   /** 変換前の画像が保存されるパス */
-  val srcImageDir = config.get[String]("storage.image.src.dir")
+  val srcImageDir: String = config.get[String]("storage.image.src.dir")
 
   /** URLから画像をダウンロードしてきて
    * 変換前の画像ストレージに保存する */
