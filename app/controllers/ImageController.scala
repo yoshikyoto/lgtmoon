@@ -1,7 +1,7 @@
 package controllers
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.mvc.{Action, AnyContent, Controller}
+import play.api.mvc.{Action, AnyContent, InjectedController}
 import javax.inject.Inject
 import image.ImageRepository
 import play.api.libs.json.Json
@@ -15,7 +15,7 @@ class ImageController @Inject() (
   imageRepository: ImageRepository,
   urlBuilder: UrlBuilder,
   imageResponseFactory: ImageResponseFactory
-) extends Controller with JsonConvert {
+) extends InjectedController with JsonConvert {
 
   def recent: Action[AnyContent] = Action.async { request =>
     imageRepository.recentIds(20).map {

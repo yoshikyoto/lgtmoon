@@ -3,8 +3,6 @@ package command
 import file.Font
 import image.ImageConverter
 import play.api.Configuration
-import java.io._
-import play.api.Play
 import org.im4java.core._
 import javax.inject.Inject
 

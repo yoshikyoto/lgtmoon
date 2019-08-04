@@ -4,7 +4,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import java.io.File
 
-import play.api.mvc.{Action, AnyContent, Controller}
+import play.api.mvc.{Action, AnyContent, InjectedController}
 import akka.actor.ActorRef
 import domain.image.ImageRepository
 import actor.ImageGenerateMessage
@@ -20,7 +20,7 @@ class ImageGenerateController @Inject() (
   imageRepository: ImageRepository,
   @Named("image-actor") imageActor: ActorRef,
   urlBuilder: UrlBuilder
-) extends Controller with JsonConvert {
+) extends InjectedController with JsonConvert {
 
   /** postされたurlから画像生成をする */
   def withUrl: Action[AnyContent] = Action.async { request =>

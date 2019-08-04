@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.mvc.{Action, AnyContent, Controller}
+import play.api.mvc.{Action, AnyContent, InjectedController}
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -15,7 +15,7 @@ import controllers.module.JsonConvert
 class ImageSearchController @Inject() (
   imageSearcher: ImageSearcher,
   imageResponseFactory: ImageResponseFactory
-) extends Controller with JsonConvert {
+) extends InjectedController with JsonConvert {
 
   /** キーワードを受け取り検索結果を返す */
   def search(keyword: String): Action[AnyContent] = Action.async { request =>
