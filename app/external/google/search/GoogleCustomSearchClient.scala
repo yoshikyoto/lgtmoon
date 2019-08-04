@@ -46,10 +46,10 @@ class GoogleCustomSearchClient @Inject() (
    */
   def urls(keyword: String): Future[Option[Seq[String]]] = {
     ws.url(baseUrl)
-      .withQueryString("searchType" -> searchType)
-      .withQueryString("key" -> key)
-      .withQueryString("cx" -> cx)
-      .withQueryString("q" -> keyword)
+      .addQueryStringParameters("searchType" -> searchType)
+      .addQueryStringParameters("key" -> key)
+      .addQueryStringParameters("cx" -> cx)
+      .addQueryStringParameters("q" -> keyword)
       .get()
       .map{ wsResponse =>
         (wsResponse.json \ "items").asOpt[Seq[Item]] match {
