@@ -25,7 +25,10 @@ class ImageDatabase extends ImageRepository {
       case imageIds: Seq[Long] => Some(imageIds.map(_.toInt))
       case _ => None
     }.recover {
-      case e => None
+      case e => {
+        println(e)
+        None
+      }
     }
   }
 
