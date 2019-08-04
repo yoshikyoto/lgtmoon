@@ -1,7 +1,7 @@
 package module
 
-import com.google.inject.AbstractModule
 import play.api.libs.concurrent.AkkaGuiceSupport
+import com.google.inject.AbstractModule
 
 /** DI */
 class ImageActor extends AbstractModule with AkkaGuiceSupport {

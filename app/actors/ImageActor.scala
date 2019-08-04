@@ -1,9 +1,6 @@
 package actor
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.Play
 import akka.actor.Actor
-import play.api.libs.concurrent.Akka
 import infra.datasource.ImageStorage
 import image.ImageConverter
 import domain.image.ImageRepository

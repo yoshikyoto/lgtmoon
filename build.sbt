@@ -8,8 +8,8 @@ scalaVersion := "2.11.12"
 
 libraryDependencies ++= Seq(
   jdbc,
-  cache,
   ws,
+  guice,
   specs2 % Test,
   "com.rabbitmq" % "amqp-client" % "3.4.4",
   "com.typesafe.slick" %% "slick" % "3.2.3",

@@ -4,7 +4,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import java.io.File
 
-import play.api._
 import play.api.mvc.{Action, AnyContent, Controller}
 import akka.actor.ActorRef
 import domain.image.ImageRepository
@@ -33,7 +32,7 @@ class ImageGenerateController @Inject() (
           case None => Future(badRequestWith("keywordパラメータは必須です"))
           case Some(url) => {
             val xForwardedFor = request.remoteAddress
-            Logger.info(xForwardedFor)
+            // Logger.info(xForwardedFor)
             // とりあえずURLだけ先に払い出して返す
             imageRepository.create() map {
               case None => internalServerErrorWith("データベース接続エラー")
