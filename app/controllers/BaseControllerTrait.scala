@@ -13,9 +13,6 @@ import play.api.libs.concurrent.Akka
 import akka.actor.Props
 
 trait BaseControllerTrait extends Controller {
-  /** Json以外のデータ形式が来た時のレスポンス */
-  val NOT_JSON_RESPONSE =
-    BadRequest(JsonBuilder.badRequest("Json形式でPOSTしてください"))
 
   /** jsonにkeywordが見つからなかった時のレスポンス */
   val PARAMETER_KEYWORD_NOT_FOUND_RESPONSE =

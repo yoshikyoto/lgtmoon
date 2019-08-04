@@ -3,7 +3,6 @@ package controllers
 import play.api.mvc.Action
 import play.api.libs.json.Json
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import javax.inject.Inject
 import image.ImageSearcher
 import controllers.response.ImageResponseFactory

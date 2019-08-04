@@ -5,34 +5,28 @@ import scala.concurrent.Future
 import java.io.File
 import play.api._
 import play.api.mvc._
-import org.joda.time.DateTime
-import play.api.libs.Files.TemporaryFile
-import play.api.mvc.MultipartFormData.FilePart
-import play.api.libs.json._
-import play.api.Play.current
-import play.api.libs.concurrent.Akka
-import akka.actor.Props
 import akka.actor.ActorRef
 import domain.image.ImageRepository
-import actor.ImageActor
 import actor.ImageGenerateMessage
 import actor.ImageDownloadAndGenerateMessage
 import infra.util.UrlBuilder
 import infra.datasource.ImageStorage
 import javax.inject.{Inject, Named}
+import play.api.libs.json.Json
+import controllers.module.JsonConvert
+import controllers.response.ErrorResponse
 
 /** 画像生成を行うコントロラー */
 class ImageGenerateController @Inject() (
-  val imageRepository: ImageRepository,
+  imageRepository: ImageRepository,
   @Named("image-actor") imageActor: ActorRef
-
-) extends BaseControllerTrait {
+) extends BaseControllerTrait with JsonConvert {
 
   /** postされたurlから画像生成をする */
   def withUrl = Action.async { request =>
     val jsonOpt = request.body.asJson
     jsonOpt match {
-      case None => Future(NOT_JSON_RESPONSE)
+      case None => Future(BadRequest(Json.toJson(ErrorResponse("Json形式でPOSTしてください"))))
       case Some(json) => {
           (json \ "url").asOpt[String] match {
             case None => Future(PARAMETER_KEYWORD_NOT_FOUND_RESPONSE)
