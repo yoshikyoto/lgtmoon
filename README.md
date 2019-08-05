@@ -15,6 +15,7 @@ https://lgtmoon.herokuapp.com/
 * Slick 3.2
 * PostgreSQL 10
 * imagemagick
+* yarn
 * Vue.js
 
 ## License
