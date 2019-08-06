@@ -8,6 +8,7 @@ import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import image.ImageRepository
+import play.api.Logger
 
 class ImageDatabase extends ImageRepository {
   val db = Database.forConfig("pg_database")
@@ -24,14 +25,19 @@ class ImageDatabase extends ImageRepository {
     db.run(action).map {
       // Longで帰ってくるのでIntに変換する
       case imageIds: Seq[Long] => Some(imageIds.map(_.toInt))
-      case _ => None
+      case _ => {
+        Logger.error("ImageDatabase.recentIdsでSeq[Long]以外が返された")
+        None
+      }
     }.recover {
-      case e => None
+      case e => {
+        Logger.error("ImageDatabase.recentIdsでエラー", e)
+        None
+      }
     }
   }
 
   def randomIds(limit: Int): Future[Option[Seq[Int]]] = {
-    // availableなIDを全部取得してきてランダムにシャッフルする
     val action =  sql"""
       SELECT id FROM image
       WHERE status = 1
@@ -40,9 +46,15 @@ class ImageDatabase extends ImageRepository {
     """.as[Int]
     db.run(action).map {
       case ids: Seq[Int] => Some(ids)
-      case _ => None
+      case _ => {
+        Logger.error("ImageDatabase.randomIdsでSeq[Int]以外が返された")
+        None
+      }
     }.recover {
-      case e => None
+      case e => {
+        Logger.error("ImageDatabase.randomIdsでエラー", e)
+        None
+      }
     }
   }
 
@@ -58,7 +70,10 @@ class ImageDatabase extends ImageRepository {
       case Some(image) => image.bin
       case _ => None
     }.recover {
-      case e => None
+      case e => {
+        Logger.error("ImageDatabase.binaryでエラー", e)
+        None
+      }
     }
   }
 
@@ -87,7 +102,10 @@ class ImageDatabase extends ImageRepository {
       case num: Int if num == 1 => Some(num)
       case _ => None
     }.recover {
-      case e => None
+      case e => {
+        Logger.error("ImageDatabase.makeAvailableでエラーが発生しましたID:" + id)
+        None
+      }
     }
   }
 }
