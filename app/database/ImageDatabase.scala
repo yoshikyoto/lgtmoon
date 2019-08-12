@@ -17,8 +17,11 @@ import slick.jdbc.JdbcProfile
 /**
  * データベースにアクセスするクラス
  * play-slickを利用している
+ * DatabaseConfigProvider で slicl.dbs.default の設定が勝手に読み込まれる
+ * dbConfigProvider という名前で接続情報をもたせて
+ * HasDatabaseConfigProvider[JdbcProfile] を extends しておくと
+ * db.run で action が実行できる。
  *
- * @param dbConfigProvider
  */
 class ImageDatabase @Inject() (
   protected val dbConfigProvider: DatabaseConfigProvider
