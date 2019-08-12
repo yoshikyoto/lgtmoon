@@ -5,13 +5,24 @@ import java.sql.Timestamp
 import database.Tables.Image
 import database.Tables.ImageRow
 import slick.jdbc.PostgresProfile.api._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import image.ImageRepository
-import play.api.Logger
+import play.api.{Configuration, Logger}
+import javax.inject.Inject
+import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
+import slick.jdbc.JdbcProfile
 
-class ImageDatabase extends ImageRepository {
-  val db = Database.forConfig("pg_database")
+/**
+ * データベースにアクセスするクラス
+ * play-slickを利用している
+ *
+ * @param dbConfigProvider
+ */
+class ImageDatabase @Inject() (
+  protected val dbConfigProvider: DatabaseConfigProvider
+) extends HasDatabaseConfigProvider[JdbcProfile] with ImageRepository {
 
   val STATUS_PROCESSING: Short = 0
   val STATUS_AVAILABLE: Short = 1
