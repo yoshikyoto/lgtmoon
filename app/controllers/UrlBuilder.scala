@@ -1,6 +1,6 @@
 package controllers
 
-import javax.inject.Inject
+import com.google.inject.Inject
 import play.api.Configuration
 
 class UrlBuilder @Inject() (

@@ -4,7 +4,7 @@ import file.Font
 import image.ImageConverter
 import play.api.Configuration
 import org.im4java.core._
-import javax.inject.Inject
+import com.google.inject.Inject
 
 
 /** imagemagickを使ってlgtmoon画像を作ってくれるやつ */

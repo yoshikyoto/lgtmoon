@@ -11,7 +11,7 @@ import play.api.mvc.{
 import play.api.http.HttpEntity
 import image.ImageRepository
 import akka.util.ByteString
-import javax.inject.Inject
+import com.google.inject.Inject
 
 /** 画像のバイナリデータを返すコントローラー */
 class ImageBinaryController @Inject() (

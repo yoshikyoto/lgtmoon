@@ -2,7 +2,7 @@ package controllers
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.mvc.{Action, AnyContent, InjectedController, Result}
-import javax.inject.Inject
+import com.google.inject.Inject
 import image.ImageRepository
 import play.api.libs.json.Json
 import controllers.response.ImageResponseFactory

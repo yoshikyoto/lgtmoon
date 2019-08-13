@@ -4,7 +4,7 @@ import play.api.mvc.{Action, AnyContent, InjectedController, Result}
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import javax.inject.Inject
+import com.google.inject.Inject
 import image.ImageSearcher
 import controllers.response.ImageResponseFactory
 import controllers.response.ErrorResponse
