@@ -1,7 +1,7 @@
 package file
 
 import play.api.Configuration
-import javax.inject.Inject
+import com.google.inject.Inject
 
 class Font @Inject() (
   val config: Configuration
