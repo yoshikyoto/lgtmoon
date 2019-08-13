@@ -6,7 +6,7 @@ import play.api.libs.ws.WSClient
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import play.api.Configuration
-import javax.inject.Inject
+import com.google.inject.Inject
 import image.ImageSearcher
 
 /** GoogleCustomSearchのAPIを叩くクライアント */
