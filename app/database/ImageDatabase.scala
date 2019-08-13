@@ -9,7 +9,7 @@ import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import image.ImageRepository
-import play.api.{Configuration, Logger}
+import play.api.{Configuration, Logging}
 import com.google.inject.Inject
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.JdbcProfile
@@ -25,7 +25,9 @@ import slick.jdbc.JdbcProfile
  */
 class ImageDatabase @Inject() (
   protected val dbConfigProvider: DatabaseConfigProvider
-) extends HasDatabaseConfigProvider[JdbcProfile] with ImageRepository {
+) extends HasDatabaseConfigProvider[JdbcProfile]
+  with Logging
+  with ImageRepository {
 
   val STATUS_PROCESSING: Short = 0
   val STATUS_AVAILABLE: Short = 1
@@ -40,12 +42,12 @@ class ImageDatabase @Inject() (
       // Longで帰ってくるのでIntに変換する
       case imageIds: Seq[Long] => Some(imageIds.map(_.toInt))
       case _ => {
-        Logger.error("ImageDatabase.recentIdsでSeq[Long]以外が返された")
+        logger.error("ImageDatabase.recentIdsでSeq[Long]以外が返された")
         None
       }
     }.recover {
       case e => {
-        Logger.error("ImageDatabase.recentIdsでエラー", e)
+        logger.error("ImageDatabase.recentIdsでエラー", e)
         None
       }
     }
@@ -61,12 +63,12 @@ class ImageDatabase @Inject() (
     db.run(action).map {
       case ids: Seq[Int] => Some(ids)
       case _ => {
-        Logger.error("ImageDatabase.randomIdsでSeq[Int]以外が返された")
+        logger.error("ImageDatabase.randomIdsでSeq[Int]以外が返された")
         None
       }
     }.recover {
       case e => {
-        Logger.error("ImageDatabase.randomIdsでエラー", e)
+        logger.error("ImageDatabase.randomIdsでエラー", e)
         None
       }
     }
@@ -85,7 +87,7 @@ class ImageDatabase @Inject() (
       case _ => None
     }.recover {
       case e => {
-        Logger.error("ImageDatabase.binaryでエラー", e)
+        logger.error("ImageDatabase.binaryでエラー", e)
         None
       }
     }
@@ -117,7 +119,7 @@ class ImageDatabase @Inject() (
       case _ => None
     }.recover {
       case e => {
-        Logger.error("ImageDatabase.makeAvailableでエラーが発生しましたID:" + id)
+        logger.error("ImageDatabase.makeAvailableでエラーが発生しましたID:" + id)
         None
       }
     }
