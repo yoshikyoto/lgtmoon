@@ -7,7 +7,7 @@ class Font @Inject() (
   val config: Configuration
 ) {
   /** フォントファイルがあるディレクトリ */
-  val fontDir = config.getString("imagemagick.fontDir").get
+  val fontDir = config.get[String]("imagemagick.fontDir")
 
   def path(fontName: String): String = {
     fontDir + "/" + fontName
