@@ -18,7 +18,7 @@ src_managed/
 project/boot/
 project/plugins/project/
 
-$ npmでビルドされるファイル
-public/fonts/ikafont.otf
-public/index.html
-public/js/
+# npmでビルドされるファイル
+/public/*
+# /public/* のように指定していると、
+# !/public/a.html と書くことで a.html は git管理下にできる
