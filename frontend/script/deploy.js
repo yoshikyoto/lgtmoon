@@ -14,3 +14,4 @@ cpx.copySync(`${src}/*.html`, `${dest}/`)
 
 console.log("Copy assets")
 cpx.copySync(`${src}/assets/fonts/*`, `${dest}/fonts/`)
+cpx.copySync(`${src}/assets/*.gif`, `${dest}/`)
