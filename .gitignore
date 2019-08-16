@@ -17,3 +17,8 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+
+$ npmでビルドされるファイル
+public/fonts/ikafont.otf
+public/index.html
+public/js/
