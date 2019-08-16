@@ -6,12 +6,14 @@
 </template>
 
 <script>
+  import repository from '@/modules/Repository'
+
   export default {
     name: "LgtmImage",
     data() {
       return {
         isMouseover: false,
-        isStared: false,
+        isFavorited: repository.isFavorited(this.item)
       }
     },
     props: [
@@ -19,14 +21,14 @@
     ],
     computed: {
       starIcon() {
-        if (this.isStared) {
+        if (this.isFavorited) {
           return '/assets/star-on.png'
         }
         return '/assets/star-off.png'
       },
       isShowStar() {
         // すでにスターしている場合はスターを表示してやる
-        if (this.isStared) {
+        if (this.isFavorited) {
           return true
         }
         // そうでない場合はマウスオーバー次第
@@ -44,11 +46,14 @@
         this.isMouseover = false
       },
       toggleStar() {
-        if (this.isStared) {
-          this.isStared = false
+        if (this.isFavorited) {
+          repository.unfavorite(this.item)
+          this.isFavorited = false
         } else {
-          this.isStared = true
+          repository.favorite(this.item)
+          this.isFavorited = true
         }
+        this.$forceUpdate()
       }
     }
   }

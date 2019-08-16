@@ -10,15 +10,20 @@
         :class="{ 'menu-item-selected' : selected == 1 }">
         ランダム
       </div>
-      <div v-on:click="help()" class="menu-item"
+      <div v-on:click="fav()" class="menu-item"
         :class="{ 'menu-item-selected' : selected == 2 }">
+        お気に入り
+      </div>
+      <div v-on:click="help()" class="menu-item"
+        :class="{ 'menu-item-selected' : selected == 3 }">
         使い方
       </div>
     </div>
     <section class="lgtmoon-section center recent-section position-relative image-section">
       <Images :items.sync="recentItems" @select="showDetail" v-show="selected == 0"/>
       <Images :items.sync="randomItems" @select="showDetail" v-show="selected == 1"/>
-      <Help v-show="selected == 2"/>
+      <Images :items.sync="favoritedItems" @select="showDetail" v-show="selected == 2"/>
+      <Help v-show="selected == 3"/>
       <ImageDetail v-if="isShowingDetail" :url="image.url" @close="closeDetail"/>
       <Loading v-if="isLoading"/>
     </section>
@@ -42,6 +47,7 @@
         isLoading: false,
         recentItems: [],
         randomItems: [],
+        favoritedItems: [],
         image: null
       }
     },
@@ -81,15 +87,19 @@
           this.isLoading = false
         });
       },
-      help () {
+      fav () {
         this.selected = 2
+        this.favoritedItems = repository.favorited()
+      },
+      help () {
+        this.selected = 3
       },
       showDetail (image) {
         this.isShowingDetail = true
         this.image = image
       },
       closeDetail () {
-        this.isShowingDetail = false;
+        this.isShowingDetail = false
       }
     }
   }
