@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import repository from '@/modules/Repository'
   import Images from '@/components/Images'
   import Loading from '@/components/Loading'
 
@@ -78,14 +78,11 @@
       /** 画像検索を行う */
       search (keyword) {
         this.isInputDisabled = true
-        axios.get('/api/v1/search', {
-          params: {
-            keyword: keyword
-          }
-        }).then((response) => {
+        repository.search(keyword).then((response) => {
           this.images = response.data.images
           this.enableInputInSec(5)
         }).catch((error) => {
+          console.log(error);
           this.message = "画像検索でエラーが発生しました"
           this.enableInputInSec(5)
         });
@@ -93,9 +90,7 @@
       /** 画像URLを渡すとLGTM生成APIを叩く */
       generate (imageUrl) {
         this.isInputDisabled = true
-        axios.post('/api/v1/images/url', {
-          url: imageUrl
-        }).then((response) => {
+        repository.generateByUri(imageUrl).then((response) => {
           this.message = '生成中 ' + response.data.url
           this.enableInputInSec(5)
         }).catch((error) => {

@@ -1,11 +1,5 @@
 <template>
   <div class="images-block">
-    <!--
-    <div v-for="item in items" class="image-block">
-      <img :src="starIcon" class="star">
-      <img :src="item.url" v-on:click="select(item)" class="image">
-    </div>
-    -->
     <LgtmImage v-for="item in items" :item="item" @select="select">
     </LgtmImage>
   </div>

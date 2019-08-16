@@ -71,5 +71,6 @@
     position: absolute;
     top: 2px;
     right: 2px;
+    opacity: 0.9;
   }
 </style>
