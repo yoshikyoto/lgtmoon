@@ -29,7 +29,7 @@ class ImageController @Inject() (
   def random: Action[AnyContent] = Action.async { request =>
     imageRepository.randomIds(20).map {
       case None => internalServerErrorWith("データベース接続エラー")
-      case Some(imageIds) =>Ok(Json.obj(
+      case Some(imageIds) => Ok(Json.obj(
         "images" -> Json.toJson(toImageResponses(imageIds))
       ))
     }
@@ -41,6 +41,9 @@ class ImageController @Inject() (
 
   /** image のIDの配列を受けとって ImageResponse の配列に変換する */
   def toImageResponses(imageIds: Seq[Int]): Seq[ImageResponse] = {
-    imageResponseFactory.create(urlBuilder.images(imageIds))
+    imageResponseFactory.create(
+      urlBuilder.images(imageIds),
+      true
+    )
   }
 }

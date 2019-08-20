@@ -37,7 +37,10 @@ class ImageGenerateController @Inject() (
               case None => internalServerErrorWith("データベース接続エラー")
               case Some(id) => {
                 imageActor ! ImageDownloadAndGenerateMessage(id, url)
-                Ok(Json.toJson(ImageResponse(urlBuilder.image(id.toInt))))
+                Ok(Json.toJson(ImageResponse(
+                  urlBuilder.image(id.toInt),
+                  false
+                )))
               }
             }
           }
@@ -60,7 +63,7 @@ class ImageGenerateController @Inject() (
                 val lgtmImageUrl = urlBuilder.image(id.toInt)
                 file.ref.moveTo(new File(imageTemporaryStorage.srcPath(id.toInt)))
                 imageActor ! ImageGenerateMessage(id)
-                Ok(Json.toJson(ImageResponse(lgtmImageUrl)))
+                Ok(Json.toJson(ImageResponse(lgtmImageUrl, false)))
               }
             }
           }

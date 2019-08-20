@@ -22,7 +22,7 @@ class ImageSearchController @Inject() (
     imageSearcher.urls(keyword) map {
       case None => internalServerErrorWith("検索でサーバーエラーが発生しました")
       case Some(urls) => Ok(Json.obj(
-        "images" -> Json.toJson(imageResponseFactory.create(urls))
+        "images" -> Json.toJson(imageResponseFactory.create(urls, false))
       ))
     }
   }

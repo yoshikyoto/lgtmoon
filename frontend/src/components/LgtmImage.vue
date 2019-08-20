@@ -19,10 +19,6 @@
     props: [
       'item'
     ],
-    beforeUpdate() {
-      console.log("beforeUpdate");
-      this.isFavorited = repository.isFavorited(this.item)
-    },
     computed: {
       starIcon() {
         if (this.isFavorited) {
@@ -31,6 +27,10 @@
         return '/assets/star-off.png'
       },
       isShowStar() {
+        if (! this.item.isConverted) {
+          // convert前の画像はお気に入りできない
+          return false;
+        }
         return this.isMouseover
       }
     },
