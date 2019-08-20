@@ -15,7 +15,7 @@
         お気に入り
       </div>
       <div v-on:click="help()" class="menu-item"
-        :class="{ 'menu-item-selected' : selected == 3 }">
+        :class="{ 'menu-item-selected' : isHelpSelected }">
         使い方
       </div>
     </div>
@@ -23,7 +23,8 @@
       <Images :items.sync="recentItems" @select="showDetail" v-show="isRecentSelected"/>
       <Images :items.sync="randomItems" @select="showDetail" v-show="isRandomSelected"/>
       <Images :items.sync="favoritedItems" @select="showDetail" v-show="isFavoriteSelected"/>
-      <Help v-show="selected == 3"/>
+      <FavoriteHelp v-show="isFavoriteSelected" />
+      <Help v-show="isHelpSelected"/>
       <ImageDetail v-if="isShowingDetail" :url="image.url" @close="closeDetail"/>
       <Loading v-if="isLoading"/>
     </section>
@@ -37,6 +38,7 @@
   import ImageDetail from '@/components/ImageDetail'
   import Help from '@/components/Help'
   import Loading from '@/components/Loading'
+  import FavoriteHelp from '@/components/FavoriteHelp'
 
   export default {
     name: 'app',
@@ -56,7 +58,8 @@
       Help,
       Images,
       ImageDetail,
-      Loading
+      Loading,
+      FavoriteHelp
     },
     mounted() {
       // 最新の画像を読み込む
@@ -80,6 +83,9 @@
       },
       isFavoriteSelected() {
         return this.selected == 2
+      },
+      isHelpSelected() {
+        return this.selected == 3
       }
     },
     methods: {
