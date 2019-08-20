@@ -135,7 +135,7 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    width: 800px;
+    width: 960px;
     position: relative;
   }
 
@@ -157,7 +157,7 @@
     height: 50px;
   }
   .menu-item {
-    width: 200px;
+    width: 240px;
     padding: 5px 0px;
     text-align: center;
     vertical-align: middle;
