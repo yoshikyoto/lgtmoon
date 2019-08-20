@@ -3,15 +3,15 @@
     <Bar/>
     <div class="menu position-relative">
       <div v-on:click="recent()" class="menu-item"
-        :class="{ 'menu-item-selected' : selected == 0 }">
+        :class="{ 'menu-item-selected' : isRecentSelected }">
         最近の画像
       </div>
       <div v-on:click="random()" class="menu-item"
-        :class="{ 'menu-item-selected' : selected == 1 }">
+        :class="{ 'menu-item-selected' : isRandomSelected }">
         ランダム
       </div>
       <div v-on:click="fav()" class="menu-item"
-        :class="{ 'menu-item-selected' : selected == 2 }">
+        :class="{ 'menu-item-selected' : isFavoriteSelected }">
         お気に入り
       </div>
       <div v-on:click="help()" class="menu-item"
@@ -20,9 +20,9 @@
       </div>
     </div>
     <section class="lgtmoon-section center recent-section position-relative image-section">
-      <Images :items.sync="recentItems" @select="showDetail" v-show="selected == 0"/>
-      <Images :items.sync="randomItems" @select="showDetail" v-show="selected == 1"/>
-      <Images :items.sync="favoritedItems" @select="showDetail" v-show="selected == 2"/>
+      <Images :items.sync="recentItems" @select="showDetail" v-show="isRecentSelected"/>
+      <Images :items.sync="randomItems" @select="showDetail" v-show="isRandomSelected"/>
+      <Images :items.sync="favoritedItems" @select="showDetail" v-show="isFavoriteSelected"/>
       <Help v-show="selected == 3"/>
       <ImageDetail v-if="isShowingDetail" :url="image.url" @close="closeDetail"/>
       <Loading v-if="isLoading"/>
@@ -71,6 +71,17 @@
         });
       }, pollingIntervalSeconds * 1000);
     },
+    computed: {
+      isRecentSelected() {
+        return this.selected == 0
+      },
+      isRandomSelected() {
+        return this.selected == 1
+      },
+      isFavoriteSelected() {
+        return this.selected == 2
+      }
+    },
     methods: {
       recent () {
         this.selected = 0
@@ -106,6 +117,35 @@
 </script>
 
 <style>
+  @font-face {
+    font-family: 'ikafont';
+    src: url('/assets/fonts/ikafont.otf') format('opentype');
+  }
+  .title {
+    font-family: 'ikafont', Impact;
+    font-size: 4em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  .title a {
+    color: #003;
+  }
+
+  .lgtmoon-app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 800px;
+    position: relative;
+  }
+
+  /** タイトル */
+  .lgtmoon-header {
+    background-image: url(/assets/ink/ink002.png);
+    background-size: 150px;
+    background-repeat: no-repeat;
+  }
+
   .center {
     margin-left: auto;
     margin-right: auto;
@@ -117,7 +157,7 @@
     height: 50px;
   }
   .menu-item {
-    width: 300px;
+    width: 200px;
     padding: 5px 0px;
     text-align: center;
     vertical-align: middle;

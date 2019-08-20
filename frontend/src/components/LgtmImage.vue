@@ -19,6 +19,10 @@
     props: [
       'item'
     ],
+    beforeUpdate() {
+      console.log("beforeUpdate");
+      this.isFavorited = repository.isFavorited(this.item)
+    },
     computed: {
       starIcon() {
         if (this.isFavorited) {
@@ -27,11 +31,6 @@
         return '/assets/star-off.png'
       },
       isShowStar() {
-        // すでにスターしている場合はスターを表示してやる
-        if (this.isFavorited) {
-          return true
-        }
-        // そうでない場合はマウスオーバー次第
         return this.isMouseover
       }
     },
@@ -41,6 +40,8 @@
       },
       mouseover() {
         this.isMouseover = true
+        // マウスオーバーされた時にfavorite情報を更新する
+        this.isFavorited = repository.isFavorited(this.item)
       },
       mouseout() {
         this.isMouseover = false
@@ -53,7 +54,6 @@
           repository.favorite(this.item)
           this.isFavorited = true
         }
-        this.$forceUpdate()
       }
     }
   }
