@@ -23,7 +23,7 @@
       <Images :items.sync="recentItems" @select="showDetail" v-show="isRecentSelected"/>
       <Images :items.sync="randomItems" @select="showDetail" v-show="isRandomSelected"/>
       <Images :items.sync="favoritedItems" @select="showDetail" v-show="isFavoriteSelected"/>
-      <FavoriteHelp v-show="isFavoriteSelected" />
+      <FavoriteHelp v-show="showFavoriteHelp" />
       <Help v-show="isHelpSelected"/>
       <ImageDetail v-if="isShowingDetail" :url="image.url" @close="closeDetail"/>
       <Loading v-if="isLoading"/>
@@ -86,6 +86,10 @@
       },
       isHelpSelected() {
         return this.selected == 3
+      },
+      showFavoriteHelp() {
+        let hasFavorited = this.favoritedItems.length > 0
+        return this.isFavoriteSelected && !hasFavorited
       }
     },
     methods: {
