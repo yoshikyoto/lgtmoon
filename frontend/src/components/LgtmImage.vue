@@ -1,5 +1,5 @@
 <template>
-  <div class="image-block" @mouseover="mouseover()" @mouseout="mouseout()">
+  <div class="image-block" @mouseover="mouseover()" @mouseleave="mouseleave()">
     <img v-if="isShowStar" :src="starIcon" class="star" @mousedown="toggleStar()">
     <img :src="item.url" v-on:click="select()" class="image">
   </div>
@@ -43,7 +43,7 @@
         // マウスオーバーされた時にfavorite情報を更新する
         this.isFavorited = repository.isFavorited(this.item)
       },
-      mouseout() {
+      mouseleave() {
         this.isMouseover = false
       },
       toggleStar() {

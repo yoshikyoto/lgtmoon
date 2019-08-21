@@ -21,7 +21,10 @@
     </div>
     <div v-if="images.length != 0"
       class="search-result-block">
-      <h2>画像検索からLGTMを作成</h2>
+      <h2>画像検索結果からLGTMを作成</h2>
+      <div>
+        画像を選択するとその画像を元にLGTM画像を作成します
+      </div>
       <div class="close" @click="close">x Close</div>
       <Images :items.sync="images" @select="select"/>
       <Loading v-if="isInputDisabled"/>
