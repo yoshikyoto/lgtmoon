@@ -16,7 +16,6 @@
     <ol>
       <li>httpまたはhttpsから始まる画像URLを検索欄に入力すると、その画像をもとにLGTM画像が生成されます。</li>
     </ol>
-
     <h2 class="help-section-title">LGTMとは</h2>
 
     GitHubなどでプルリク（プルリクエスト/Pull Request）をレビューした時、「Looks Good To Me」
@@ -24,6 +23,7 @@
     という言葉を略して「LGTM」と書くことがあります。
     このLGTMをちょっと楽しい画像にすることで、レビューすることやプルリクを出すことがちょっと楽しくなります。<br>
     <img src="https://qiita-image-store.s3.amazonaws.com/0/29024/373aad85-d1aa-96d7-026c-66b3587ae536.png" class="center">
+
 
     <h2 class="help-section-title">LGTMoonとは</h2>
 
@@ -40,16 +40,6 @@
       <li>LGTM画像生成の際は、元画像の著作権などに注意してください。</li>
     </ul>
 
-    <h2>今後のアップデートの予定</h2>
-    <ul>
-      <li>手元の画像をアップロードしてLGTM画像が生成できるようにする予定です。</li>
-      <li>スマホから画像をアップロードしてLGTM画像が生成できるようにする予定です。</li>
-      <li>過去に生成された画像から検索できるようにする予定です。</li>
-    </ul>
-
-    何か要望がございましたら下記twitterなどにご連絡ください。
-    GitHubにプルリクエストを出して頂いても構いません。
-
     <h2 class="help-section-title">画像検索のヒント</h2>
 
     <ul>
@@ -58,8 +48,9 @@
       <li>白が多い画像ですとLGTMの文字が見づらくなります。画面の中心あたりにLGTMの文字がかさなりますので、それを意識して画像を選択すると良いでしょう。</li>
     </ul>
 
-    <h2 class="help-section-title">リンク</h2>
-
+    <h2 class="help-section-title">Contact</h2>
+    何か要望・ご連絡がございましたら下記twitterなどにご連絡ください。
+    GitHubにプルリクエストを出して頂いても構いません。
     <ul>
       <li>
         twitter
@@ -75,9 +66,9 @@
       </li>
       <li>
         ブログ
-        <a href="http://yoshiki-utakata.hatenablog.com/" target="_blank">ブログ</a>
+        <a href="https://www.utakata.work/" target="_blank">https://www.utakata.work/</a>
       </li>
-      <li>関連技術記事
+      <li>その他関連記事
         <ul>
           <li>
             <a href="http://qiita.com/yoshikyoto/items/4910b1a4bcefe7f5ab8c" target="_blank">
@@ -85,19 +76,13 @@
             </a>
           </li>
           <li>
-            <a href="https://www.utakata.work/entry/20190226/1551145958" target="_blank">
-              Heroku の PostgresQL を無料の hobby-dev から 9ドル/月の hobby-basic にアップグレードする
+            <a href="https://www.utakata.work/archive/category/LGTMoon" target="_blank">
+              ブログのLGTMoon関連記事
             </a>
           </li>
         </ul>
       </li>
     </ul>
-
-    <h2 class="help-section-title">技術的な話</h2>
-
-    LGTMoonは、Scala, Play Framework を利用しており、非同期画像処理部分は Scala の Akka Actor を利用しています（RabbitMQなどは利用していません）。
-    また、フロントエンドには Vue.js 、画像処理部分には ImageMagick を利用しています。
-
     <h2 class="help-section-title">参考</h2>
 
     <ul>
@@ -119,3 +104,15 @@
     </div>
   </section>
 </template>
+
+
+<script>
+  import FavoriteHelp from '@/components/FavoriteHelp'
+
+  export default {
+    name: 'Help',
+    components: {
+      FavoriteHelp
+    }
+  }
+</script>
