@@ -1,5 +1,5 @@
 <template>
-  <div class="image-block" @mouseover="mouseover()" @mouseleave="mouseleave()">
+  <div class="image-block" @mouseenter="mouseenter()" @mouseleave="mouseleave()">
     <img v-if="isShowStar" :src="starIcon" class="star" @mousedown="toggleStar()">
     <img :src="item.url" v-on:click="select()" class="image">
   </div>
@@ -12,7 +12,7 @@
     name: "LgtmImage",
     data() {
       return {
-        isMouseover: false,
+        isMouseOn: false,
         isFavorited: repository.isFavorited(this.item)
       }
     },
@@ -31,20 +31,20 @@
           // convert前の画像はお気に入りできない
           return false;
         }
-        return this.isMouseover
+        return this.isMouseOn
       }
     },
     methods: {
       select() {
         this.$emit('select', this.item)
       },
-      mouseover() {
-        this.isMouseover = true
+      mouseenter() {
+        this.isMouseOn = true
         // マウスオーバーされた時にfavorite情報を更新する
         this.isFavorited = repository.isFavorited(this.item)
       },
       mouseleave() {
-        this.isMouseover = false
+        this.isMouseOn = false
       },
       toggleStar() {
         if (this.isFavorited) {
