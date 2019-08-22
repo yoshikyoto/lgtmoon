@@ -5,15 +5,15 @@ class Repository {
   }
 
   recent() {
-    return axios.get('/api/v1/images/recent')
+    return axios.get('/api/images/recent')
   }
 
   random() {
-    return axios.get('/api/v1/images/random')
+    return axios.get('/api/images/random')
   }
 
   search(keyword) {
-    return axios.get('/api/v1/search', {
+    return axios.get('/api/search', {
       params: {
         keyword: keyword
       }
@@ -21,7 +21,7 @@ class Repository {
   }
 
   generateByUri(url) {
-    return axios.post('/api/v1/images/url', {
+    return axios.post('/api/images/url', {
       url: url
     })
   }
