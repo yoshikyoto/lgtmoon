@@ -197,10 +197,4 @@
   .image-section {
     min-height: 200px;
   }
-
-  @media screen and (max-width: 640px) {
-    .pconly {
-      display: none;
-    }
-  }
 </style>
