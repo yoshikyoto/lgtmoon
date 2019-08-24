@@ -16,6 +16,12 @@
             value="Search"
             :disabled="isInputDisabled"/>
         </label>
+        <label class="form-submit">
+          画像をアップロード
+          <input type="file" name="file"
+                 class="hidden"
+                 @change="uploadBinary">
+        </label>
         <span id="message" class="form-message" v-text="message"></span>
       </form>
     </div>
@@ -93,11 +99,22 @@
       /** 画像URLを渡すとLGTM生成APIを叩く */
       generate (imageUrl) {
         this.isInputDisabled = true
-        repository.generateByUri(imageUrl).then((response) => {
-          this.message = '生成中 ' + response.data.url
+        repository.generateByUrl(imageUrl).then((response) => {
+          this.message = '生成完了までお待ちください'
           this.enableInputInSec(5)
         }).catch((error) => {
           this.message = "生成中にエラーが発生しました"
+          this.enableInputInSec(5)
+        });
+      },
+      uploadBinary (e) {
+        const file = e.target.files[0]
+        console.log(file)
+        repository.generateByFile(file).then((response) => {
+          this.message = '生成完了までお待ちください'
+          this.enableInputInSec(5)
+        }).catch((error) => {
+          this.message = '生成中にエラーが発生しました'
           this.enableInputInSec(5)
         });
       },
@@ -140,13 +157,13 @@
     border-radius: 5px 0px 0px 5px;
   }
   .form-submit {
-    height: 25px;
+    height: 26px;
     width: 100px;
     font-weight: bold;
     padding: 0.25em 0.5em;
     color: #fff;
     background: #009;
-    border-radius: 0 5px 5px 0;
+    margin: 0px 4px;
   }
   .form-submit:hover {
     background-color: #ccf;

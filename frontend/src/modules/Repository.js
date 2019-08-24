@@ -20,10 +20,19 @@ class Repository {
     })
   }
 
-  generateByUri(url) {
+  generateByUrl(url) {
     return axios.post('/api/images/url', {
       url: url
     })
+  }
+
+  generateByFile(file) {
+    console.log("generateByFile")
+    var formData = new FormData()
+    console.log(formData)
+    formData.append('file', file)
+    console.log(formData)
+    return axios.post('/api/images/binary', formData)
   }
 
   unfavorite(item) {
