@@ -6,15 +6,15 @@
         :class="{ 'menu-item-selected' : isRecentSelected }">
         最近の画像
       </div>
-      <div v-on:click="random()" class="menu-item"
+      <div v-on:click="random()" class="menu-item pconly"
         :class="{ 'menu-item-selected' : isRandomSelected }">
         ランダム
       </div>
-      <div v-on:click="fav()" class="menu-item"
+      <div v-on:click="fav()" class="menu-item pconly"
         :class="{ 'menu-item-selected' : isFavoriteSelected }">
         お気に入り
       </div>
-      <div v-on:click="help()" class="menu-item"
+      <div v-on:click="help()" class="menu-item pconly"
         :class="{ 'menu-item-selected' : isHelpSelected }">
         使い方
       </div>
@@ -127,6 +127,23 @@
 </script>
 
 <style>
+  .lgtmoon-app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+  @media screen and (min-width: 641px) {
+    .lgtmoon-app {
+      width: 960px;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    .lgtmoon-app {
+      width: 100%;
+    }
+  }
+
   @font-face {
     font-family: 'ikafont';
     src: url('/assets/fonts/ikafont.otf') format('opentype');
@@ -139,14 +156,6 @@
   }
   .title a {
     color: #003;
-  }
-
-  .lgtmoon-app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    width: 960px;
-    position: relative;
   }
 
   /** タイトル */
@@ -187,5 +196,11 @@
   }
   .image-section {
     min-height: 200px;
+  }
+
+  @media screen and (max-width: 640px) {
+    .pconly {
+      display: none;
+    }
   }
 </style>
