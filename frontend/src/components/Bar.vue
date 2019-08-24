@@ -4,11 +4,11 @@
       <form id="lgtmform" class="form">
         <input type="text"
           name="keyword"
-          class="form-input-text"
+          class="form-input-text pconly"
           placeholder="キーワードで画像検索 or URLを直接入力"
           v-model="keyword"
           :disabled="isInputDisabled"/>
-        <label class="form-submit">
+        <label class="form-submit pconly">
           <span v-text="submitButtonLabel"></span>
           <input type="submit"
             class="hidden"
@@ -16,7 +16,7 @@
             value="Search"
             :disabled="isInputDisabled"/>
         </label>
-        <label class="form-submit">
+        <label class="form-submit form-submit-upload">
           画像をアップロード
           <input type="file" name="file"
                  class="hidden"
@@ -142,39 +142,62 @@
 </script>
 
 <style scoped>
+  @media screen and (max-width: 640px) {
+    .form-block {
+      width: 100%;
+      height: 100px;
+    }
+  }
   .form-block {
     position: relative;
     background-color: #def;
     padding: 10px;
+    box-sizing: border-box;
   }
+
   .form-input-text {
     border: 1px solid #eef;
     float: left;
-    margin: -2px 0px 0px 8px;
+    margin: 0px 4px;
     height: 26px;
     width: 300px;
     font-size: 13px;
     border-radius: 5px 0px 0px 5px;
+    box-sizing: border-box;
   }
+
   .form-submit {
     height: 26px;
-    width: 100px;
     font-weight: bold;
     padding: 0.25em 0.5em;
     color: #fff;
     background: #009;
     margin: 0px 4px;
   }
+  @media screen and (max-width: 640px) {
+    .form-submit-upload {
+      display: block;
+      width: calc(100% - 10px);
+      height: 80px;
+      text-align: center;
+      line-height: 80px;
+      box-sizing: border-box;
+    }
+  }
+
   .form-submit:hover {
     background-color: #ccf;
     color: #300;
   }
+
   .form-message {
     margin-left: 10px;
   }
+
   .search-result-block {
     position: relative;
   }
+
   /* 検索結果を閉じるボタン */
   .close {
     position: absolute;
@@ -182,8 +205,9 @@
     right: 5px;
     color: #238;
   }
+
   .close:hover {
     text-decoration: underline;
     cursor: pointer;
   }
-</style>
+  </style>

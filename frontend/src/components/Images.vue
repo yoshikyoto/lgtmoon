@@ -37,4 +37,12 @@
     -ms-column-gap: 4px;
     box-sizing: border-box;
   }
+  @media screen and (max-width: 640px) {
+    .images-block {
+      -moz-column-count: 2;
+      -webkit-column-count: 2;
+      -o-column-count: 2;
+      -ms-column-count: 2;
+    }
+  }
 </style>

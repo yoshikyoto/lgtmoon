@@ -164,7 +164,6 @@
     background-size: 150px;
     background-repeat: no-repeat;
   }
-
   .center {
     margin-left: auto;
     margin-right: auto;
@@ -179,7 +178,6 @@
     width: 240px;
     padding: 5px 0px;
     text-align: center;
-    vertical-align: middle;
     float: left;
     cursor: pointer;
     font-size: 1.5em;
@@ -194,6 +192,16 @@
     background: #009;
     color: #ffffff;
   }
+  @media screen and (max-width: 640px) {
+    .menu-item {
+      text-align: left;
+    }
+    .menu-item-selected {
+      background: #fff;
+      color: #000;
+    }
+  }
+
   .image-section {
     min-height: 200px;
   }
