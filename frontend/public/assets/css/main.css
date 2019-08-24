@@ -9,8 +9,8 @@ body {
 /** tweetボタン */
 .tweet-button {
   position: absolute;
-  left: 320px;
-  top: 36px;
+  left: 300px;
+  top: 41px;
 }
 
 /** 右上部分の広告 */
@@ -36,4 +36,16 @@ body {
 
 .hidden {
   display: none;
+}
+
+@media screen and (max-width: 640px) {
+  .pconly {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .mobileonly {
+    display: none;
+  }
 }
