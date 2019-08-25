@@ -13,7 +13,7 @@ module.exports = {
       filename: 'index.html'
     },
     en: {
-      entry: 'src/main.js',
+      entry: 'src/main.en.js',
       template: 'public/en.html',
       filename: 'en.html'
     }
