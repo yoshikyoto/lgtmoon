@@ -1,0 +1,12 @@
+{
+  "ja": {
+    "message": {
+      "formTextPlaceholder": "タイトルだよーん"
+    }
+  }
+  "en": {
+    "message": {
+      "formTextPlaceholder": "Input keyword or URL"
+    }
+  }
+}

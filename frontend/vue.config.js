@@ -17,5 +17,13 @@ module.exports = {
       template: 'public/en.html',
       filename: 'en.html'
     }
+  },
+  pluginOptions: {
+    i18n: {
+      locale: 'ja',
+      fallbackLocale: 'ja',
+      localeDir: 'locales',
+      enableInSFC: true
+    }
   }
 }
