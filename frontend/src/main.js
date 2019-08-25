@@ -1,8 +1,16 @@
 import Vue from 'vue'
 import App from '@/App.vue'
-import i18n from './i18n'
+import VueI18n from 'vue-i18n'
+
+import messages from './i18nMessages'
+
+Vue.use(VueI18n)
 
 new Vue({
-  i18n,
+  i18n: new VueI18n({
+    locale: 'ja',
+    fallbackLocale: 'ja',
+    messages: messages,
+  }),
   render: h => h(App)
 }).$mount('#app')
