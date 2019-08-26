@@ -1,3 +1,12 @@
 {
-  "recent": "最近の画像"
+  "recent": "最近の画像",
+  "random": "ランダム",
+  "favorite": "お気に入り",
+  "help": "つかいかた",
+  "searchPlaceholder": "キーワードで画像検索 / URLを直接入力",
+  "submit": "検索/生成",
+  "generate": "LGTM画像生成",
+  "upload": "画像をアップロード",
+  "generateImageFromSearchResult": "画像検索結果からLGTMを作成",
+  "selectToGenerate": "画像を選択するとその画像を元にLGTM画像を作成します"
 }

@@ -8,15 +8,15 @@
       </div>
       <div v-on:click="random()" class="menu-item pconly"
         :class="{ 'menu-item-selected' : isRandomSelected }">
-        ランダム
+        {{ $t('random') }}
       </div>
       <div v-on:click="fav()" class="menu-item pconly"
         :class="{ 'menu-item-selected' : isFavoriteSelected }">
-        お気に入り
+        {{ $t('favorite') }}
       </div>
       <div v-on:click="help()" class="menu-item pconly"
         :class="{ 'menu-item-selected' : isHelpSelected }">
-        使い方
+        {{ $t('help') }}
       </div>
     </div>
     <section class="lgtmoon-section center recent-section position-relative image-section">

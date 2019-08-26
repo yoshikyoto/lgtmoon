@@ -5,7 +5,7 @@
         <input type="text"
           name="keyword"
           class="form-input-text pconly"
-          placeholder="キーワードで画像検索 or URLを直接入力"
+          :placeholder="$t('searchPlaceholder')"
           v-model="keyword"
           :disabled="isInputDisabled"/>
         <label class="form-submit pconly">
@@ -17,7 +17,7 @@
             :disabled="isInputDisabled"/>
         </label>
         <label class="form-submit form-submit-upload">
-          画像をアップロード
+          {{ $t('upload') }}
           <input type="file" name="file"
                  class="hidden"
                  @change="uploadBinary">
@@ -27,9 +27,9 @@
     </div>
     <div v-if="images.length != 0"
       class="search-result-block">
-      <h2>画像検索結果からLGTMを作成</h2>
+      <h2>{{ $t('generateImageFromSearchResult') }}</h2>
       <div>
-        画像を選択するとその画像を元にLGTM画像を作成します
+        {{ $t('selectToGenerate') }}
       </div>
       <div class="close" @click="close">x Close</div>
       <Images :items.sync="images" @select="select"/>
@@ -68,9 +68,9 @@
       },
       submitButtonLabel () {
         if (this.isInputUrl) {
-          return 'LGTM画像生成'
+          return this.$t('generate')
         }
-        return '検索/生成'
+        return this.$t('submit')
       },
     },
     methods: {

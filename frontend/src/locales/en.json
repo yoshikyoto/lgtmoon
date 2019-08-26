@@ -1,3 +1,63 @@
 {
-  "recent": "Recently"
+  "recent": "Recently",
+  "random": "Random",
+  "favorite": "Favorite",
+  "help": "Usage",
+  "searchPlaceholder": "Input keyword or image URL.",
+  "submit": "Search or Generate",
+  "generate": "Generate LGTM",
+  "upload": "Upload Image",
+  "generateImageFromSearchResult": "Generate from image search results",
+  "selectToGenerate": "Click an image to generate LGTM image from it.",
+
+  "LGTMoonとは": "What is 'LGTMoon'",
+
+  "LGTMoonはLGTM画像をカンタンに生成・作成できるWebサイト、「LGTM画像ジェネレーター」です。":
+    "LGTMoon is the LGTM image generator that is web application to generate LGTM image easily.",
+
+  "つかいかた": "How to use",
+
+  "LGTM画像を生成する方法はいくつかあります。":
+    "There is several way to generate LGTM image.",
+
+  "キーワード検索からLGTM画像生成をする方法":
+    "From keyword search",
+  "検索欄にキーワードを入力して画像検索をします。":
+    "Input keyword in the textbox.",
+  "/assets/help/search.png":
+    "/assets/help/search-en.png",
+  "検索結果から画像をクリックします。":
+    "Click a search result image.",
+  "しばらく待つと「最近の画像」に生成されたLGTM画像が表示されます。":
+    "Wait a minute and generated LGTM image appears on 'Recently' section.",
+
+  "画像URLからLGTM画像を生成する方法":
+    "From image URL",
+  "httpまたはhttpsから始まるURLを検索欄に入力すると、ボタンが「LGTM画像生成」に変化します。":
+    "Input URL in the textbox that start with 'http' or 'https' then button change into 'Generate LGTM'.",
+  "/assets/help/url.png":
+    "/assets/help/url-en.png",
+
+  "画像ファイルをアップロードして生成する方法":
+    "From uploaded file",
+  "「画像をアップロード」をクリックし、画像を選択します。":
+    "Click 'Upload image and select an image.",
+
+  "注意": "Notice",
+  "画像生成時の注意": "When generating LGTM image",
+
+  "画像生成には数秒〜数分かかりますのでしばらくお待ち下さい。連打しないようにお願いします。":
+    "It takes few minutes to generate LGTM image. Wait and dont click button repeatedly.",
+  "生成に成功すると最近の画像一覧に画像が表示されます。":
+    "After finishing to generate LGTM image without errors, it appears on 'Revently' section.",
+  "画像生成に失敗する可能性もあります。しばらくたっても生成されない場合は、もう一度お試しいただくか、別の画像でお試しください。":
+    "",
+  "画像検索のヒント": "Tips",
+
+  "GIFアニメーションからもLGTM画像を生成できます。":
+    "You can also generate LGTM image from animated gif.",
+  "縦長の画像より横長の画像の方がクールなLGTM画像ができます。":
+    "Landscape images are cooler than portrait image",
+  "白が多い画像ですとLGTMの文字が見づらくなります。画面の中心あたりにLGTMの文字がかさなりますので、それを意識して画像を選択すると良いでしょう。":
+    "LGTM text is white and positioned on the center automatically. Don't select image contains white on center."
 }
