@@ -2,19 +2,19 @@
   <div>
     <Bar/>
     <div class="menu position-relative">
-      <div v-on:click="recent()" class="menu-item"
+      <div v-on:click="recent()" class="menu-item menu-item-recent"
         :class="{ 'menu-item-selected' : isRecentSelected }">
         最近の画像
       </div>
-      <div v-on:click="random()" class="menu-item"
+      <div v-on:click="random()" class="menu-item menu-item-random"
         :class="{ 'menu-item-selected' : isRandomSelected }">
         ランダム
       </div>
-      <div v-on:click="fav()" class="menu-item"
+      <div v-on:click="fav()" class="menu-item menu-item-favorited"
         :class="{ 'menu-item-selected' : isFavoriteSelected }">
         お気に入り
       </div>
-      <div v-on:click="help()" class="menu-item"
+      <div v-on:click="help()" class="menu-item menu-item-help"
         :class="{ 'menu-item-selected' : isHelpSelected }">
         使い方
       </div>
@@ -131,6 +131,13 @@
     font-family: 'ikafont';
     src: url('/assets/fonts/ikafont.otf') format('opentype');
   }
+
+  @media screen and (max-width:480px){
+    body {
+      margin: 0px;
+    }
+  }
+
   .title {
     font-family: 'ikafont', Impact;
     font-size: 4em;
