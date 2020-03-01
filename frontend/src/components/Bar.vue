@@ -8,16 +8,16 @@
           placeholder="キーワードで画像検索 or URLを直接入力"
           v-model="keyword"
           :disabled="isInputDisabled"/>
-        <label class="form-submit">
-          <span v-text="submitButtonLabel"></span>
+        <label class="form-button form-submit">
+          <span v-text="submitButtonLabel" class=""></span>
           <input type="submit"
             class="hidden"
             @click.prevent="submit"
             value="Search"
             :disabled="isInputDisabled"/>
         </label>
-        <label class="form-submit">
-          画像をアップロード
+        <label class="form-button form-upload">
+          <span>画像アップロード</span>
           <input type="file" name="file"
                  class="hidden"
                  @change="uploadBinary">
@@ -142,30 +142,35 @@
 </script>
 
 <style scoped>
+  /** form の外にある div */
   .form-block {
     position: relative;
     background-color: #def;
-    padding: 10px;
+    padding: 5px 5px;
+    height: 30px;
   }
   .form-input-text {
-    border: 1px solid #eef;
+    border: 0px solid #eef;
+    box-sizing: border-box;
     float: left;
-    margin: -2px 0px 0px 8px;
-    height: 26px;
+    margin: 0px 5px;
+    height: 30px;
     width: 300px;
-    font-size: 13px;
-    border-radius: 5px 0px 0px 5px;
+    font-size: 14px;
   }
-  .form-submit {
-    height: 26px;
-    width: 100px;
+  /** submit と file ボタンの label */
+  .form-button {
+    box-sizing: border-box;
     font-weight: bold;
-    padding: 0.25em 0.5em;
+    padding: 5px 10px;
+    margin: 0px 5px;
     color: #fff;
     background: #009;
-    margin: 0px 4px;
+    display: inline-block;
+    height: 30px;
+    font-size: 15px;
   }
-  .form-submit:hover {
+  .form-button:hover {
     background-color: #ccf;
     color: #300;
   }

@@ -27,11 +27,8 @@ class Repository {
   }
 
   generateByFile(file) {
-    console.log("generateByFile")
     var formData = new FormData()
-    console.log(formData)
     formData.append('file', file)
-    console.log(formData)
     return axios.post('/api/images/binary', formData)
   }
 
