@@ -91,7 +91,6 @@
           this.images = response.data.images
           this.enableInputInSec(5)
         }).catch((error) => {
-          console.log(error);
           this.message = "画像検索でエラーが発生しました"
           this.enableInputInSec(5)
         });
@@ -109,7 +108,6 @@
       },
       uploadBinary (e) {
         const file = e.target.files[0]
-        console.log(file)
         repository.generateByFile(file).then((response) => {
           this.message = '生成完了までお待ちください'
           this.enableInputInSec(5)
