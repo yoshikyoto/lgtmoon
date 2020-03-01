@@ -198,7 +198,7 @@
       height: 46px;
       font-size: 24px;
       text-align: center;
-      margin: 20px 5px;
+      margin: 10px 5px;
     }
   }
   @media screen and (min-width:481px){
