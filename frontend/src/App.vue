@@ -152,7 +152,6 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    width: 960px;
     position: relative;
   }
 
@@ -174,7 +173,6 @@
     height: 50px;
   }
   .menu-item {
-    width: 240px;
     padding: 5px 0px;
     text-align: center;
     vertical-align: middle;
@@ -195,4 +193,28 @@
   .image-section {
     min-height: 200px;
   }
+
+  @media screen and (max-width:480px){
+    .lgtmoon-app {
+      width: 100%;
+    }
+    .menu-item {
+      width: 50%;
+    }
+    .menu-item-random {
+      display: none;
+    }
+    .menu-item-favorited {
+      display: none;
+    }
+  }
+  @media screen and (min-width:481px){
+    .lgtmoon-app {
+      width: 960px;
+    }
+    .menu-item {
+      width: 25%;
+    }
+  }
+
 </style>
