@@ -149,6 +149,7 @@
   }
 
   .lgtmoon-app {
+    width: 960px;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -173,6 +174,7 @@
     height: 50px;
   }
   .menu-item {
+    width: 25%;
     padding: 5px 0px;
     text-align: center;
     vertical-align: middle;
@@ -208,13 +210,4 @@
       display: none;
     }
   }
-  @media screen and (min-width:481px){
-    .lgtmoon-app {
-      width: 960px;
-    }
-    .menu-item {
-      width: 25%;
-    }
-  }
-
 </style>

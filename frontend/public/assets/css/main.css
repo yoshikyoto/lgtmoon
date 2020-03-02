@@ -8,6 +8,12 @@
   left: 320px;
   top: 36px;
 }
+@media screen and (max-width:480px) {
+  .tweet-button {
+    left: 300px;
+    top: 10px;
+  }
+}
 
 /** 右上部分の広告 */
 .top-ad {

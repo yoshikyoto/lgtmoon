@@ -145,6 +145,7 @@
     position: relative;
     background-color: #def;
     padding: 5px 5px;
+    height: 30px;
   }
   .form-input-text {
     border: 0px solid #eef;
@@ -153,6 +154,7 @@
     margin: 0px 5px;
     height: 30px;
     font-size: 14px;
+    width: 300px;
   }
   /** submit と file ボタンの label */
   .form-button {
@@ -189,6 +191,9 @@
   }
 
   @media screen and (max-width:480px){
+    .form-block {
+      height: 90px;
+    }
     .form-input-text {
       /** 「検索」と「LGTM画像生成」が改行されないサイズ150px */
       width: calc(100% - 150px);
@@ -199,14 +204,6 @@
       font-size: 24px;
       text-align: center;
       margin: 10px 5px;
-    }
-  }
-  @media screen and (min-width:481px){
-    .form-input-text {
-      width: 300px;
-    }
-    .form-block {
-      height: 30px;
     }
   }
 </style>
