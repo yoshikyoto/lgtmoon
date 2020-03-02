@@ -8,18 +8,26 @@
   left: 320px;
   top: 36px;
 }
-@media screen and (max-width:480px) {
-  .tweet-button {
-    left: 300px;
-    top: 10px;
-  }
-}
 
 /** 右上部分の広告 */
 .top-ad {
   position: absolute;
   right: 0px;
   top: 0px;
+}
+
+@media screen and (max-width:480px) {
+  .tweet-button {
+    left: 300px;
+    top: 10px;
+  }
+  /**
+  スマホだと他の広告がちゃんと出ているので、
+  固定幅の top-ad はいらない
+   */
+  .top-ad {
+    display: hidden;
+  }
 }
 
 /** 右上広告の「スポンサーリンク」の文字 */
