@@ -192,7 +192,7 @@
 
   @media screen and (max-width:480px){
     .form-block {
-      height: 90px;
+      height: 126px;
     }
     .form-input-text {
       /** 「検索」と「LGTM画像生成」が改行されないサイズ150px */

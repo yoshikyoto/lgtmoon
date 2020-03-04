@@ -209,5 +209,13 @@
     .menu-item-favorited {
       display: none;
     }
+    /**
+    こうすると、スマホで LGTMoon のロゴとかぶらないようにする
+    広告だらけの印象のページになってしまうが、一旦これで試す
+    本当はアップロードボタンの下とかに置きたい
+     */
+    .top-ad {
+      position: static;
+    }
   }
 </style>
