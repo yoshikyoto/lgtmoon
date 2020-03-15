@@ -8,28 +8,35 @@
       </a>
       <h3 class="image-detail-headding">Image URL</h3>
       <input class="image-detail-text" type="text" :value="getImageUrl()" />
+      <span class="image-text-copy-button" v-on:click="copy">
+        Copy
+      </span>
       <h3 class="image-detail-headding">GitHub Markdown</h3>
       <input class="image-detail-text" type="text" :value="getGithubMarkdown()" />
+      <span class="image-text-copy-button">Copy</span>
     </div>
   </div>
 </template>
 
 <script>
- export default {
-     props: [
-         'url'
-     ],
-     methods: {
-         close() {
-             this.$emit('close');
-         },
-         getImageUrl(){
-             return this.url;
-         },
-         getGithubMarkdown() {
-             return '![LGTM](' + this.url + ')';
-         }
-     }
+  export default {
+    props: [
+      'url'
+    ],
+    methods: {
+      close() {
+        this.$emit('close');
+      },
+      getImageUrl(){
+        return this.url;
+      },
+      getGithubMarkdown() {
+        return '![LGTM](' + this.url + ')';
+      },
+      copy() {
+
+      }
+    }
   }
 </script>
 
@@ -72,7 +79,19 @@
      font-size: 1.2em;
  }
  .image-detail-text {
-     width: 450px;
+   width: 380px;
+   border: 1px solid #eef;
+   box-sizing: border-box;
+   height: 26px;
  }
-
+ .image-text-copy-button {
+   background-color: #28a745;
+   display: inline-block;
+   font-weight: bold;
+   color: #fff;
+   padding: 2px 10px;
+   margin: 0px;
+   height: 22px;
+   cursor: pointer;
+ }
 </style>
