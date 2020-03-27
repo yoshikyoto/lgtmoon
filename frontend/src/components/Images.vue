@@ -27,6 +27,10 @@
 <style scoped>
   .images-block {
     width: 100%;
+    column-count: 4;
+    column-gap: 4px;
+    box-sizing: border-box;
+
     -moz-column-count: 4;
     -webkit-column-count: 4;
     -o-column-count: 4;
@@ -35,11 +39,11 @@
     -webkit-column-gap: 4px;
     -o-column-gap: 4px;
     -ms-column-gap: 4px;
-    box-sizing: border-box;
   }
 
   @media screen and (max-width:480px) {
     .images-block {
+      column-count: 2;
       -moz-column-count: 2;
       -webkit-column-count: 2;
       -o-column-count: 2;
