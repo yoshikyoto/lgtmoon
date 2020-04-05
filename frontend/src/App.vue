@@ -4,7 +4,7 @@
     <div class="menu position-relative">
       <div v-on:click="recent()" class="menu-item menu-item-recent"
         :class="{ 'menu-item-selected' : isRecentSelected }">
-        最近の画像
+        {{ $t('menu.recent') }}
       </div>
       <div v-on:click="random()" class="menu-item menu-item-random"
         :class="{ 'menu-item-selected' : isRandomSelected }">
