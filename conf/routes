@@ -11,6 +11,7 @@ GET     /api/images/random           @controllers.ImageController.random
 
 # Others
 GET     /images/:id                  @controllers.ImageBinaryController.image(id: Int)
+GET     /en                          @controllers.Assets.at(path="/public", file="en.html")
 GET     /                            @controllers.Assets.at(path="/public", file="index.html")
 
 

@@ -4,8 +4,8 @@ export default {
       placeholder: "キーワードで画僧検索 or URLを直接入力",
       upload: "画像アップロード",
       submit: {
-        search: '検索/生成',
-        generate: 'LGTM画像生成'
+        search: "検索/生成",
+        generate: "LGTM画像生成"
       }
     },
     menu: {
@@ -20,8 +20,8 @@ export default {
       placeholder: "Keyword to search / URL to generate",
       upload: "Upload",
       submit: {
-        search: 'Search and Generate',
-        generate: 'Generate'
+        search: "Search and Generate",
+        generate: "Generate"
       }
     },
     menu: {
