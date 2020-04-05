@@ -5,11 +5,11 @@
         <input type="text"
           name="keyword"
           class="form-input-text"
-          placeholder="キーワードで画像検索 or URLを直接入力"
+          :placeholder="$t('form.placeholder')"
           v-model="keyword"
           :disabled="isInputDisabled"/>
         <label class="form-button form-submit">
-          <span v-text="submitButtonLabel" class=""></span>
+          <span v-text="$t(submitButtonLabel)" class=""></span>
           <input type="submit"
             class="hidden"
             @click.prevent="submit"
@@ -17,7 +17,7 @@
             :disabled="isInputDisabled"/>
         </label>
         <label class="form-button form-upload">
-          <span>画像アップロード</span>
+          <span>{{ $t('form.upload') }}</span>
           <input type="file" name="file"
                  class="hidden"
                  @change="uploadBinary">
@@ -68,9 +68,9 @@
       },
       submitButtonLabel () {
         if (this.isInputUrl) {
-          return 'LGTM画像生成'
+          return 'form.submit.generate'
         }
-        return '検索/生成'
+        return 'form.submit.search'
       },
     },
     methods: {
