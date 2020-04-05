@@ -1,24 +1,26 @@
 export default {
   ja: {
-    message: {
-      form: {
-        placeholder: "キーワードで画僧検索 or URLを直接入力",
-        upload: "画像アップロード"
-      }
+    form: {
+      placeholder: "キーワードで画僧検索 or URLを直接入力",
+      upload: "画像アップロード"
     },
     menu: {
-      recent: "最近の画像"
+      recent: "最近の画像",
+      random: "ランダム",
+      favorite: "お気に入り",
+      help: "使い方"
     }
   },
   en: {
-    message: {
-      form: {
-        placeholder: "Keyword to search / URL to generate",
-        upload: "Upload"
-      }
+    form: {
+      placeholder: "Keyword to search / URL to generate",
+      upload: "Upload"
     },
     menu: {
-      recent: "Recent"
+      recent: "Recent",
+      random: "Random",
+      favorite: "Stars",
+      help: "Help"
     }
   }
 }
