@@ -19,6 +19,8 @@ project/boot/
 project/plugins/project/
 
 # npmでビルドされるファイル
-/public/*
 # /public/* のように指定していると、
 # !/public/a.html と書くことで a.html は git管理下にできる
+/public/*
+
+node_modules
