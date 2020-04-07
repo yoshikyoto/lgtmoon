@@ -2,10 +2,17 @@
   text-decoration: none;
 }
 
+/** 言語切り替えボタン */
+.language-button {
+  position: absolute;
+  left: 300px;
+  top: 2px;
+}
+
 /** tweetボタン */
 .tweet-button {
   position: absolute;
-  left: 320px;
+  left: 300px;
   top: 36px;
 }
 
@@ -14,13 +21,6 @@
   position: absolute;
   right: 0px;
   top: 0px;
-}
-
-@media screen and (max-width:480px) {
-  .tweet-button {
-    left: 300px;
-    top: 10px;
-  }
 }
 
 /** 右上広告の「スポンサーリンク」の文字 */
