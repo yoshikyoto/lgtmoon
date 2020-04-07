@@ -53,6 +53,7 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+    position: relative;
   }
   .copied-text {
     width: 80px;
@@ -60,5 +61,6 @@
     background-color: #28a745;
     color: #fff;
     text-align: center;
+    position: absolute;
   }
 </style>

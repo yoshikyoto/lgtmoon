@@ -55,7 +55,7 @@
         this.$emit('select', this.item)
       },
       mouseenter() {
-        this.isMouseOn = true
+        this.isMouseOn = true;
         // マウスオーバーされた時にfavorite情報を更新する
         this.isFavorited = repository.isFavorited(this.item)
       },
@@ -64,10 +64,10 @@
       },
       toggleStar() {
         if (this.isFavorited) {
-          repository.unfavorite(this.item)
+          repository.unfavorite(this.item);
           this.isFavorited = false
         } else {
-          repository.favorite(this.item)
+          repository.favorite(this.item);
           this.isFavorited = true
         }
       }
@@ -101,5 +101,6 @@
     position: absolute;
     top: 2px;
     right: 36px;
+    z-index: 100;
   }
 </style>
