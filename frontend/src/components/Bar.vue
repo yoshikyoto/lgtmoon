@@ -22,14 +22,16 @@
                  class="hidden"
                  @change="uploadBinary">
         </label>
-        <span id="message" class="form-message" v-text="message"></span>
+        <span id="message" class="form-message"
+              v-text="$t(message)">
+        </span>
       </form>
     </div>
     <div v-if="images.length != 0"
       class="search-result-block">
-      <h2>画像検索結果からLGTMを作成</h2>
+      <h2>{{ $t('form.result.title') }}</h2>
       <div>
-        画像を選択するとその画像を元にLGTM画像を作成します
+        {{ $t('form.result.description') }}
       </div>
       <div class="close" @click="close">x Close</div>
       <Images :items.sync="images" @select="select"/>
@@ -86,33 +88,33 @@
       },
       /** 画像検索を行う */
       search (keyword) {
-        this.isInputDisabled = true
+        this.isInputDisabled = true;
         repository.search(keyword).then((response) => {
-          this.images = response.data.images
+          this.images = response.data.images;
           this.enableInputInSec(5)
         }).catch((error) => {
-          this.message = "画像検索でエラーが発生しました"
+          this.message = 'form.message.error.search';
           this.enableInputInSec(5)
         });
       },
       /** 画像URLを渡すとLGTM生成APIを叩く */
       generate (imageUrl) {
-        this.isInputDisabled = true
+        this.isInputDisabled = true;
         repository.generateByUrl(imageUrl).then((response) => {
-          this.message = '生成完了までお待ちください'
+          this.message = 'form.message.generating';
           this.enableInputInSec(5)
         }).catch((error) => {
-          this.message = "生成中にエラーが発生しました"
+          this.message = 'form.message.error.generating';
           this.enableInputInSec(5)
         });
       },
       uploadBinary (e) {
         const file = e.target.files[0]
         repository.generateByFile(file).then((response) => {
-          this.message = '生成完了までお待ちください'
+          this.message = 'form.message.generating';
           this.enableInputInSec(5)
         }).catch((error) => {
-          this.message = '生成中にエラーが発生しました'
+          this.message = 'form.message.error.generating';
           this.enableInputInSec(5)
         });
       },
