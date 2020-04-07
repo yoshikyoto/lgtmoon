@@ -24,6 +24,14 @@ export default {
       random: "ランダム",
       favorite: "お気に入り",
       help: "使い方"
+    },
+    star: {
+      title: "お気に入り機能の使い方",
+      hover: "画像の上にマウスを移動させると右上に☆が出て来ます。",
+      star: "☆をクリックするとお気に入り登録されます。",
+      unstar: "もう一度クリックするとお気に入りから外れます。",
+      limit: "お気に入りの上限はありません。",
+      save: "お気に入りはお使いのPCブラウザに保存されますので、PCを変えたりブラウザを変えたりしますとお気に入りは消えてしまいます。ご了承ください。"
     }
   },
   en: {
@@ -51,6 +59,14 @@ export default {
       random: "Random",
       favorite: "Stars",
       help: "Help"
+    },
+    star: {
+      title: "How to use \"Star\"",
+      hover: "Hover mouse on image and click star.",
+      star: "Click star to add to your Star (bookmark).",
+      unstar: "Click star again to remove from your star.",
+      limit: "You can use it without cout limit.",
+      save: "Star save on your browser. When you change PC or browser, your star is away."
     }
   }
 }
