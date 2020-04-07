@@ -1,56 +1,57 @@
 <template>
   <div>
     <section class="lgtmoon-section center">
-      <h2 class="help-section-title">LGTMoonとは</h2>
-      LGTMoonはLGTM画像をカンタンに生成・作成できるWebサイト、「LGTM画像ジェネレーター」です。
-      GIFアニメーションからもLGTM画像を生成できます。
+      <h2 class="help-section-title">{{ $t('help.about.title') }}</h2>
+      {{ $t('help.about.description') }}
+      {{ $t('help.about.gif') }}
     </section>
 
     <section class="lgtmoon-section center">
-      <h2 class="help-section-title">使い方</h2>
+      <h2 class="help-section-title">{{ $t('help.howtouse.title') }}</h2>
 
-      キーワード検索を使ってLGTM画像を生成する方法と、画像URLからLGTM画像を生成する方法があります。
+      {{ $t('help.howtouse.description') }}
 
-      <h3 class="help-section-title">キーワード検索からLGTM画像生成をする方法</h3>
+      <h3 class="help-section-title">{{ $t('help.howtouse.keyword.title') }}</h3>
       <ol>
-        <li>検索欄にキーワードを入力すると画像検索結果一覧が表示されます。</li>
-        <li>検索結果一覧から画像をクリックすると、その画像を元にLGTM画像が生成されます。</li>
+        <li>{{ $t('help.howtouse.keyword.step1') }}</li>
+        <li>{{ $t('help.howtouse.keyword.step2') }}</li>
       </ol>
 
-      <h3>画像URLからLGTM画像を生成する方法</h3>
+      <h3>{{ $t('help.howtouse.url.title') }}</h3>
       <ol>
-        <li>httpまたはhttpsから始まる画像URLを検索欄に入力すると、その画像をもとにLGTM画像が生成されます。</li>
+        <li>{{ $t('help.howtouse.url.step1') }}</li>
+      </ol>
+
+      <h3>{{ $t('help.howtouse.upload.title') }}</h3>
+      <ol>
+        <li>{{ $t('help.howtouse.upload.step1') }}</li>
+        <li>{{ $t('help.howtouse.upload.step2') }}</li>
+        <li>{{ $t('help.howtouse.upload.step3') }}</li>
       </ol>
     </section>
 
     <section class="lgtmoon-section center">
-      <h2 class="help-section-title">注意</h2>
-
-      <h3>画像生成時の注意</h3>
+      <h2 class="help-section-title">{{ $t('help.notice.title') }}</h2>
       <ul>
-        <li>画像生成には数秒〜数分かかりますのでしばらくお待ち下さい。連打しないようにお願いします。</li>
-        <li>生成に成功すると最近の画像一覧に画像が表示されます。</li>
-        <li>画像生成に失敗する可能性もあります。しばらくたっても生成されない場合は、もう一度お試しいただくか、別の画像でお試しください。</li>
-        <li>LGTM画像生成の際は、元画像の著作権などに注意してください。</li>
-        <li>公序良俗に反する画像や違法な画像を作成しないでください。これらの画像が見つかった場合は予告なく画像を削除することがあります。</li>
+        <li>{{ $t('help.notice.notice1') }}</li>
+        <li>{{ $t('help.notice.notice2') }}</li>
+        <li>{{ $t('help.notice.notice3') }}</li>
+        <li>{{ $t('help.notice.notice4') }}</li>
+        <li>{{ $t('help.notice.notice5') }}</li>
       </ul>
 
-      <h3 class="help-section-title">画像検索のヒント</h3>
+      <h3>{{ $t('help.privacypolicy.title') }}</h3>
       <ul>
-        <li>「かっこいい gif」のように検索するとgifアニメーションからLGTM画像を作成できたりします。</li>
-        <li>縦長の画像より横長の画像の方がクールなLGTM画像ができます。</li>
-        <li>白が多い画像ですとLGTMの文字が見づらくなります。画面の中心あたりにLGTMの文字がかさなりますので、それを意識して画像を選択すると良いでしょう。</li>
-      </ul>
-
-      <h3>プライバシーポリシー</h3>
-      <ul>
-        <li>このサイトでは、Googleを含む第三者配信事業者はCookieを使用して、当ウェブサイトへの過去のアクセス情報に基づいて広告を配信します。</li>
-        <li>Google が広告 Cookie を使用することにより、ユーザーがそのサイトや他のサイトにアクセスした際の情報に基づいて、Google やそのパートナーが適切な広告をユーザーに表示することができます。</li>
+        <li>{{ $t('help.privacypolicy.description') }}</li>
         <li>
-          <a href="https://www.google.com/settings/ads" target="_blank">広告設定</a>
-          でパーソナライズ広告を無効にしたり、
-          <a href="https://www.aboutads.info/" target="_blank">www.aboutads.info</a>
-          で、パーソナライズ広告に使われる第三者配信事業者の Cookie を無効にすることができます。
+          <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" >
+            {{ $t('help.privacypolicy.googlelink') }}
+          </a>
+        </li>
+        <li>
+          <a href="https://www.aboutads.info/" target="_blank" rel="noopener" >
+            {{ $t('help.privacypolicy.thirdpartylink') }}
+          </a>
         </li>
       </ul>
     </section>
@@ -58,20 +59,18 @@
 
     <section class="lgtmoon-section center">
       <h2 class="help-section-title">LGTMとは</h2>
-      GitHubなどでプルリク（プルリクエスト/Pull Request）をレビューした時、「Looks Good To Me」
-      （自分がレビューした限りはよいと思います、マージしていいですよ、くらいの意味）
-      という言葉を略して「LGTM」と書くことがあります。
+      GitHubなどでプルリクエストをレビューした時、「Looks Good To Me」という言葉を略して「LGTM」と書くことがあります。
+      （「よさそうです」くらいの意味で使われます。）
       このLGTMをちょっと楽しい画像にすることで、レビューすることやプルリクを出すことがちょっと楽しくなります。<br>
       <img src="https://qiita-image-store.s3.amazonaws.com/0/29024/373aad85-d1aa-96d7-026c-66b3587ae536.png" class="center">
     </section>
 
     <section class="lgtmoon-section center">
-      <h2 class="help-section-title">Contact</h2>
-      何か要望・ご連絡がございましたら下記twitterなどにご連絡ください。
-      GitHubにプルリクエストを出して頂いても構いません。
+      <h2 class="help-section-title">{{ $t('help.contact.title') }}</h2>
+      {{ $t('help.contact.description') }}
       <ul>
         <li>
-          twitter
+          {{ $t('help.contact.twitter') }}
           <a href="https://twitter.com/yoshiki_utakata" target="_blank">
             yoshiki_utakata
           </a>
@@ -83,10 +82,10 @@
           </a>
         </li>
         <li>
-          ブログ
+          {{ $t('help.contact.blog') }}
           <a href="https://www.utakata.work/" target="_blank">https://www.utakata.work/</a>
         </li>
-        <li>その他関連記事
+        <li>{{ $t('help.contact.article') }}
           <ul>
             <li>
               <a href="http://qiita.com/yoshikyoto/items/4910b1a4bcefe7f5ab8c" target="_blank">
@@ -104,12 +103,12 @@
     </section>
 
     <section class="lgtmoon-section center">
-      <h2 class="help-section-title">LGTMoonは無料で利用できます</h2>
+      <h2 class="help-section-title">Donation</h2>
       <div>
         <ul>
           <li>
             <a href="http://amzn.asia/0UX34TT" target="_blank">
-              Amazonほしいものリスト
+              Amazon欲しい物リスト
             </a>
           </li>
         </ul>
