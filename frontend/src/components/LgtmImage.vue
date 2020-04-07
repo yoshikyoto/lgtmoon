@@ -1,12 +1,22 @@
 <template>
   <div class="image-block" @mouseenter="mouseenter()" @mouseleave="mouseleave()">
-    <img v-if="isShowStar" :src="starIcon" class="star" @mousedown="toggleStar()">
+    <img
+      v-if="isShowButton"
+      :src="starIcon"
+      class="hover-button star-button"
+      @mousedown="toggleStar()"
+      title="Star this image">
+    <CopyButton
+      v-show="isShowButton"
+      :text="githubMarkdown"
+      class="hover-button copy-button"/>
     <img :src="item.url" v-on:click="select()" class="image">
   </div>
 </template>
 
 <script>
   import repository from '@/modules/Repository'
+  import CopyButton from '@/components/CopyButton'
 
   export default {
     name: "LgtmImage",
@@ -15,6 +25,9 @@
         isMouseOn: false,
         isFavorited: repository.isFavorited(this.item)
       }
+    },
+    components: {
+      CopyButton
     },
     props: [
       'item'
@@ -26,12 +39,15 @@
         }
         return '/assets/star-off.png'
       },
-      isShowStar() {
+      isShowButton() {
         if (! this.item.isConverted) {
-          // convert前の画像はお気に入りできない
+          // convert前の画像はボタンを出さない
           return false;
         }
         return this.isMouseOn
+      },
+      githubMarkdown() {
+        return '![LGTM](' + this.item.url + ')';
       }
     },
     methods: {
@@ -70,12 +86,20 @@
     width: 100%;
     height: auto;
   }
-  .star {
+  .hover-button {
     height: 30px;
     width: 30px;
+    opacity: 0.9;
+  }
+  .star-button {
+    cursor: pointer;
     position: absolute;
     top: 2px;
     right: 2px;
-    opacity: 0.9;
+  }
+  .copy-button {
+    position: absolute;
+    top: 2px;
+    right: 36px;
   }
 </style>
