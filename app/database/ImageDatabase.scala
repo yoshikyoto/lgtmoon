@@ -9,7 +9,7 @@ import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import image.ImageRepository
-import play.api.{Configuration, Logging}
+import play.api.Logging
 import com.google.inject.Inject
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.JdbcProfile
@@ -17,7 +17,7 @@ import slick.jdbc.JdbcProfile
 /**
  * データベースにアクセスするクラス
  * play-slickを利用している
- * DatabaseConfigProvider で slicl.dbs.default の設定が勝手に読み込まれる
+ * DatabaseConfigProvider で slick.dbs.default の設定が勝手に読み込まれる
  * dbConfigProvider という名前で接続情報をもたせて
  * HasDatabaseConfigProvider[JdbcProfile] を extends しておくと
  * db.run で action が実行できる。
