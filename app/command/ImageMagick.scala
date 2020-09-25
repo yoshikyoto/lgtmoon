@@ -19,7 +19,7 @@ class ImageMagick @Inject() (
     * @param srcPath 生成前の画像のPATH
     * @param destPath 生成後の画像のPATH
     */
-  def convert(srcPath: String, destPath: String) {
+  def convert(srcPath: String, destPath: String): Unit = {
     val operation = new IMOperation()
     operation.addImage(srcPath)
     operation.coalesce()
@@ -43,7 +43,7 @@ class ImageMagick @Inject() (
     execute(operation)
   }
 
-  def execute(operation: IMOperation) {
+  def execute(operation: IMOperation): Unit = {
     val command = new ConvertCmd()
     command.run(operation)
   }
