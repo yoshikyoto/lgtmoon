@@ -46,6 +46,6 @@ class ImageTemporaryStorage @Inject() (
 
   /** streamからデータを読んでバイナリを返す */
   def streamToBinary(stream: InputStream): Array[Byte] = {
-    Stream.continually(stream.read).takeWhile(-1 !=).map(_.byteValue).toArray
+    Stream.continually(stream.read).takeWhile(_ != -1).map(_.byteValue).toArray
   }
 }
