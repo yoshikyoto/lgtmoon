@@ -6,12 +6,12 @@ LGTMoon is the web service to generate LGTM Image.
 
 ## URL
 
-https://lgtmoon.herokuapp.com/
+https://lgtmoon.dev//
 
 ## Dependency
 
-* Scala 2.11
-* Play Framwork 2.6
+* Scala 2.13
+* Play Framwork 2.8
 * Slick 3.2
 * PostgreSQL 10
 * imagemagick
