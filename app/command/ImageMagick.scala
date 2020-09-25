@@ -46,7 +46,6 @@ class ImageMagick @Inject() (
 
   def execute(operation: IMOperation) {
     val command = new ConvertCmd()
-    //command.setSearchPath(imagemagickDir)
     command.run(operation)
   }
 }
