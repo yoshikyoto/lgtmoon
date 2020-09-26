@@ -1,5 +1,4 @@
 package database
-
 // AUTO-GENERATED Slick data model
 /** Stand-alone Slick data model for immediate use */
 object Tables extends {
@@ -10,11 +9,12 @@ object Tables extends {
 trait Tables {
   val profile: slick.jdbc.JdbcProfile
   import profile.api._
+  import slick.model.ForeignKeyAction
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema = Image.schema
+  lazy val schema: profile.SchemaDescription = Image.schema
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -31,10 +31,10 @@ trait Tables {
     ImageRow.tupled((<<[Long], <<[String], <<[java.sql.Timestamp], <<[Short], <<?[Array[Byte]]))
   }
   /** Table description of table image. Objects of this class serve as prototypes for rows in queries. */
-  class Image(_tableTag: Tag) extends Table[ImageRow](_tableTag, "image") {
+  class Image(_tableTag: Tag) extends profile.api.Table[ImageRow](_tableTag, "image") {
     def * = (id, contentType, createdAt, status, bin) <> (ImageRow.tupled, ImageRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(id), Rep.Some(contentType), Rep.Some(createdAt), Rep.Some(status), bin).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get, _5)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(id), Rep.Some(contentType), Rep.Some(createdAt), Rep.Some(status), bin)).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get, _5)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column id SqlType(bigserial), AutoInc, PrimaryKey */
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
