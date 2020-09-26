@@ -1,14 +1,28 @@
 object Codegen extends {
   def main(args: Array[String]): Unit = {
-    val slickDriver = "slick.driver.PostgresDriver"
-    val jdbcDriver = "org.postgresql.Driver"
-    val url = "jdbc:postgresql://localhost/lgtmoon"
-    val outputDir = "../app"
-    val pkg = "repositories"
-    val user = "postgres"
-    val password = "postgres"
-    slick.codegen.SourceCodeGenerator.main(
-      Array(slickDriver, jdbcDriver, url, outputDir, pkg, user, password)
-    )
+    /**
+      * Slick ドキュメント
+      * https://scala-slick.org/doc/3.3.3/code-generation.html
+      */
+    slick.codegen.SourceCodeGenerator.main(Array(
+      "slick.jdbc.PostgresProfile",
+      "org.postgresql.Driver",
+
+      // URL
+      "jdbc:postgresql://localhost/lgtmoon",
+
+      // アプリケーションのルートディレクトリ
+      "../app",
+
+      // 出力されるコードのパッケージ名
+      // これでapp/database ディレクトリ以下に出力される
+      "database",
+
+      // DBのユーザー名
+      "postgres",
+
+      // パスワード
+      "postgres",
+    ))
   }
 }
