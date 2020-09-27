@@ -1,7 +1,18 @@
 package test.lib
 
+import database.Tables
 import play.api.Configuration
 import play.api.db.Databases
+import slick.dbio.DBIO
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
+// schema.create を使うためにこの import が必要
+import slick.jdbc.H2Profile.api._
+
+
+object TablesForTest extends Tables {
+  val profile = slick.jdbc.H2Profile
+}
 
 trait InMemoryH2Database {
   /** playの機能を使ってインメモリデータベース（H2）の設定を取得 */
@@ -20,5 +31,14 @@ trait InMemoryH2Database {
       "slick.dbs.default.db.user" -> "",
       "slick.dbs.default.db.password" -> "",
     )
+  )
+
+  /** Slick で生成されたクエリを実行するためのdbオブジェクト */
+  val dbForSlick = slick.jdbc.JdbcBackend.Database.forURL(inMemoryDb.url)
+
+  // DB をマイグレーション
+  Await.result(
+    dbForSlick.run(DBIO.seq(TablesForTest.schema.create)),
+    Duration.Inf,
   )
 }
