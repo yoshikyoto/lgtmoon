@@ -24,18 +24,7 @@ class ImageControllerTest extends PlaySpecification
   with InMemoryH2Database {
 
   "recent" should {
-    val appBuilder = new GuiceApplicationBuilder().configure(Configuration.from(
-      // オンメモリのデータベースを利用するように設定を上書き
-      // コネクションプールは無効にする
-      Map(
-        "slick.dbs.default.profiile" -> "slick.jdbc.H2Profile$",
-        "slick.dbs.default.db.driver" -> "org.h2.Driver",
-        "slick.dbs.default.db.url" -> inMemoryDb.url,
-        "slick.dbs.default.db.connectionPool" -> "disabled",
-        "slick.dbs.default.db.user" -> "",
-        "slick.dbs.default.db.password" -> "",
-      )
-    ))
+    val appBuilder = new GuiceApplicationBuilder().configure(dbConfiguration)
     val app = appBuilder.build()
     "ImageRepositoryから返ってきた画像をそのまま返す" in new WithApplication(app) {
       val dbForSlick = Database.forURL(inMemoryDb.url)
