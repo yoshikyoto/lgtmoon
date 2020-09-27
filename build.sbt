@@ -4,13 +4,14 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.13.1"
+scalaVersion := "2.13.3"
 
 libraryDependencies ++= Seq(
   ws,
   guice,
   specs2 % Test,
-  evolutions,
+  jdbc,
+  jdbc % Test,
   "com.typesafe.slick" %% "slick" % "3.3.2",
   "com.typesafe.slick" %% "slick-codegen" % "3.3.2",
   "org.postgresql" % "postgresql" % "42.2.6",
@@ -25,6 +26,9 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+// slick-migration-api のインストールに必要なリゾルバ
+resolvers += Resolver.jcenterRepo
 
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.
