@@ -29,7 +29,7 @@ class ImageDatabase @Inject() (
   with Logging
   with ImageRepository {
 
-  // Available じゃない状態は全部 0 になっている
+  // 区別する必要がないので、 Available じゃない状態は全部 0 になっている
   val STATUS_PROCESSING_OR_FAILURE: Short = 0
   val STATUS_AVAILABLE: Short = 1
 
@@ -94,7 +94,7 @@ class ImageDatabase @Inject() (
     }
   }
 
-  /** status = STATUS_PROCESSING でレコードを作成する */
+  /** status = STATUS_PROCESSING_OR_FAILURE でレコードを作成する */
   def create(): Future[Option[Int]] = {
     val timestamp = new Timestamp(System.currentTimeMillis())
     val imageRow = ImageRow(0, "", timestamp, STATUS_PROCESSING_OR_FAILURE)
