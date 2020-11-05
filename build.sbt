@@ -22,7 +22,8 @@ libraryDependencies ++= Seq(
 
   "org.im4java" % "im4java" % "1.4.0",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.3.2",
-  "com.typesafe.play" %% "play-slick" % "4.0.2"
+  "com.typesafe.play" %% "play-slick" % "4.0.2",
+  "com.github.seratch" %% "awscala-s3" % "0.8.4",
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
