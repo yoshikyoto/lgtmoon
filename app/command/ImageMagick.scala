@@ -1,6 +1,6 @@
 package command
 
-import file.Font
+import file.FilePath
 import image.{ConvertedImage, ImageConverter, SourceImage}
 import play.api.Configuration
 import org.im4java.core._
@@ -10,7 +10,7 @@ import storage.ImageTemporaryStorage
 
 /** imagemagickを使ってlgtmoon画像を作ってくれるやつ */
 class ImageMagick @Inject() (
-  val font: Font,
+  val font: FilePath,
   val config: Configuration,
   val temporaryStorage: ImageTemporaryStorage
 ) extends ImageConverter {
@@ -24,7 +24,7 @@ class ImageMagick @Inject() (
     operation.geometry(400, 400)
     // LGTMの文字
     operation.gravity("center")
-    operation.font(font.path("Aileron-Black.otf"))
+    operation.font(font.fontPath("Aileron-Black.otf"))
     operation.pointsize(72)
     operation.stroke("none")
     operation.fill("white")
@@ -32,7 +32,7 @@ class ImageMagick @Inject() (
     operation.strokewidth(5)
     operation.annotate(0, 0, 0, 0, "LGTM")
     // Looks Good To Me の文字
-    operation.font(font.path("Aileron-Regular.otf"))
+    operation.font(font.fontPath("Aileron-Regular.otf"))
     operation.pointsize(11)
     operation.kerning(6)
     operation.annotate(0, 0, 0, 52, "Looks  Good  To  Me")

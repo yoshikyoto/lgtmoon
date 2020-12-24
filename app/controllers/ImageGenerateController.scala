@@ -61,7 +61,7 @@ class ImageGenerateController @Inject() (
               case None => internalServerErrorWith("データベース接続エラー")
               case Some(id) => {
                 val lgtmImageUrl = urlBuilder.image(id.toInt)
-                file.ref.moveTo(new File(imageTemporaryStorage.srcPath(id.toInt)))
+                imageTemporaryStorage.save(id.toInt, file.ref)
                 imageActor ! ImageGenerateMessage(id)
                 Ok(Json.toJson(ImageResponse(lgtmImageUrl, false)))
               }

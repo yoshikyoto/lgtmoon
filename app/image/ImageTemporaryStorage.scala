@@ -1,6 +1,8 @@
 package image
 
 import com.google.inject.ImplementedBy
+import play.api.libs.Files.TemporaryFile
+import play.mvc.BodyParser.MultipartFormData
 
 /**
  * LGTMの文字を入れる前の画像を一時的に保存する
@@ -15,4 +17,7 @@ trait ImageTemporaryStorage {
    * @return
    */
   def sourceImage(id: Int): SourceImage
+
+  def save(id: Int, url: String): SourceImage
+  def save(id: Int, file: TemporaryFile): SourceImage
 }

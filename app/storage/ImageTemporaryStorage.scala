@@ -4,13 +4,16 @@ import com.google.inject.Inject
 import java.net.URL
 
 import play.api.Configuration
-import java.io.{BufferedOutputStream, FileInputStream, FileOutputStream, InputStream}
+import java.io.{BufferedOutputStream, File, FileInputStream, FileOutputStream, InputStream}
 
+import file.FilePath
 import image.{ConvertedImage, SourceImage}
+import play.api.libs.Files.TemporaryFile
 
 /** 画像のバイナリを一時的に保存するストレージ */
 class ImageTemporaryStorage @Inject() (
-  config: Configuration
+  config: Configuration,
+  filePath: FilePath
 ) extends image.ImageTemporaryStorage {
   /** 変換前の画像が保存されるパス */
   val srcDir: String = config.get[String]("storage.image.src.dir")
@@ -34,11 +37,18 @@ class ImageTemporaryStorage @Inject() (
     val downloadSrcStream = new URL(url).openStream
     val downloadSrcBinary = streamToBinary(downloadSrcStream)
     // ダウンロードされたファイルはLGTM画像変換のためのソース画像のPATHに入る
-    val downloadDestStream = new BufferedOutputStream(new FileOutputStream(srcPath(id)))
+    val sourceImagePath = filePath.sourceImagePath(id)
+    val downloadDestStream = new BufferedOutputStream(new FileOutputStream(sourceImagePath))
     downloadDestStream.write(downloadSrcBinary)
     downloadDestStream.close()
     downloadSrcStream.close()
-    new SourceImage(id, srcPath(id))
+    new SourceImage(id, sourceImagePath)
+  }
+
+  def save(id: Int, file: TemporaryFile): SourceImage = {
+    val path = filePath.sourceImagePath(id)
+    file.moveTo(new File(path))
+    new SourceImage(id, path)
   }
 
   /** 変換後の画像のバイナリを取得する */
