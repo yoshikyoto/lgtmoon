@@ -12,7 +12,7 @@ services:
 #      - "-c"
 #      - "sbt run"
   postgres:
-    image: postgres:10.5
+    image: postgres:10.15
     container_name: postgres
     ports:
       - 5432:5432
