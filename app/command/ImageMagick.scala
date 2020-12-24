@@ -5,14 +5,13 @@ import image.{ConvertedImage, ImageConverter, SourceImage}
 import play.api.Configuration
 import org.im4java.core._
 import com.google.inject.Inject
-import storage.ImageTemporaryStorage
 
 
 /** imagemagickを使ってlgtmoon画像を作ってくれるやつ */
 class ImageMagick @Inject() (
   val font: FilePath,
   val config: Configuration,
-  val temporaryStorage: ImageTemporaryStorage
+  val filePath: FilePath
 ) extends ImageConverter {
   /**
    * 画像の変換を行う
@@ -38,7 +37,7 @@ class ImageMagick @Inject() (
     operation.annotate(0, 0, 0, 52, "Looks  Good  To  Me")
 
     // ここで直接取得した PATH に保存している
-    val destPath = temporaryStorage.destPath(sourceImage.id)
+    val destPath = filePath.convertedImagePath(sourceImage.id)
     operation.addImage(destPath)
     // コマンド実行
     execute(operation)

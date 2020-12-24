@@ -15,22 +15,17 @@ class ImageTemporaryStorage @Inject() (
   config: Configuration,
   filePath: FilePath
 ) extends image.ImageTemporaryStorage {
-  /**
-   * 変換後の画像が保存されるパス
-   * @see command.ImageMagick で使われている
-   */
-  val destDir: String = config.get[String]("storage.image.dest.dir")
-
-  def destPath(id: Int): String = destDir + "/" + id
 
   def sourceImage(id: Int): SourceImage = new SourceImage(
     id,
     filePath.sourceImagePath(id)
   )
 
-  /** URLから画像をダウンロードしてきて
+  /**
+   * URLから画像をダウンロードしてきて
    * 変換前の画像ストレージに保存する
-   * @return 保存されたバイナリの絶対パス */
+   * @return 保存されたバイナリの絶対パス
+   */
   def save(id: Int, url: String): SourceImage = {
     val downloadSrcStream = new URL(url).openStream
     val downloadSrcBinary = streamToBinary(downloadSrcStream)
