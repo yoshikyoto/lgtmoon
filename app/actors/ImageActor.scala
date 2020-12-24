@@ -1,8 +1,7 @@
 package actor
 
 import akka.actor.Actor
-import image.ImageConverter
-import image.ImageRepository
+import image.{ImageConverter, ImageRepository, SourceImage}
 import com.google.inject.Inject
 import storage.ImageTemporaryStorage
 
@@ -19,25 +18,23 @@ case class ImageDownloadAndGenerateMessage(id: Long, url: String)
 class ImageActor @Inject() (
   imageRepository: ImageRepository,
   imageConverter: ImageConverter,
-  imageTemporaryStorage: ImageTemporaryStorage
+  temporaryStorage: ImageTemporaryStorage
 ) extends Actor {
 
   override def receive: Receive = {
     case ImageDownloadAndGenerateMessage(id, url) => {
-      val srcImagePath = imageTemporaryStorage.save(id.toInt, url)
-      val destImagePath = imageTemporaryStorage.destPath(id.toInt)
-      imageConverter.convert(srcImagePath, destImagePath)
+      val sourceImage = temporaryStorage.save(id.toInt, url)
+      val convertedImage = imageConverter.convert(sourceImage)
       // convertされた画像をバイナリで取得してDBに入れる
-      val bin = imageTemporaryStorage.convertedBinary(id.toInt)
+      val bin = temporaryStorage.convertedBinary(convertedImage)
       imageRepository.makeAvailable(id.toInt, bin)
     }
 
     case ImageGenerateMessage(id) => {
-      val sourcePath = imageTemporaryStorage.srcPath(id.toInt)
-      val destPath = imageTemporaryStorage.destPath(id.toInt)
-      imageConverter.convert(sourcePath, destPath)
+      val sourceImage: SourceImage = temporaryStorage.sourceImage(id.toInt)
+      val convertedImage = imageConverter.convert(sourceImage)
       // convertされた画像をバイナリで取得してDBに入れる
-      val bin = imageTemporaryStorage.convertedBinary(id.toInt)
+      val bin = temporaryStorage.convertedBinary(convertedImage)
       imageRepository.makeAvailable(id.toInt, bin)
     }
   }

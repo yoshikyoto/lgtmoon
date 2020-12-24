@@ -1,27 +1,25 @@
 package command
 
 import file.Font
-import image.ImageConverter
+import image.{ConvertedImage, ImageConverter, SourceImage}
 import play.api.Configuration
 import org.im4java.core._
 import com.google.inject.Inject
+import storage.ImageTemporaryStorage
 
 
 /** imagemagickを使ってlgtmoon画像を作ってくれるやつ */
 class ImageMagick @Inject() (
   val font: Font,
-  val config: Configuration
+  val config: Configuration,
+  val temporaryStorage: ImageTemporaryStorage
 ) extends ImageConverter {
-
   /**
-    * 画像の変換を行う
-    *
-    * @param srcPath 生成前の画像のPATH
-    * @param destPath 生成後の画像のPATH
-    */
-  def convert(srcPath: String, destPath: String): Unit = {
+   * 画像の変換を行う
+   */
+  def convert(sourceImage: SourceImage): ConvertedImage = {
     val operation = new IMOperation()
-    operation.addImage(srcPath)
+    operation.addImage(sourceImage.path)
     operation.coalesce()
     operation.geometry(400, 400)
     // LGTMの文字
@@ -38,9 +36,13 @@ class ImageMagick @Inject() (
     operation.pointsize(11)
     operation.kerning(6)
     operation.annotate(0, 0, 0, 52, "Looks  Good  To  Me")
+
+    // ここで直接取得した PATH に保存している
+    val destPath = temporaryStorage.destPath(sourceImage.id)
     operation.addImage(destPath)
     // コマンド実行
     execute(operation)
+    new ConvertedImage(sourceImage.id, destPath)
   }
 
   def execute(operation: IMOperation): Unit = {
