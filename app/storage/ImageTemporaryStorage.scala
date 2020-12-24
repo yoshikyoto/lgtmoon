@@ -3,7 +3,6 @@ package storage
 import com.google.inject.Inject
 import java.net.URL
 
-import play.api.Configuration
 import java.io.{BufferedOutputStream, File, FileInputStream, FileOutputStream, InputStream}
 
 import file.FilePath
