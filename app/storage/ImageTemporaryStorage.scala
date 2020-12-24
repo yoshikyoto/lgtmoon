@@ -12,7 +12,6 @@ import play.api.libs.Files.TemporaryFile
 
 /** 画像のバイナリを一時的に保存するストレージ */
 class ImageTemporaryStorage @Inject() (
-  config: Configuration,
   filePath: FilePath
 ) extends image.ImageTemporaryStorage {
 
