@@ -5,12 +5,13 @@ import java.io.File
 import awscala.s3.{Bucket, S3}
 import awscala.Region
 import com.google.inject.Inject
+import image.ConvertedImage
 import play.api.Configuration
 
 /**
  * https://github.com/seratch/AWScala
  */
-class ImageStorage @Inject() (
+class ImageS3 @Inject() (
   config: Configuration
 ) extends image.ImageStorage {
   val awsAccessKeyId: String = config.get[String]("aws.accessKeyId")
@@ -20,7 +21,8 @@ class ImageStorage @Inject() (
   implicit val s3: S3 = S3.at(Region.AP_NORTHEAST_1)
   val bucket: Bucket = s3.bucket(awsS3BucketName).get
 
-  def save(id: Int, localAbsolutePath: String): Unit = {
-    val file = new File(localAbsolutePath)
+  def save(convertedImage: ConvertedImage): Unit = {
+    val file = new File(convertedImage.path)
+    bucket.put(convertedImage.id.toString, file)
   }
 }
