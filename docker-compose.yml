@@ -11,9 +11,9 @@ services:
 #      - "bash"
 #      - "-c"
 #      - "sbt run"
-  lgtmoon-postgresql:
+  postgres:
     image: postgres:10.5
-    container_name: lgtmoon-postgresql
+    container_name: postgres
     ports:
       - 5432:5432
     volumes:
