@@ -9,8 +9,6 @@ import play.mvc.BodyParser.MultipartFormData
  */
 @ImplementedBy(classOf[storage.ImageTemporaryStorage])
 trait ImageTemporaryStorage {
-  def srcPath(id: Int): String
-
   /**
    * 画像のIDを渡すと、一時的に保存されている元画像を取得する
    * @param id 画像ID
