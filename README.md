@@ -37,8 +37,7 @@ psql -U postgres -h 127.0.0.1 lgtmoon --password
 
 ### Dockerを使わない場合
 
-`sql/init/1_create.sql` をデータベースに流してください。
-（Dockerの場合はこのSQLが自動的に流れる設定になっているはずです）
+利用したいデータベースに `sql/init/1_create.sql` を流してください。
 
 例:
 
@@ -51,48 +50,30 @@ PostgreSQLの操作などについてはwikiなどを見てください。
 
 ### application.conf
 
-`conf/application.conf.sample` を参考に `conf/application.conf` を作成し、
-下記を設定してください。
+基本的に `conf/application.conf` にはデフォルト値が設定されており、
+ローカルでの開発では値を変更しなくて良いようになっています。
 
-secretの値を変更
+ただし、以下の設定だけ行ってください。
 
-```
-play.crypto.secret = "changeme"
-```
+Google 検索の動作確認をする場合は、 Google の API を叩くのに必要な
+`google.key` と `google.cx` を設定してください。
 
-PostgreSQLの接続情報の設定
+* TODO: この Google の処理をモックに置き換えられないか
 
-```
-pg_database = {
-  url = "jdbc:postgresql://127.0.0.1/lgtmoon?user=postgres&password=postgres"
-  driver = org.postgresql.Driver
-  connectionPool = disabled
-  keepAliveConnection = true
-}
-```
+LGTM 画像アップロードの動作確認をしたい場合、
+S3 が利用できる AWS アカウントを設定する必要があります。
 
-imagemagickのPATHの設定
+`aws.provider` に設定されている provider のに対応した、
+`~/.aws/credentials` の設定が利用されます。  
+
+`~/.aws/credentials` の例
 
 ```
-imagemagick.dir = /usr/:/usr/bin
+[lgtmoon_dev]
+aws_access_key_id = XXXXX
+aws_secret_access_key = YYYYYYYYYY
+region = ap-northeast-1
 ```
-
-storageの設定
-
-```
-storage.image.src.dir = "/tmp"
-storage.image.dest.dir = "/tmp"
-```
-
-image.baseUrl の設定
-
-```
-image.baseUrl = "https://yourhost:9000/images"
-```
-
-## 注意点
-
-Herokuにデプロイする際に楽なので、`node_modules`やコンパイル後のCSSもすべてリポジトリに含めています。
 
 ## Contribute
 
