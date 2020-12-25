@@ -26,14 +26,13 @@ class ImageS3 @Inject() (
     val secretAccessKeyOpt = config.getOptional[String]("aws.secretAccessKey")
     (accessKeyIdOpt, secretAccessKeyOpt) match {
       case (Some(accessKeyId), Some(secretAccessKey)) => (accessKeyId, secretAccessKey)
-      case _ => {
+      case _ =>
         // env や config に設定されていない場合は ~/.aws/credentials の設定から取る
         // （ローカル開発用）
         logger.info("環境変数からAWSのCredentialsが取得できなかったので ~/.aws/credentials から取得します")
         val providerName = config.get[String]("aws.provider")
         val credentials = new ProfileCredentialsProvider(providerName).getCredentials
         (credentials.getAWSAccessKeyId, credentials.getAWSSecretKey)
-      }
     }
   }
 
