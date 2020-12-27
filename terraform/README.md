@@ -14,7 +14,7 @@ tfenv を使って terraform をインストールします。
 `.terraform-version` に書いてあるバージョンと、同じバージョンの terraform がインストールされます。
 
 ```sh
-rfenv install
+tfenv install
 terraform --version                                                                                          [master]
 ```
 
