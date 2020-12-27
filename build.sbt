@@ -23,7 +23,12 @@ libraryDependencies ++= Seq(
   "org.im4java" % "im4java" % "1.4.0",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.3.2",
   "com.typesafe.play" %% "play-slick" % "4.0.2",
-  "com.github.seratch" %% "awscala-s3" % "0.8.4",
+
+  // 公式やサードパーティの AWS S3 のライブラリに良いのが無いので Java のものを使う
+  "com.amazonaws" % "aws-java-sdk-s3" % "1.11.926",
+
+  // https://mvnrepository.com/artifact/org.apache.tika/tika-core
+  "org.apache.tika" % "tika-core" % "1.25",
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
