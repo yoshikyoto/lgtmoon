@@ -1,4 +1,0 @@
-# 秘匿情報が入っているので
-terraform.tfvars
-*.plan
-.terraform
