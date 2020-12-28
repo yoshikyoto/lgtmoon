@@ -17,4 +17,5 @@ trait ImageTemporaryStorage {
 
   def save(id: Int, url: String): SourceImage
   def save(id: Int, file: TemporaryFile): SourceImage
+  def saveConvertedBinary(id: Int, bin: Array[Byte]): ConvertedImage
 }

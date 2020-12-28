@@ -42,6 +42,14 @@ class ImageTemporaryStorage @Inject() (
     new SourceImage(id, path)
   }
 
+  def saveConvertedBinary(id: Int, bin: Array[Byte]): ConvertedImage = {
+    val fileName = "/tmp/s3migrate-" + id
+    val stream = new BufferedOutputStream(new FileOutputStream(fileName))
+    stream.write(bin)
+    stream.close()
+    new ConvertedImage(id, fileName)
+  }
+
   /** 変換後の画像のバイナリを取得する */
   def convertedBinary(convertedImage: ConvertedImage): Array[Byte] = {
     streamToBinary(new FileInputStream(convertedImage.path))

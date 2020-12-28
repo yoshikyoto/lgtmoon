@@ -78,7 +78,9 @@ class ImageDatabase @Inject() (
   /** 画像のバイナリを取得する */
   def binary(id: Int): Future[Option[Array[Byte]]] = {
     // DBのidはLong型なのでIntからLongに変換する
-    val action = Image.filter(_.id === id.toLong).result
+    val action = Image
+      .filter(_.id === id.toLong)
+      .filter(_.status === STATUS_AVAILABLE).result
     db.run(action).map {
       case images: Seq[ImageRow] if images.nonEmpty
       => Some(images.head)
