@@ -4,6 +4,7 @@ import java.io.{File, FileInputStream}
 
 import com.amazonaws.auth.{AWSCredentials, AWSStaticCredentialsProvider, BasicAWSCredentials}
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
+import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.amazonaws.services.s3.model.{ObjectMetadata, PutObjectResult}
 import com.google.inject.Inject
@@ -65,6 +66,7 @@ class ImageS3 @Inject() (
   ): Option[PutObjectResult] = {
     val s3 = AmazonS3ClientBuilder.standard()
       .withCredentials(new AWSStaticCredentialsProvider(credentials()))
+      .withRegion(Regions.AP_NORTHEAST_1)
       .build()
     try {
       val result = s3.putObject(
