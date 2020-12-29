@@ -22,7 +22,7 @@ class ImageS3Migrator @Inject() (
   val imageTemporaryStorage: ImageTemporaryStorage,
   val imageStorage: ImageStorage
 ) {
-  val startId = 11
+  val startId = 1
   val endId = 112000
   Future {
     println("S3へのマイグレーション処理開始")
