@@ -22,6 +22,11 @@ class ImageS3 @Inject() (
   with Logging {
 
   private val bucketName = config.get[String]("aws.s3.imageBucket")
+  // 画像を S3 から配信するときのキャッシュ設定
+  // cdn がどれくらいの時間キャッシュするかに関係する
+  // 31536000 = 365日（365 * 24 * 60 * 60）
+  // https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cache-Control
+  private val cacheControl = "public, max-age=31536000, immutable"
 
   private def credentials(): AWSCredentials = {
     val accessKeyIdOpt = config.getOptional[String]("aws.accessKeyId")
@@ -54,6 +59,7 @@ class ImageS3 @Inject() (
     val metadata = new ObjectMetadata()
     metadata.setContentLength(contentLength)
     metadata.setContentType(contentType)
+    metadata.setCacheControl(cacheControl)
     metadata
   }
 
