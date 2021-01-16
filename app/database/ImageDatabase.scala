@@ -112,10 +112,10 @@ class ImageDatabase @Inject() (
    * @return 正常に終了した場合 Future(Some(1)) （1はUpdateされたカラムの数）
    * 更新に失敗した場合は None
    */
-  def makeAvailable(id: Int, bin: Array[Byte]): Future[Option[Int]] = {
+  def makeAvailable(id: Int): Future[Option[Int]] = {
     val action = Image.filter(_.id === id.toLong)
-      .map(x => (x.status, x.bin))
-      .update((STATUS_AVAILABLE, Some(bin)))
+      .map(x => (x.status))
+      .update((STATUS_AVAILABLE))
     db.run(action).map {
       // 正しい挙動（1件のレコードが更新される）
       case num: Int if num == 1 => Some(num)

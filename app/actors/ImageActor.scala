@@ -28,17 +28,17 @@ class ImageActor @Inject() (
       val convertedImage = imageConverter.convert(sourceImage)
       // aws s3 に保存
       storage.save(convertedImage)
-      // convertされた画像をバイナリで取得してDBに入れる
-      val bin = temporaryStorage.convertedBinary(convertedImage)
-      imageRepository.makeAvailable(id.toInt, bin)
+      // エンコード成功フラグを建てる
+      imageRepository.makeAvailable(id.toInt)
     }
 
     case ImageGenerateMessage(id) => {
       val sourceImage: SourceImage = temporaryStorage.sourceImage(id.toInt)
       val convertedImage = imageConverter.convert(sourceImage)
-      // convertされた画像をバイナリで取得してDBに入れる
-      val bin = temporaryStorage.convertedBinary(convertedImage)
-      imageRepository.makeAvailable(id.toInt, bin)
+      // aws s3 に保存
+      storage.save(convertedImage)
+      // 変換成功フラグを立てる
+      imageRepository.makeAvailable(id.toInt)
     }
   }
 
