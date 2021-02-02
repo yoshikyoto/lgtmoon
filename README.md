@@ -6,7 +6,7 @@ LGTMoon is the web service to generate LGTM Image.
 
 ## URL
 
-https://lgtmoon.dev//
+https://lgtmoon.dev/
 
 ## Dependency
 
