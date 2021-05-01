@@ -29,6 +29,10 @@ libraryDependencies ++= Seq(
 
   // https://mvnrepository.com/artifact/org.apache.tika/tika-core
   "org.apache.tika" % "tika-core" % "1.25",
+
+  // Json のパーサー Jackson
+  // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-scala
+  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.12.3",
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
