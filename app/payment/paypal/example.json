@@ -1,0 +1,138 @@
+{
+  "id": "7FD81091SS506750Y",
+  "intent": "CAPTURE",
+  "status": "COMPLETED",
+  "purchase_units": [
+    {
+      "reference_id": "default",
+      "amount": {
+        "currency_code": "JPY",
+        "value": "330",
+        "breakdown": {
+          "item_total": {
+            "currency_code": "JPY",
+            "value": "300"
+          },
+          "shipping": {
+            "currency_code": "JPY",
+            "value": "0"
+          },
+          "handling": {
+            "currency_code": "JPY",
+            "value": "0"
+          },
+          "tax_total": {
+            "currency_code": "JPY",
+            "value": "30"
+          },
+          "insurance": {
+            "currency_code": "JPY",
+            "value": "0"
+          },
+          "shipping_discount": {
+            "currency_code": "JPY",
+            "value": "0"
+          },
+          "discount": {
+            "currency_code": "JPY",
+            "value": "0"
+          }
+        }
+      },
+      "payee": {
+        "email_address": "sb-yejr66074697@business.example.com",
+        "merchant_id": "32A2M4EKKMP3A"
+      },
+      "description": "LGTMoonに寄付",
+      "shipping": {
+        "name": {
+          "full_name": "John Doe"
+        },
+        "address": {
+          "address_line_1": "Nishi 4-chome",
+          "admin_area_2": "Shibuya-ku",
+          "admin_area_1": "Tokyo",
+          "postal_code": "150-0002",
+          "country_code": "JP"
+        }
+      },
+      "payments": {
+        "captures": [
+          {
+            "id": "7EJ14175JR441674D",
+            "status": "COMPLETED",
+            "amount": {
+              "currency_code": "JPY",
+              "value": "330"
+            },
+            "final_capture": true,
+            "seller_protection": {
+              "status": "ELIGIBLE",
+              "dispute_categories": [
+                "ITEM_NOT_RECEIVED",
+                "UNAUTHORIZED_TRANSACTION"
+              ]
+            },
+            "seller_receivable_breakdown": {
+              "gross_amount": {
+                "currency_code": "JPY",
+                "value": "330"
+              },
+              "paypal_fee": {
+                "currency_code": "JPY",
+                "value": "52"
+              },
+              "net_amount": {
+                "currency_code": "JPY",
+                "value": "278"
+              }
+            },
+            "links": [
+              {
+                "href": "https://api.sandbox.paypal.com/v2/payments/captures/7EJ14175JR441674D",
+                "rel": "self",
+                "method": "GET"
+              },
+              {
+                "href": "https://api.sandbox.paypal.com/v2/payments/captures/7EJ14175JR441674D/refund",
+                "rel": "refund",
+                "method": "POST"
+              },
+              {
+                "href": "https://api.sandbox.paypal.com/v2/checkout/orders/7FD81091SS506750Y",
+                "rel": "up",
+                "method": "GET"
+              }
+            ],
+            "create_time": "2021-05-01T02:01:54Z",
+            "update_time": "2021-05-01T02:01:54Z"
+          }
+        ]
+      }
+    }
+  ],
+  "payer": {
+    "name": {
+      "given_name": "John",
+      "surname": "Doe"
+    },
+    "email_address": "sb-bbiri6076567@personal.example.com",
+    "payer_id": "7LAU9Q6YQBXZ2",
+    "phone": {
+      "phone_number": {
+        "national_number": "8319012799"
+      }
+    },
+    "address": {
+      "country_code": "JP"
+    }
+  },
+  "update_time": "2021-05-01T02:01:54Z",
+  "links": [
+    {
+      "href": "https://api.sandbox.paypal.com/v2/checkout/orders/7FD81091SS506750Y",
+      "rel": "self",
+      "method": "GET"
+    }
+  ]
+}
