@@ -5,7 +5,7 @@ import java.util.Base64
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.google.inject.Inject
-import play.api.Configuration
+import play.api.{Configuration, Logging}
 import play.api.libs.json.JsValue
 import play.api.libs.ws.WSClient
 
@@ -14,7 +14,7 @@ import scala.concurrent.Future
 class Client @Inject() (
   config: Configuration,
   ws: WSClient,
-) {
+) extends Logging {
   private val apiBaseUrl = config.get[String]("paypal.apiBaseUrl")
   private val clientId = config.get[String]("paypal.clientId")
   private val secret = config.get[String]("paypal.secret")
@@ -45,28 +45,29 @@ class Client @Inject() (
   }
 
   def jsonToOrder(json: JsValue): Option[Order] = {
-    //try {
-    val purchaseUnitJson = json("purchase_units")(0)
-    val orderMerchantId = purchaseUnitJson("payee")("merchant_id").as[String]
-    val captureJson = purchaseUnitJson("payments")("captures")(0)
-    return Some(Order(
-      json("id").as[String],
-      json("intent").as[String],
-      json("status").as[String],
-      purchaseUnitJson("amount")("currency_code").as[String],
-      purchaseUnitJson("amount")("breakdown")("item_total")("value").as[String],
-      Payee(
-        orderMerchantId,
-        orderMerchantId == merchantId
-      ),
-      OffsetDateTime.parse(captureJson("create_time").as[String])
-    ))
-    //        } catch {
-    //          case e: Throwable => {
-    //            print(e)
-    //            return Future(None)
-    //          }
-    //        }
+    try {
+      val purchaseUnitJson = json("purchase_units")(0)
+      val orderMerchantId = purchaseUnitJson("payee")("merchant_id").as[String]
+      val captureJson = purchaseUnitJson("payments")("captures")(0)
+      Some(Order(
+        json("id").as[String],
+        json("intent").as[String],
+        json("status").as[String],
+        purchaseUnitJson("amount")("currency_code").as[String],
+        purchaseUnitJson("amount")("breakdown")("item_total")("value").as[String],
+        Payee(
+          orderMerchantId,
+          orderMerchantId == merchantId
+        ),
+        OffsetDateTime.parse(captureJson("create_time").as[String])
+      ))
+    } catch {
+      case e: Throwable => {
+        val message = "PayPal /v2/checkout/orders/ API のレスポンスのパースに失敗しました"
+        logger.error(s"${message}\terror:${e}\tjson:${json}")
+        None
+      }
+    }
   }
 }
 
