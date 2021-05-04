@@ -1,9 +1,9 @@
 package actor
 
 import akka.actor.Actor
-import image.{ImageConverter, ImageRepository, SourceImage, ImageStorage}
+import image.{ImageConverter, ImageRepository, ImageStorage, SourceImage}
 import com.google.inject.Inject
-import storage.ImageTemporaryStorage
+import storage.{ImageTemporaryStorage, ImageWasabiS3}
 
 // TODO idをIntにする
 case class ImageGenerateMessage(id: Long)
@@ -19,7 +19,8 @@ class ImageActor @Inject() (
   imageRepository: ImageRepository,
   imageConverter: ImageConverter,
   temporaryStorage: ImageTemporaryStorage,
-  storage: ImageStorage
+  storage: ImageStorage,
+  wasabi: ImageWasabiS3,
 ) extends Actor {
 
   override def receive: Receive = {
@@ -28,6 +29,8 @@ class ImageActor @Inject() (
       val convertedImage = imageConverter.convert(sourceImage)
       // aws s3 に保存
       storage.save(convertedImage)
+      // Wasabi S3 に保存
+      wasabi.save(convertedImage)
       // エンコード成功フラグを建てる
       imageRepository.makeAvailable(id.toInt)
     }
@@ -37,6 +40,8 @@ class ImageActor @Inject() (
       val convertedImage = imageConverter.convert(sourceImage)
       // aws s3 に保存
       storage.save(convertedImage)
+      // Wasabi S3 に保存
+      wasabi.save(convertedImage)
       // 変換成功フラグを立てる
       imageRepository.makeAvailable(id.toInt)
     }
