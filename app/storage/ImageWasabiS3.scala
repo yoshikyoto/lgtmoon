@@ -96,6 +96,7 @@ class ImageWasabiS3 @Inject() (
       .withCredentials(new AWSStaticCredentialsProvider(credentials()))
       .build()
     try {
+      logger.info("Wasabi S3 にファイルを PUT します\tbucket:${bucketName}\tkey:${key}")
       val result = s3.putObject(
         bucketName,
         key,
@@ -103,11 +104,12 @@ class ImageWasabiS3 @Inject() (
         metadata
       )
       // アップロードした後に Public アクセスを可能にする
+      logger.info(s"Wasabi S3 に PUT されたファイルを Publish します\tbucket:${bucketName}\tkey:${key}")
       s3.setObjectAcl(bucketName, key, CannedAccessControlList.PublicRead)
       Option(result)
     } catch {
       case e: Exception =>
-        logger.error("LGTM画像をS3にPUTできなかった", e)
+        logger.error("LGTM画像を Wasabi S3 にアップロードしようとしてエラー", e)
         None
     }
   }
