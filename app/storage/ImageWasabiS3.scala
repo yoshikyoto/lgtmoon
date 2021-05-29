@@ -118,17 +118,21 @@ class ImageWasabiS3 @Inject() (
    * 変換した画像を渡すと S3 に保存する
    * @param convertedImage LGTM画像
    */
-  def save(convertedImage: ConvertedImage): Unit = {
+  def save(convertedImage: ConvertedImage): Boolean = {
     val file = new File(convertedImage.path)
     val fileInputStream = new FileInputStream(file)
     detectContentType(file) match {
+      case None => false
       case Some(contentType) =>
         putObject(
           bucketName,
           convertedImage.id.toString,
           fileInputStream,
           objectMetadata(file.length(), contentType)
-        )
+        ) match {
+          case Some(_) => true
+          case None => false
+        }
     }
   }
 }

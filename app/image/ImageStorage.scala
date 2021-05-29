@@ -7,5 +7,5 @@ import com.google.inject.ImplementedBy
  */
 @ImplementedBy(classOf[storage.ImageS3])
 trait ImageStorage {
-  def save(convertedImage: ConvertedImage): Unit
+  def save(convertedImage: ConvertedImage): Boolean
 }

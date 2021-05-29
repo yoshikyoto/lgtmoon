@@ -88,17 +88,21 @@ class ImageS3 @Inject() (
     }
   }
 
-  def save(convertedImage: ConvertedImage): Unit = {
+  def save(convertedImage: ConvertedImage): Boolean = {
     val file = new File(convertedImage.path)
     val fileInputStream = new FileInputStream(file)
     detectContentType(file) match {
+      case None => false
       case Some(contentType) =>
         putObject(
           bucketName,
           convertedImage.id.toString,
           fileInputStream,
           objectMetadata(file.length(), contentType)
-        )
+        ) match {
+          case Some(_) => true
+          case None => false
+        }
     }
   }
 }
