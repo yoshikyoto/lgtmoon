@@ -2,7 +2,6 @@ package storage
 
 import java.io.{File, FileInputStream}
 
-import com.amazonaws.{ClientConfiguration, Protocol}
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
 import com.amazonaws.auth.{AWSCredentials, AWSStaticCredentialsProvider, BasicAWSCredentials}
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration
@@ -93,7 +92,9 @@ class ImageWasabiS3 @Inject() (
     metadata: ObjectMetadata
   ): Option[PutObjectResult] = {
     val s3 = AmazonS3ClientBuilder.standard()
-      // .withClientConfiguration(new ClientConfiguration().withProtocol(Protocol.HTTP))
+      // https でリクエストするとなぜか証明書エラーになるので http でリクエストするように変更した
+      // いつか直したほうが良いかも
+      // ここが証明書エラー https://image.lgtmoon.dev.s3.ap-northeast-1-ntt.wasabisys.com/
       .withEndpointConfiguration(new EndpointConfiguration("http://s3.ap-northeast-1-ntt.wasabisys.com/", "ap-northeast-1"))
       .withCredentials(new AWSStaticCredentialsProvider(credentials()))
       .build()
