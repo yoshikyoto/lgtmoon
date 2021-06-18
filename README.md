@@ -63,7 +63,7 @@ Google 検索の動作確認をする場合は、 Google の API を叩くのに
 LGTM 画像アップロードの動作確認をしたい場合、
 S3 が利用できる AWS アカウントを設定する必要があります。
 
-`aws.provider` に設定されている provider のに対応した、
+`aws.provider` に設定されている provider に対応した、
 `~/.aws/credentials` の設定が利用されます。  
 
 `~/.aws/credentials` の例
@@ -88,7 +88,7 @@ Domain層はInfra層に依存してはいけません。
 ### LGTMoonのクリーンアーキテクチャ構造
 
 Presentation層/UseCase層
-* LGTMoonは小さなアプリケーションで、ログイン機構が無いため、Presentation層とUseCase層は区別されていません
+* LGTMoonは小さなアプリケーションで、ログイン機能が無いため、Presentation層とUseCase層は区別されていません
 * `app/controllers` 以下がこの層にあたります
 * `app/views` も一応この層と言えます
 * `app/actor` も UseCase層のものですが、現状は `app/actor` の整備が進んでいないためどこの層にも属さないような立ち位置になっています
