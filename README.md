@@ -10,10 +10,11 @@ https://lgtmoon.dev/
 
 ## Dependency
 
-* Scala 2.13
-* Play Framwork 2.8
-* Slick 3.2
-* PostgreSQL 10
+* sbt のバージョンは `project/build.properties` で確認できます
+* Scala のバージョンは `build.sbt` で確認できます
+* Play Framework のバージョンは `project/plugins.sbt` で確認できます
+* その他、Scala のライブラリ依存は `build.sbt` で確認できます
+* PostgreSQL 10.15
 * imagemagick
 * yarn
 * Vue.js
