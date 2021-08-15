@@ -99,7 +99,7 @@ class ImageWasabiS3 @Inject() (
       .withCredentials(new AWSStaticCredentialsProvider(credentials()))
       .build()
     try {
-      logger.info("Wasabi S3 にファイルを PUT します\tbucket:${bucketName}\tkey:${key}")
+      logger.info(s"Wasabi S3 にファイルを PUT します\tbucket:${bucketName}\tkey:${key}")
       val result = s3.putObject(
         bucketName,
         key,
