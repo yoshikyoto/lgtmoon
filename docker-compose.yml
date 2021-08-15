@@ -1,16 +1,15 @@
 version: "2"
 services:
-#  lgtmoon-app:
-#    image: lgtmoon:latest
-#    container_name: lgtmoon-app
-#    volumes:
+  lgtmoon-app:
+    image: lgtmoon:latest
+    container_name: lgtmoon
+    volumes:
+      - ~/.aws/credentials:/root/.aws/credentials
 #      - .:/opt/lgtmoon
-#    ports:
-#      - 9000:9000
-#    command:
-#      - "bash"
-#      - "-c"
-#      - "sbt run"
+    ports:
+      - 9000:9000
+    environment:
+      JDBC_DATABASE_URL: "jdbc:postgresql://postgres/lgtmoon"
   postgres:
     image: postgres:10.15
     container_name: postgres

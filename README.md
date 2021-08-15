@@ -22,7 +22,24 @@ https://lgtmoon.dev/
 
 This application is licensed under the MIT License, see LICENSE.txt.
 
-## 動作環境作成手順
+## 開発環境作成手順
+
+### Docker を使う場合
+
+- S3 を利用するため、AWS の認証情報を設定してください。方法は2つあります
+  - PC の ~/.aws/credentials に lgtmoon_dev という provider を設定する
+  - docker-compose.yml で、環境変数として `AWS_ACCESS_KEY_ID` と `AWS_SECRET_ACCESS_KEY` を指定する
+    - 詳細は `conf/application.conf` を確認する
+    - TODO: S3 環境も docker で用意する？
+- TODO: Google 検索について
+
+```
+# Docker のビルドをする
+docker build -t lgtmoon .
+
+# Docker を立ち上げる
+docker-compose up -d
+```
 
 ### Dockerを使ったPostgreSQL環境の構築
 

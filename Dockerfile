@@ -1,12 +1,12 @@
-FROM hseeberger/scala-sbt:8u151-2.12.4-1.1.0
+FROM hseeberger/scala-sbt:8u302_1.5.5_2.13.6
 
-RUN apt update -y
-RUN apt upgrade -y
-RUN apt install -y postgresql-client
+RUN apt update -y \
+ && apt upgrade -y \
+ && apt install -y postgresql-client imagemagick
 
-COPY . /opt/lgtmoon
+COPY . /lgtmoon
 
-WORKDIR /opt/lgtmoon
+WORKDIR /lgtmoon
 RUN sbt compile
 
 CMD sbt run
