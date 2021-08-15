@@ -39,6 +39,7 @@ This application is licensed under the MIT License, see LICENSE.txt.
 docker build -t lgtmoon .
 
 # Docker を立ち上げる
+# 立ち上がるまでに少し（数分）時間がかかります
 docker-compose up -d
 ```
 

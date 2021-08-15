@@ -5,7 +5,7 @@ services:
     container_name: lgtmoon
     volumes:
       - ~/.aws/credentials:/root/.aws/credentials
-#      - .:/opt/lgtmoon
+      - .:/lgtmoon
     ports:
       - 9000:9000
     environment:
