@@ -1,7 +1,7 @@
 export default {
   ja: {
     form: {
-      placeholder: "キーワードで画僧検索 or URLを直接入力",
+      placeholder: "キーワードで画像検索 or URLを直接入力",
       upload: "画像アップロード",
       submit: {
         search: "検索/生成",
