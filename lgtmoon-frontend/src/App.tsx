@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import styled, { createGlobalStyle } from 'styled-components';
 import './App.css';
+import { RecentImages } from './components/RecentImages';
 
 const AppPage = styled.div`
 `
@@ -107,6 +108,7 @@ function App() {
             <Tab>使い方</Tab>
           </TabGroup>
         </Header>
+        <RecentImages></RecentImages>
       </AppContent>
     </AppPage>
   );
