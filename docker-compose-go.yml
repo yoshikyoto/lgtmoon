@@ -1,0 +1,14 @@
+version: "3"
+services:
+  frontend:
+    image: node:18.9
+    container_name: frontend
+    ports:
+      - 4000:4000
+    environment:
+      - PORT=4000
+    volumes:
+      - ./lgtmoon-frontend:/app
+    working_dir: /app
+    command: /bin/bash -c "yarn install && yarn start"
+    tty: true
