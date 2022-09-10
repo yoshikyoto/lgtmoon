@@ -1,28 +1,59 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
 import { Image } from "../types";
+import starIcon from "../images/star-off.png"
+import staredIcon from "../images/star-on.png"
+import copyIcon from "../images/copy.png"
 
-const Component = styled.div`
+const ImagesSection = styled.section`
   column-count: 2;
   column-gap: 2px;
-`
-
-const ImageComponent = styled.div`
-  width: 100%;
-  cursor: pointer;
 `
 
 const ImageDom = styled.img`
   width: 100%;
 `
 
-const OverlayComponent = styled.div`
+const StarButton = styled.img`
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 2px;
+  right: 2px;
+  width: 30px;
+  height: 30px;
+`
+
+const CopyButton = styled.img`
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 2px;
+  right: 36px;
+  width: 30px;
+  height: 30px;
+`
+
+const ImageComponent = styled.div`
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  &:hover ${StarButton} {
+    display: block;
+  }
+  &:hover ${CopyButton} {
+    display: block;
+  }
+`
+
+const OverlaySection = styled.section`
   position: fixed;
   display: flex;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 100;
 
   // モーダルを中央に配置したい
   // space-around で水平方向で中央に配置
@@ -51,7 +82,7 @@ const Modal = styled.div`
   opacity: 1;
   z-index: 200;
   padding: 20px 10px 40px 10px;
-  width: 480px;
+  width: 420px;
 `
 
 const ModalImage = styled.img`
@@ -84,10 +115,9 @@ export const ImagesComponent: FC = () => {
     }
   ]
   return (
-    <Component>
+    <>
       {selectedImage !== null &&
-
-        <OverlayComponent>
+        <OverlaySection>
           <Overlay onClick={e => setSelectedImage(null)}></Overlay>
           <Modal>
             <ModalImage src="https://image.lgtmoon.dev/180762" />
@@ -96,14 +126,17 @@ export const ImagesComponent: FC = () => {
             <ModalHeading>GitHub Markdown</ModalHeading>
             <ModalTextBox type="text" value="aaaa"></ModalTextBox>
           </Modal>
-        </OverlayComponent>
+        </OverlaySection>
       }
-
-      {images.map(image => (
-        <ImageComponent onClick={e => setSelectedImage(image)} key={image.id}>
-          <ImageDom src={image.url} />
-        </ImageComponent>
-      ))}
-    </Component>
+      <ImagesSection>
+        {images.map(image => (
+          <ImageComponent onClick={e => setSelectedImage(image)} key={image.id}>
+            <ImageDom src={image.url}/>
+            <StarButton src={starIcon}/>
+            <CopyButton src={copyIcon}/>
+          </ImageComponent>
+        ))}
+      </ImagesSection>
+    </>
   )
 }
