@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import styled, { createGlobalStyle } from 'styled-components';
 import './App.css';
 import { RecentImages } from './components/RecentImages';
+import { RandomImages } from './components/RandomImages';
+import { StaredImages } from './components/StaredImages';
+import { Help } from './components/Help';
 
 const AppPage = styled.div`
 `
@@ -26,7 +29,7 @@ const Title = styled.h1`
   font-family: ikafont;
   margin: 0;
   font-size: 4em;
-  
+
 `
 
 const AppBar = styled.div`
@@ -88,7 +91,14 @@ const SelectedTab = styled(Tab)`
   color: #fff;
 `
 
+type TabId = "recent"|"random"|"star"|"help"
+type TabEntity = {
+  id: TabId
+  name: string
+}
+
 function App() {
+  const [tabId, setTabId] = useState<TabId>("recent")
   return (
     <AppPage>
       <AppContent>
@@ -102,13 +112,16 @@ function App() {
             <UploadButton>画像アップロード</UploadButton>
           </AppBar>
           <TabGroup>
-            <SelectedTab>最近の画像</SelectedTab>
-            <Tab>ランダム</Tab>
-            <Tab>お気に入り</Tab>
-            <Tab>使い方</Tab>
+            {tabId === "recent" ? <SelectedTab>最近の画像</SelectedTab> : <Tab onClick={e => setTabId("recent")}>最近の画像</Tab>}
+            {tabId === "random" ? <SelectedTab>ランダム</SelectedTab> : <Tab onClick={e => setTabId("random")}>ランダム</Tab>}
+            {tabId === "star" ? <SelectedTab>お気に入り</SelectedTab> : <Tab onClick={e => setTabId("star")}>お気に入り</Tab>}
+            {tabId === "help" ? <SelectedTab>使い方</SelectedTab> : <Tab onClick={e => setTabId("help")}>使い方</Tab>}
           </TabGroup>
         </Header>
-        <RecentImages></RecentImages>
+        {tabId === "recent" && <RecentImages/>}
+        {tabId === "random" && <RandomImages/>}
+        {tabId === "star" && <StaredImages/>}
+        {tabId === "help" && <Help/>}
       </AppContent>
     </AppPage>
   );
