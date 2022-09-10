@@ -6,6 +6,8 @@ import { RecentImages } from './components/RecentImages';
 import { RandomImages } from './components/RandomImages';
 import { StaredImages } from './components/StaredImages';
 import { Help } from './components/Help';
+import ink1Image from './images/ink1.png';
+import ink2Image from './images/ink2.png';
 
 const AppPage = styled.div`
 `
@@ -22,6 +24,7 @@ const TitleComponent = styled.div`
   display: flex;
   flex-direction: row;
   align-items: left;
+  position: relative;
 `
 
 // ikafont の設定が index.css にある
@@ -29,7 +32,25 @@ const Title = styled.h1`
   font-family: ikafont;
   margin: 0;
   font-size: 4em;
+  z-index: 300;
+`
 
+const Ink1 = styled.img`
+  position: absolute;
+  left: -5px;
+  top: -10px;
+  width: 180px;
+  z-index: 200;
+  pointer-events: none;
+`
+
+const Ink2 = styled.img`
+  position: absolute;
+  left: 150px;
+  top: -20px;
+  width: 160px;
+  z-index: 100;
+  pointer-events: none;
 `
 
 const AppBar = styled.div`
@@ -38,6 +59,7 @@ const AppBar = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
+  z-index: 200;
 `
 
 const TextInput = styled.input`
@@ -45,6 +67,7 @@ const TextInput = styled.input`
   height: 28px;
   width: 300px;
   border-width: 0;
+  z-index: 100;
 `
 
 const ButtonBase = styled.button`
@@ -104,6 +127,8 @@ function App() {
       <AppContent>
         <Header>
           <TitleComponent>
+            <Ink1 src={ink1Image}/>
+            <Ink2 src={ink2Image}/>
             <Title>LGTMoon</Title>
           </TitleComponent>
           <AppBar>
