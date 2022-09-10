@@ -30,9 +30,12 @@ const TitleComponent = styled.div`
 // ikafont の設定が index.css にある
 const Title = styled.h1`
   font-family: ikafont;
+  color: #002;
   margin: 0;
   font-size: 4em;
   z-index: 300;
+  padding-left: 10px;
+  transform: rotate(-3deg);
 `
 
 const Ink1 = styled.img`
