@@ -68,42 +68,42 @@ const ModalTextBox = styled.input`
 
 
 export const ImagesComponent: FC = () => {
-    const [selectedImage, setSelectedImage] = useState<Image|null>(null)
-    const images: Array<Image> = [
-        {
-            id: 3,
-            url: "https://image.lgtmoon.dev/180762",
-        },
-        {
-            id: 2,
-            url: "https://image.lgtmoon.dev/180762",
-        },
-        {
-            id: 1,
-            url: "https://image.lgtmoon.dev/180762",
-        }
-    ]
-    return (
-        <Component>
-            {selectedImage !== null &&
-                
-                <OverlayComponent>
-                    <Overlay onClick={e => setSelectedImage(null)}></Overlay>
-                    <Modal>
-                        <ModalImage src="https://image.lgtmoon.dev/180762"/>
-                        <ModalHeading>Image URL</ModalHeading>
-                        <ModalTextBox type="text" value="aaa"></ModalTextBox>
-                        <ModalHeading>GitHub Markdown</ModalHeading>
-                        <ModalTextBox type="text" value="aaaa"></ModalTextBox>
-                    </Modal>
-                </OverlayComponent>
-            }
-        
-            {images.map(image => (
-                <ImageComponent onClick={e => setSelectedImage(image)} key={image.id}> 
-                    <ImageDom src={image.url}/>
-                </ImageComponent>
-            ))}
-        </Component>
-    )
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null)
+  const images: Array<Image> = [
+    {
+      id: 3,
+      url: "https://image.lgtmoon.dev/180762",
+    },
+    {
+      id: 2,
+      url: "https://image.lgtmoon.dev/180762",
+    },
+    {
+      id: 1,
+      url: "https://image.lgtmoon.dev/180762",
+    }
+  ]
+  return (
+    <Component>
+      {selectedImage !== null &&
+
+        <OverlayComponent>
+          <Overlay onClick={e => setSelectedImage(null)}></Overlay>
+          <Modal>
+            <ModalImage src="https://image.lgtmoon.dev/180762" />
+            <ModalHeading>Image URL</ModalHeading>
+            <ModalTextBox type="text" value="aaa"></ModalTextBox>
+            <ModalHeading>GitHub Markdown</ModalHeading>
+            <ModalTextBox type="text" value="aaaa"></ModalTextBox>
+          </Modal>
+        </OverlayComponent>
+      }
+
+      {images.map(image => (
+        <ImageComponent onClick={e => setSelectedImage(image)} key={image.id}>
+          <ImageDom src={image.url} />
+        </ImageComponent>
+      ))}
+    </Component>
+  )
 }
