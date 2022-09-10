@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
-import { Image } from "../types";
+import { Image, ImageUrl } from "../types";
 import starIcon from "../images/star-off.png"
 import staredIcon from "../images/star-on.png"
 import copyIcon from "../images/copy.png"
@@ -97,34 +97,19 @@ const ModalTextBox = styled.input`
   width: 90%;
 `
 
-
-export const ImagesComponent: FC = () => {
+export const ImagesComponent: FC<{images: Array<Image>}> = ({images}) => {
   const [selectedImage, setSelectedImage] = useState<Image | null>(null)
-  const images: Array<Image> = [
-    {
-      id: 3,
-      url: "https://image.lgtmoon.dev/180762",
-    },
-    {
-      id: 2,
-      url: "https://image.lgtmoon.dev/180762",
-    },
-    {
-      id: 1,
-      url: "https://image.lgtmoon.dev/180762",
-    }
-  ]
   return (
     <>
       {selectedImage !== null &&
         <OverlaySection>
           <Overlay onClick={e => setSelectedImage(null)}></Overlay>
           <Modal>
-            <ModalImage src="https://image.lgtmoon.dev/180762" />
+            <ModalImage src={selectedImage.url} />
             <ModalHeading>Image URL</ModalHeading>
-            <ModalTextBox type="text" value="aaa"></ModalTextBox>
+            <ModalTextBox type="text" value={selectedImage.url}></ModalTextBox>
             <ModalHeading>GitHub Markdown</ModalHeading>
-            <ModalTextBox type="text" value="aaaa"></ModalTextBox>
+            <ModalTextBox type="text" value={`![LGTM](${selectedImage.url})`}></ModalTextBox>
           </Modal>
         </OverlaySection>
       }
