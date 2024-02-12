@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"lgtmoon-api/internal/database"
+	"lgtmoon-api/internal/handler"
 	"lgtmoon-api/internal/model"
 	"os"
 
@@ -42,11 +43,14 @@ func main() {
 		if port == "" {
 			port = "8080"
 		}
-		r.GET("/health", func(c *gin.Context) {
+
+		handler := handler.Handler{}
+		r.GET("/api/health", func(c *gin.Context) {
 			c.JSON(200, gin.H{
 				"message": "OK",
 			})
 		})
+		r.POST("/api/images", handler.CreateImage)
 		r.Run("0.0.0.0:" + port)
 	}
 }
