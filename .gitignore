@@ -26,4 +26,5 @@ project/plugins/project/
 
 node_modules
 
+# for api
 /docker/db/data
