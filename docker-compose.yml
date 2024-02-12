@@ -1,27 +1,13 @@
-version: "2"
+version: "3"
 services:
-  lgtmoon-app:
-    image: lgtmoon:latest
-    container_name: lgtmoon
-    volumes:
-      - ~/.aws/credentials:/root/.aws/credentials
-      - .:/lgtmoon
-    ports:
-      - 9000:9000
+  db:
+    image: mysql:8.3
+    container_name: db
     environment:
-      JDBC_DATABASE_URL: "jdbc:postgresql://postgres/lgtmoon"
-  postgres:
-    image: postgres:10.15
-    container_name: postgres
-    ports:
-      - 5432:5432
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lgtmoon
+    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-      - ./sql/init:/docker-entrypoint-initdb.d
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: lgtmoon
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
-    hostname: postgres
-    restart: always
-    user: postgres
+      - ./docker/db/data:/var/lib/mysql
+    ports:
+      - 3306:3306

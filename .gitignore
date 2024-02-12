@@ -5,6 +5,7 @@ target
 /.classpath
 /.project
 /.settings
+/.vscode
 /RUNNING_PID
 
 # sbt specific
@@ -24,3 +25,5 @@ project/plugins/project/
 /public/*
 
 node_modules
+
+/docker/db/data
