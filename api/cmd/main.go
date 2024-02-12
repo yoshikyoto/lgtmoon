@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
+	"lgtmoon-api/internal/database"
 	"lgtmoon-api/internal/model"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 )
 
 func main() {
@@ -26,27 +25,14 @@ func main() {
 
 	switch command {
 	case "db:migrate":
-		// https://gorm.io/ja_JP/docs/connecting_to_the_database.html
-		user := os.Getenv("DATABASE_USER")
-		password := os.Getenv("DATABASE_PASSWORD")
-		host := os.Getenv("DATABASE_HOST")
-		port := os.Getenv("DATABASE_PORT")
-		dbName := "lgtmoon"
-
-		// parseTime=true を指定すると時刻が time.Time にパースされる
-		parameter := "charset=utf8mb4&parseTime=True"
-
-		dsn := fmt.Sprintf(
-			"%s:%s@tcp(%s:%s)/%s?%s",
-			user, password, host, port, dbName, parameter,
-		)
-		config := gorm.Config{}
-		db, err := gorm.Open(mysql.Open(dsn), &config)
+		db, err := database.Connect()
 		if err != nil {
+			fmt.Println("Database Connection Error")
 			fmt.Println(err)
 			return
 		}
 		db.AutoMigrate(&model.Image{})
+		fmt.Println("Complete")
 
 	// ライブリロードを行う gin に対応するために default をサーバー起動にしている
 	default:
