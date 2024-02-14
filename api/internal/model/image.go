@@ -15,7 +15,7 @@ type Image struct {
 type Status int
 const (
 	// 変換前、変換失敗も全てこのステータスになる
-	NOT_AVAILABLE Status = 0
+	IMAGE_NOT_AVAILABLE Status = 0
 	//
-	AVAILABLE Status = 1
+	IMAGE_AVAILABLE Status = 1
 )
