@@ -10,9 +10,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./api
+
     steps:
     - uses: actions/checkout@v3
 
@@ -21,11 +19,12 @@ jobs:
       with:
         go-version: '1.22'
 
-    - name: Build
-      run: go build -v ./...
-
     - name: Start docker for test
       run: docker-compose up -d
+
+    - name: Build
+      working-directory: api
+      run: go build -v ./...
 
     - name: DBの起動をまって DB を migrate する
       # migration が成功するまで待つことで、docker の database の起動を待つ
@@ -34,7 +33,8 @@ jobs:
         retry_wait_seconds: 10  # マイグレーションに失敗したら10秒待ってリトライする
         max_attempts: 3  # 3回失敗したらCI失敗とする
         timeout_minutes: 1  # 実行に1分以上かかっていたら失敗とする
-        command: go run cmd/main.go migrate
+        command: cd api && go run cmd/main.go migrate
 
     - name: Test
+      working-directory: api
       run: go test -v ./...
