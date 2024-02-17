@@ -15,11 +15,15 @@ func (h Handler) LatestImages(c *gin.Context) {
 }
 
 func (h Handler) CreateImage(c *gin.Context) {
-	fmt.Println("CreateImage")
 	imageRepository := repository.ImageRepository{}
 	image := model.Image{
 		ContentType: "image/png",
 		Status: model.IMAGE_NOT_AVAILABLE,
 	}
-	imageRepository.Create(image)
+	createdImage, err := imageRepository.Create(image)
+	if err != nil {
+		c.JSON(500, ErrorResponse{Message: "サーバーでエラーが発生しました。しばらくしてから再度お試しください"})
+		return
+	}
+	fmt.Println(createdImage)
 }

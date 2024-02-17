@@ -2,12 +2,11 @@ package main
 
 import (
 	"fmt"
+	"lgtmoon-api/internal/api"
 	"lgtmoon-api/internal/database"
-	"lgtmoon-api/internal/handler"
 	"lgtmoon-api/internal/model"
 	"os"
 
-	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
@@ -37,20 +36,12 @@ func main() {
 
 	// ライブリロードを行う gin に対応するために default をサーバー起動にしている
 	default:
-		r := gin.Default()
+		r := api.GetRouter()
 		port := os.Getenv("PORT")
 		// 環境変数が設定されていない場合は空文字になる
 		if port == "" {
 			port = "8080"
 		}
-
-		handler := handler.Handler{}
-		r.GET("/api/health", func(c *gin.Context) {
-			c.JSON(200, gin.H{
-				"message": "OK",
-			})
-		})
-		r.POST("/api/images", handler.CreateImage)
 		r.Run("0.0.0.0:" + port)
 	}
 }
