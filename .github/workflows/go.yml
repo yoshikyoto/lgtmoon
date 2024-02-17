@@ -27,5 +27,14 @@ jobs:
     - name: Start docker for test
       run: docker-compose up -d
 
+    - name: DBの起動をまって DB を migrate する
+      # migration が成功するまで待つことで、docker の database の起動を待つ
+      uses: nick-invision/retry@v3
+      with:
+        retry_wait_seconds: 10  # マイグレーションに失敗したら10秒待ってリトライする
+        max_attempts: 3  # 3回失敗したらCI失敗とする
+        timeout_minutes: 1  # 実行に1分以上かかっていたら失敗とする
+        command: go run cmd/main.go migrate
+
     - name: Test
       run: go test -v ./...
