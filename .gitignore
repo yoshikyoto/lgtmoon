@@ -28,6 +28,7 @@ node_modules
 
 # for api
 /docker/db/data
+/docker/testingdb/data
 .env
 # codegangsta/gin のキャッシュ
 gin-bin

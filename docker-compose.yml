@@ -11,3 +11,14 @@ services:
       - ./docker/db/data:/var/lib/mysql
     ports:
       - 3306:3306
+  testingdb:
+    image: mysql:8.3
+    container_name: testingdb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lgtmoon
+    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./docker/testingdb/data:/var/lib/mysql
+    ports:
+      - 53306:53306
